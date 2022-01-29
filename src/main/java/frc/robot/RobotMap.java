@@ -2,8 +2,10 @@ package frc.robot;
 
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -82,5 +84,14 @@ public class RobotMap {
 	public static TalonFX getRightWinch() {
 		return rightWinch;
 	}
+	
+	private final static I2C.Port i2cPort = I2C.Port.kOnboard;
 
+	private static final ColorSensorV3 colourSensor = new ColorSensorV3(i2cPort);
+
+	public static ColorSensorV3 getColourSensor() {
+		return colourSensor;
+	}
+
+	getColourSensor.getCl
 }

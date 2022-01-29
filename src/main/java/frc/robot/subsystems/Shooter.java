@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants;
 import frc.robot.DriverInterface;
 import frc.robot.RobotMap;
@@ -25,7 +27,12 @@ public class Shooter extends Subsystems{
     public enum ShooterState {
         IDLE, //Shooter in idle state
         SHOOTING, //shooter shooting ball
-        EJECT, //shooter ejecting wrong ball colour
+    }
+
+    public enum BallColour {
+        NONE, //No ball detected
+        RED,
+        BLUE,
     }
 
 
@@ -33,6 +40,11 @@ public class Shooter extends Subsystems{
     private static ShooterState desiredState = ShooterState.IDLE;
 
     private static ShooterSpeedSlot speedSlot = ShooterSpeedSlot.IDLE;
+
+    private static int ballRedLevel =  RobotMap.getColourSensor().getRed();
+
+    private static int ballBlueLevel =  RobotMap.getColourSensor().getBlue();
+
 
     private double shooterIdleSpeed = 0;
     private double shooterShootSpeed = 2500;
@@ -52,16 +64,21 @@ public class Shooter extends Subsystems{
                 currentState = desiredState;
             break;
             case SHOOTING:
-                setShooterSpeedSlot(ShooterSpeedSlot.SHOOTING);
-                shooterPID();
-                currentState = desiredState;
-            break;
-            case EJECT:
-                setShooterSpeedSlot(ShooterSpeedSlot.EJECT);
+                if(getIncorrectBall()) {
+                    setShooterSpeedSlot(ShooterSpeedSlot.EJECT);
+                } else {
+                    setShooterSpeedSlot(ShooterSpeedSlot.SHOOTING);
+                }
                 shooterPID();
                 currentState = desiredState;
             break;
         }
+
+        ballRedLevel = RobotMap.getColourSensor().getRed();
+        ballBlueLevel = RobotMap.getColourSensor().getBlue();
+
+
+        
 
     }
 
@@ -208,6 +225,26 @@ public class Shooter extends Subsystems{
         RobotMap.getShooterBottom().set(ControlMode.PercentOutput, 0);
         RobotMap.getShooterTop().set(ControlMode.PercentOutput, 0);
 
+    }
+
+    public BallColour getBallColour() {
+        if(ballRedLevel >= Constants.kMinRedThreshold) {
+            return BallColour.RED;
+        } else if(ballBlueLevel >= Constants.kMinBlueThreshold) {
+            return BallColour.BLUE;
+        } else {
+            return BallColour.NONE;
+        }
+    }
+
+    public boolean getIncorrectBall() {
+        if(DriverStation.getAlliance() == Alliance.Red && getBallColour() == BallColour.BLUE) {
+            return true;
+        } else if (DriverStation.getAlliance() == Alliance.Blue && getBallColour() == BallColour.RED) {
+            return true;
+        } else {
+            return false;
+        }
     }
      
 }

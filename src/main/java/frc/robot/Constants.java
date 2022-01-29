@@ -40,5 +40,9 @@ public class Constants {
 	public static final double kShooterI = 0.00014;
 
 	public static final double kClimberWinchP = 0.0623;
+	
+	public static final int kMinRedThreshold = 100;
+	public static final int kMinBlueThreshold = 100;
+
 
 }
