@@ -5,10 +5,10 @@ public class Constants {
 
     public static int kLeftDriveACanID = 1;
     public static int kLeftDriveBCanID = 2;
-	public static int kLeftDriveCCanID = 3;
+	public static int kLeftDriveCCanID = 41;
 
-    public static int kRightDriveACanID = 5;
-    public static int kRightDriveBCanID = 6;
+    public static int kRightDriveACanID = 3;
+    public static int kRightDriveBCanID = 4;
 	public static int kRightDriveCCanID = 7;
 
 	public static int kShooterBottomCanID = 9;
@@ -23,6 +23,12 @@ public class Constants {
 	public static int kFrontIntakeEscCanID = 11;
 
 	public static int kFrontIntakeSolenoidChannel = 0;
+
+	public static final int kIndexerACanID = 15;
+	public static final int kIndexerBCanID = 16;
+	public static final int kFeedACanID = 17;
+	public static final int kFeedBCanID = 18;
+
 
     public static double kDriveMaxSpeed = 4.18;
 	public static double kDriveMaxAccel = 4.0;

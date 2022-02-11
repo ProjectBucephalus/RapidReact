@@ -122,9 +122,9 @@ public class Drive extends Subsystems {
 
     public void arcadeDrive(double throttle, double steering, double power, double microAdjust) {
         //Left
-        double leftPower = (power + (steering + microAdjust)) * throttle;
+        double leftPower = (power + (-steering + microAdjust)) * throttle;
         //Right
-        double rightPower = (power - (steering + microAdjust)) * throttle;
+        double rightPower = (power - (-steering + microAdjust)) * throttle;
         //Write to motors
         setMotors(leftPower, -rightPower);
     }
