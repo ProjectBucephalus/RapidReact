@@ -93,5 +93,4 @@ public class RobotMap {
 		return colourSensor;
 	}
 
-	getColourSensor.getCl
 }
