@@ -88,7 +88,7 @@ public class DriverInterface {
                 joystickAxisReturn = joystick1.getY();
             break;
             case THROTTLE:
-                joystickAxisReturn = ((-joystick1.getThrottle() + 1) / 2);
+                joystickAxisReturn = -(joystick1.getThrottle() + 1)/2;
             break;
             case ROTATION:
                 joystickAxisReturn = joystick1.getTwist();
@@ -172,9 +172,9 @@ public class DriverInterface {
     public boolean getIntakeCommand() {
         return joystick1.getRawButton(2);
     }
-    
-    public boolean getClimbAdvanceCommand() {
-        return joystick1.getRawButton(11) && joystick1.getRawButton(12);
+
+    public boolean getClimbResetCommand() {
+        return joystick1.getRawButton(12);
 
     }
     public boolean getVisionCommand(){
@@ -203,6 +203,14 @@ public class DriverInterface {
         }
     }
 
+    public boolean getClimbUpCommand() {
+        return joystick1.getRawButton(7);
+    }
+
+    public boolean getClimbDownCommand() {
+        return joystick1.getRawButton(8);
+    }
+
     //SmartDashboard (shuffleboard) commands
 
     public void initSmartDashboard() {
@@ -224,6 +232,8 @@ public class DriverInterface {
     public void outputShooterRPMField(double rpm) {
         SmartDashboard.putNumber("Shooter RPM", rpm);
     }
+
+    
 
 
 }

@@ -1,9 +1,14 @@
 package frc.robot;
 
+import frc.robot.DriverInterface.VersionType;
+
 public class Config {
 
-    //Version number. Update every pull request or push!
-    public static final String version = "0.1.2";
+    //Version number. Update every pull request, release, or major change!
+    public static final String version = "1.0.0 - RC1";
+
+    //Version type
+    public static final VersionType versionType = VersionType.RELEASECANDIDATE;
     
     //1 = normal, -1 = inverted
     public static final double kInvertDir = 1;
@@ -87,7 +92,7 @@ public class Config {
     public static final double kClimberHookedPos = 100000; //in encoder units (2048 EPR)
 
     //Climber hysteresis
-    public static final double kClimberHysteresis = 10; 
+    public static final double kClimberHysteresis = 1000; 
 
 
         

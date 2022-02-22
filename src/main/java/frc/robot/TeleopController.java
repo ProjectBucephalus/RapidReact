@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.DriverInterface.JoystickAxisType;
 import frc.robot.DriverInterface.MessageType;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.Climber.ClimberBarStates;
 import frc.robot.subsystems.Climber.ClimberStates;
 import frc.robot.subsystems.FrontIntake.FrontIntakeStates;
 import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
@@ -57,9 +58,14 @@ public class TeleopController {
             m_frontIntake.setDesiredState(FrontIntakeStates.STOWED);
         }
 
-        if(m_driverInterface.getClimbAdvanceCommand()) {
+        
+
+        if(m_driverInterface.getClimbUpCommand()) {
             m_climber.setClimberDesiredState(ClimberStates.EXTENDED);
-            m_driverInterface.consoleOutput(MessageType.WARNING, "clib");
+        } else if(m_driverInterface.getClimbDownCommand()) {
+            m_climber.setClimberDesiredState(ClimberStates.HOOKED);
+        } else if(m_driverInterface.getClimbResetCommand()) {
+            m_climber.setClimberDesiredState(ClimberStates.STOWED);
         }
 
         callDrive();
