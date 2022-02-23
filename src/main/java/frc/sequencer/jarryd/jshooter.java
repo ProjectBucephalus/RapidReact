@@ -52,6 +52,7 @@ public class jshooter extends SequenceTransition implements SequenceStepIf {
     
     @Override
     public boolean isTransComplete() {
-        return Shooter.getInstance().getShooterAcceptableSpeed(0.0);
+        return true;
+        // return Shooter.getInstance().getShooterAtSpeed(0.0);
     } 
 }

@@ -133,6 +133,49 @@ public class Drive extends Subsystems {
         arcadeDrive(throttle, steering, power, 0);
     }
 
+    public void autoArcadeDrive(double steering, double power)
+    {
+        // Limit the power and steering commands to within +/- the maximums.
+        myAutoPower = Math.max(-AUTO_POWER_LIMIT, Math.min(AUTO_POWER_LIMIT, power));
+        myAutoSteer = Math.max(-AUTO_STEER_LIMIT, Math.min(AUTO_STEER_LIMIT, steering));
+
+        // If the power + steering commands will exceed the +/- 1 range, then reduce the power
+        // so that the steering command still has full effect.
+        if ((myAutoPower + Math.abs(myAutoSteer)) > 1)
+        {
+            myAutoPower = 1 - Math.abs(myAutoSteer);
+        }
+        if ((myAutoPower - Math.abs(myAutoSteer)) < -1)
+        {
+            myAutoPower = -1 + Math.abs(myAutoSteer);
+        }
+    }
+    private double myAutoPower = 0.0;
+    private double myAutoSteer = 0.0;
+    private final static double AUTO_STEER_LIMIT = 0.5;
+    private final static double AUTO_POWER_LIMIT = 1.0;
+
+
+    private static double ACC_FWD_LIMIT = 0.1;
+    public double getAccFwdLimit()
+    {
+        return ACC_FWD_LIMIT;
+    }
+    public void setAccFwdLimit(double anAccFwdLimit)
+    {
+        ACC_FWD_LIMIT = anAccFwdLimit;
+    }
+
+    private static double ACC_REV_LIMIT = 0.2;
+    public double getAccRevLimit()
+    {
+        return ACC_REV_LIMIT;
+    }
+    public void setAccRevLimit(double anAccRevLimit)
+    {
+        ACC_REV_LIMIT = anAccRevLimit;
+    }
+
    /**
     * Drives the robot, calculating other settings
     *Stall detection disabled currently
