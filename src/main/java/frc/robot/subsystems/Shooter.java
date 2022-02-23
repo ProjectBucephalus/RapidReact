@@ -91,6 +91,16 @@ public class Shooter extends Subsystems{
         RobotMap.getShooterBottom().configFactoryDefault();
         RobotMap.getShooterTop ().configFactoryDefault();
 
+        RobotMap.getIndexerA().configFactoryDefault();
+        RobotMap.getIndexerB().configFactoryDefault();
+        RobotMap.getFeedA().configFactoryDefault();
+        RobotMap.getFeedB().configFactoryDefault();
+
+        RobotMap.getIndexerA().setInverted(true);;
+        RobotMap.getIndexerB().setInverted(true);
+        RobotMap.getFeedA().setInverted(false);
+        RobotMap.getFeedB().setInverted(false);
+
         RobotMap.getShooterBottom().config_kP(0, Constants.kShooterP);       
         RobotMap.getShooterTop().config_kP(0, Constants.kShooterP);       
 
@@ -99,6 +109,8 @@ public class Shooter extends Subsystems{
 
         RobotMap.getShooterBottom().setInverted(true);
         RobotMap.getShooterTop().setInverted(true);
+
+
 
     }
 
@@ -221,20 +233,37 @@ public class Shooter extends Subsystems{
 
     }
 
-    public void runIndexer() {
-        RobotMap.getIndexerA().set(ControlMode.PercentOutput, -1);
-        RobotMap.getIndexerB().set(ControlMode.PercentOutput, -1);
-        RobotMap.getFeedA().set(ControlMode.PercentOutput, -1);
-        RobotMap.getFeedB().set(ControlMode.PercentOutput, -1);
+    public void setIndexer(double speed) {
+        RobotMap.getIndexerA().set(ControlMode.PercentOutput, speed);
+        RobotMap.getIndexerB().set(ControlMode.PercentOutput, speed);
+        
+    }
+
+    public void setFeed(double speed) {
+        RobotMap.getFeedA().set(ControlMode.PercentOutput, speed);
+        RobotMap.getFeedB().set(ControlMode.PercentOutput, speed);
 
     }
 
-    public void stopIndexer() {
-        RobotMap.getIndexerA().set(ControlMode.PercentOutput, 0);
-        RobotMap.getIndexerB().set(ControlMode.PercentOutput, 0);
-        RobotMap.getFeedA().set(ControlMode.PercentOutput, 0);
-        RobotMap.getFeedB().set(ControlMode.PercentOutput, 0);
+    @Override
+    public void clearFaults() {
+        RobotMap.getShooterBottom().clearStickyFaults();
+        RobotMap.getShooterTop().clearStickyFaults();
 
+        RobotMap.getFeedA().clearStickyFaults();
+        RobotMap.getFeedB().clearStickyFaults();
+        RobotMap.getIndexerA().clearStickyFaults();
+        RobotMap.getIndexerB().clearStickyFaults();
+
+    }
+
+    public boolean getShooterAtSpeed() {
+        System.out.println(RobotMap.getShooterBottom().getSelectedSensorVelocity()/2048*1200);
+        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.1) {
+            return true;
+        } else {
+            return false;
+        }
     }
      
 }

@@ -1,13 +1,16 @@
 package frc.robot;
 
 
+import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 
 public class RobotMap {
 
@@ -64,7 +67,12 @@ public class RobotMap {
 	}
 
 	static TalonFX frontIntakeMotor = new TalonFX(Constants.kFrontIntakeEscCanID);
-	static Solenoid frontIntakeSolenoid = new Solenoid(PneumaticsModuleType.REVPH, Constants.kFrontIntakeSolenoidChannel);
+	static Solenoid frontIntakeSolenoid = new Solenoid(Constants.kPCMCanID, PneumaticsModuleType.REVPH, Constants.kFrontIntakeSolenoidChannel);
+
+	static TalonFX backIntakeMotor = new TalonFX(Constants.kBackIntakeEscCanID);
+	public static TalonFX getBackIntakeESC() {
+		return backIntakeMotor;
+	}
 	
 	public static TalonFX getFrontIntakeESC() {
 		return frontIntakeMotor;
@@ -76,6 +84,7 @@ public class RobotMap {
 
 	static TalonFX leftWinch = new TalonFX(Constants.kLeftWinchCanID);
 	static TalonFX rightWinch = new TalonFX(Constants.kRightWinchCanID);
+	static CANifier climberSensors = new CANifier(Constants.kClimberCanifierCanID);
 
 	public static TalonFX getLeftWinch() {
 		return leftWinch;
@@ -97,11 +106,22 @@ public class RobotMap {
 	public static TalonSRX getIndexerB() {
 		return indexerB;
 	}
+	public static CANifier getClimberSensors() {
+		return climberSensors;
+	}
+
+	static PowerDistribution pdh = new PowerDistribution(Constants.kPDHCanID, ModuleType.kRev);
+
+	public static PowerDistribution getPDH() {
+		return pdh;
+	}
+
 	public static TalonSRX getFeedA() {
 		return feedA;
 	}
 	public static TalonSRX getFeedB() {
 		return feedB;
 	}
+
 
 }

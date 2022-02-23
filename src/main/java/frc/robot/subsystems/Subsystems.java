@@ -45,4 +45,9 @@ public abstract class Subsystems {
      */
     public abstract diagnosticState test();
 
+    /**
+     * clear all sticky faults
+     */
+    public abstract void clearFaults();
+
 }

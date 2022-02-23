@@ -4,12 +4,12 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.CANifier.GeneralPin;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.Config;
 import frc.robot.Constants;
-
 import frc.robot.RobotMap;
 
 /** Add your docs here. */
@@ -19,6 +19,8 @@ public class Climber extends Subsystems {
         STOWED,
         EXTENDED,
         HOOKED,
+        MANUAL,
+        IDLE,
     }
 
     public enum ClimberBarStates {
@@ -31,6 +33,7 @@ public class Climber extends Subsystems {
 
     private ClimberStates currentClimberState = ClimberStates.STOWED;
     private ClimberStates desiredClimberState = ClimberStates.STOWED;
+    private ClimberStates oldClimberState = ClimberStates.STOWED;
     
     private ClimberBarStates currentBarState = ClimberBarStates.STOWED;
     private ClimberBarStates desiredBarState = ClimberBarStates.STOWED;
@@ -38,6 +41,8 @@ public class Climber extends Subsystems {
     private boolean stateFinished = true;
     private byte climberStep = 0;
     private boolean climberDone = false;
+
+    private double climberManualPower = 0;
 
     private static Climber m_instance;
 
@@ -55,37 +60,68 @@ public class Climber extends Subsystems {
     @Override
     public void update() {
 
+        if(!RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
+            resetSensors();
+            System.out.println("triggered");
+        }
+
 
         switch(currentClimberState) {
-            default: //stowed
+            case STOWED: //stowed
+                oldClimberState = ClimberStates.STOWED;
                 stateFinished = false;
-                RobotMap.getLeftWinch().set(ControlMode.Position, Config.kClimberStowedPos);
-                RobotMap.getRightWinch().set(ControlMode.Position, Config.kClimberStowedPos);
-            
-                if(RobotMap.getLeftWinch().getSelectedSensorPosition() <= Config.kClimberStowedPos + Config.kClimberHysteresis && RobotMap.getRightWinch().getSelectedSensorPosition() <= Config.kClimberStowedPos + Config.kClimberHysteresis) {
+                if(RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
+                    RobotMap.getLeftWinch().set(ControlMode.Position, Config.kClimberStowedPos);
+                    RobotMap.getRightWinch().set(ControlMode.Position, Config.kClimberStowedPos);    
+                } else {
+                    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, 0);
+                    RobotMap.getRightWinch().set(ControlMode.PercentOutput, 0);
+
+                }
+                
                     stateFinished = true;
                     currentClimberState = desiredClimberState;
-                }
             break;
             case EXTENDED:
+                oldClimberState = ClimberStates.EXTENDED;
                 stateFinished = false;
                 RobotMap.getLeftWinch().set(ControlMode.Position, Config.kClimberUpPos);
                 RobotMap.getRightWinch().set(ControlMode.Position, Config.kClimberUpPos);
             
-                if(RobotMap.getLeftWinch().getSelectedSensorPosition() >= Config.kClimberUpPos - Config.kClimberHysteresis && RobotMap.getRightWinch().getSelectedSensorPosition() >= Config.kClimberUpPos - Config.kClimberHysteresis) {
                     stateFinished = true;
                     currentClimberState = desiredClimberState;
-                }
             break;
             case HOOKED:
+                oldClimberState = ClimberStates.HOOKED;
                 stateFinished = false;
                 RobotMap.getLeftWinch().set(ControlMode.Position, Config.kClimberHookedPos);
                 RobotMap.getRightWinch().set(ControlMode.Position, Config.kClimberHookedPos);
             
-                if(RobotMap.getLeftWinch().getSelectedSensorPosition() <= Config.kClimberHookedPos + Config.kClimberHysteresis && RobotMap.getRightWinch().getSelectedSensorPosition() <= Config.kClimberHookedPos + Config.kClimberHysteresis) {
                     stateFinished = true;
                     currentClimberState = desiredClimberState;
+            break;
+            case MANUAL:
+                oldClimberState = ClimberStates.MANUAL;
+                if(climberManualPower > 0 && RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMF)) {
+                    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, climberManualPower);
+                    RobotMap.getRightWinch().set(ControlMode.PercentOutput, climberManualPower);
+                } else if(climberManualPower < 0 && RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
+                    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, climberManualPower);
+                    RobotMap.getRightWinch().set(ControlMode.PercentOutput, climberManualPower);
+                } else {
+                    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, 0);
+                    RobotMap.getRightWinch().set(ControlMode.PercentOutput, 0);
                 }
+                currentClimberState = desiredClimberState;
+
+            break;
+            case IDLE:
+                if(oldClimberState == ClimberStates.MANUAL) {
+                    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, 0);
+                    RobotMap.getRightWinch().set(ControlMode.PercentOutput, 0);
+                }
+                oldClimberState = ClimberStates.IDLE;
+                currentClimberState = desiredClimberState;
             break;
         } 
 
@@ -170,8 +206,13 @@ public class Climber extends Subsystems {
         RobotMap.getLeftWinch().setNeutralMode(NeutralMode.Brake);
         RobotMap.getRightWinch().setNeutralMode(NeutralMode.Brake);
 
+        RobotMap.getLeftWinch().setInverted(true);
+        RobotMap.getRightWinch().setInverted(false);
 
+        RobotMap.getLeftWinch().configClosedloopRamp(2);
+        RobotMap.getRightWinch().configClosedloopRamp(2);
 
+        RobotMap.getClimberSensors().configFactoryDefault();
     }
     @Override
     public diagnosticState test() {
@@ -214,6 +255,17 @@ public class Climber extends Subsystems {
      */
     public boolean getClimberDone() {
         return climberDone;
+    }
+
+    public void setClimberManualSpeed(double manualSpeed) {
+        climberManualPower = manualSpeed;
+    }
+
+    @Override
+    public void clearFaults() {
+        RobotMap.getLeftWinch().clearStickyFaults();  
+        RobotMap.getLeftWinch().clearStickyFaults();        
+      
     }
 
    

@@ -126,7 +126,7 @@ public class Drive extends Subsystems {
         //Right
         double rightPower = (power - (-steering + microAdjust)) * throttle;
         //Write to motors
-        setMotors(leftPower, -rightPower);
+        setMotors(-leftPower, rightPower);
     }
 
     public void arcadeDrive(double throttle, double steering, double power) {
@@ -362,5 +362,15 @@ public class Drive extends Subsystems {
     public diagnosticState test() {
         
         return null;
+    }
+    @Override
+    public void clearFaults() {
+        RobotMap.getLeftDriveA().clearStickyFaults();  
+        RobotMap.getLeftDriveB().clearStickyFaults();        
+        RobotMap.getLeftDriveC().clearStickyFaults();        
+      
+        RobotMap.getRightDriveA().clearStickyFaults();  
+        RobotMap.getRightDriveB().clearStickyFaults();        
+        RobotMap.getRightDriveC().clearStickyFaults();
     }
 }
