@@ -49,19 +49,16 @@ public class Shooter extends Subsystems{
         switch(currentState) {
             default: //catches 'IDLE'
                 stopShoter();
-                stopIndexer();
                 currentState = desiredState;
             break;
             case SHOOTING:
                 setShooterSpeedSlot(ShooterSpeedSlot.SHOOTING);
                 shooterPID();
-                runIndexer();
                 currentState = desiredState;
             break;
             case EJECT:
                 setShooterSpeedSlot(ShooterSpeedSlot.EJECT);
                 shooterPID();
-                runIndexer();
                 currentState = desiredState;
             break;
         }
