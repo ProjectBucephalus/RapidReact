@@ -186,6 +186,14 @@ public class Shooter extends Subsystems{
         
     }
 
+    public double getShooterRPM() {
+        return RobotMap.getShooterTop().getSelectedSensorVelocity() * 600 / 2048;
+    }
+
+    public double getShooterTargetSpeed() {
+        return getShooterSetSpeed();
+    }
+
     @Override
     public diagnosticState test() {
         // TODO Auto-generated method stub
