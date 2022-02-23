@@ -20,12 +20,14 @@ public class Shooter extends Subsystems{
         IDLE, //Shooter in idle state
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
+        VISION,
     }
 
     public enum ShooterState {
         IDLE, //Shooter in idle state
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
+        VISION,
     }
 
 
@@ -64,6 +66,11 @@ public class Shooter extends Subsystems{
                 runIndexer();
                 currentState = desiredState;
             break;
+            case VISION:
+                setShooterSpeedSlot(ShooterSpeedSlot.VISION);
+                shooterPID();
+                runIndexer();
+                currentState = desiredState;
         }
 
     }
