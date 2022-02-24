@@ -3,9 +3,9 @@ package frc.robot;
 
 public class Constants {
 
-    public static int kLeftDriveACanID = 1;
-    public static int kLeftDriveBCanID = 2;
-	public static int kLeftDriveCCanID = 41;
+    public static int kLeftDriveACanID = 1;// for phoenix (1,2,3,4)
+    public static int kLeftDriveBCanID = 2;// for Pegasus (LA1, LB2 ,RA3, RB4)
+	public static int kLeftDriveCCanID = 41;//for Drivebase (5,6,7,8)
 
     public static int kRightDriveACanID = 3;
     public static int kRightDriveBCanID = 4;

@@ -7,7 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.util.LinkedList;
 import frc.robot.subsystems.*;
+import frc.sequencer.Sequence;
+import frc.sequencer.Sequencer;
+import frc.sequencer.jarryd.SequenceTest;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -45,8 +49,31 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     Shooter.getInstance().initMotorControllers();
     Climber.getInstance().initMotorControllers();
+
+    //sequencer
+    LinkedList<Sequence> seqList = new LinkedList<Sequence>();
+    seqList.addAll(SequenceTest.getSequences());
+    seqChooser = new SendableChooser<Sequence>();
+    boolean first = true;
+    for (Sequence s : seqList)
+    {
+      if (first)
+      {
+        first = false;
+        seqChooser.setDefaultOption(s.getName(), s);
+        myDefault = s;
+      }
+      else
+      {
+        seqChooser.addOption(s.getName(), s);
+      }
+    }
   }
 
+  SendableChooser<Sequence> seqChooser;
+  Sequence myDefault = null;
+  Sequencer mySeq;
+  
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
    * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
