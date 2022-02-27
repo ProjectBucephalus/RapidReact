@@ -106,10 +106,13 @@ public class TeleopController {
         } else if(m_frontIntake.getCurrentState() == FrontIntakeStates.UNINTAKING) {
             m_shooter.setFeed(-1);
             m_shooter.setIndexer(-1);
+        } else if(m_driverInterface.getIndexerManualOverride()) {
+            m_shooter.setIndexer(m_driverInterface.getIndexerManual());
+            m_shooter.setFeed(0);
         } else {
             m_shooter.setFeed(0);
             m_shooter.setIndexer(0);
-        }
+        } 
 
         callDrive();
         m_driverInterface.updateLimelightSpeedOffset();

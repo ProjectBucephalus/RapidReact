@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.VideoSource;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -119,7 +121,7 @@ public class DriverInterface {
     public double getJoystickAxis(JoystickAxisType axisType) {
         switch (axisType) {
             case X:
-                joystickAxisReturn = deadZone(joystick1.getX());
+                joystickAxisReturn = deadZone(joystick1.getX()) * 0.7;
             break;
             case Y:
                 joystickAxisReturn = deadZone(joystick1.getY());
@@ -188,7 +190,7 @@ public class DriverInterface {
     }
 
     public double deadZone(double input) {
-        if(input <= 0.05 && input >= -0.05) {
+        if(input <= 0.07 && input >= -0.05) {
             return 0;        
         }
         return input;
@@ -197,12 +199,12 @@ public class DriverInterface {
     public RobotFowardDirection getRobotFowardDirection() {
         if(joystick1.getRawButton(2)) {
             if(robotFowardDirection == RobotFowardDirection.FRONT) {
-                if(oldTime + 0.1 <= gameTime) {
+                if(/*oldTime + 0.1 <= gameTime*/true) {
                     robotFowardDirection = RobotFowardDirection.BACK;
                     oldTime = gameTime;
                 }
             } else {
-                if(oldTime + 0.1 <= gameTime) {
+                if(/*oldTime + 0.1 <= gameTime*/true) {
                     robotFowardDirection = RobotFowardDirection.FRONT;
                     oldTime = gameTime;
                 }
@@ -300,6 +302,14 @@ public class DriverInterface {
                 return false;
             }
         }
+    }
+
+    public boolean getIndexerManualOverride() {
+        return (xbox1.getRightY() > 0.25 || xbox1.getRightY() < -0.25);
+    }
+
+    public double getIndexerManual() {
+        return xbox1.getRightY();
     }
 
     public boolean getLimelightCommand() {
@@ -548,6 +558,9 @@ public class DriverInterface {
     //SmartDashboard (shuffleboard) commands
 
     public void initSmartDashboard() {
+        CameraServer.startAutomaticCapture(0);
+        CameraServer.startAutomaticCapture(1);  
+  
         Shuffleboard.update();
         SmartDashboard.putNumber("Shooter target", Shooter.getInstance().getShooterSetSpeed());
         verboseOutputChooser.setDefaultOption("None", "NONE");

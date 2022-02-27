@@ -45,6 +45,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     Shooter.getInstance().initMotorControllers();
     Climber.getInstance().initMotorControllers();
+    Drive.getInstance().initMotorControllers();
   }
 
   /**
