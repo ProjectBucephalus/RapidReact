@@ -5,10 +5,10 @@ public class Constants {
 
     public static int kLeftDriveACanID = 1;
     public static int kLeftDriveBCanID = 2;
-	public static int kLeftDriveCCanID = 41;
+	public static int kLeftDriveCCanID = 3;
 
-    public static int kRightDriveACanID = 3;
-    public static int kRightDriveBCanID = 4;
+    public static int kRightDriveACanID = 5;
+    public static int kRightDriveBCanID = 6;
 	public static int kRightDriveCCanID = 7;
 
 	public static int kShooterBottomCanID = 12;
@@ -35,7 +35,7 @@ public class Constants {
 	public static double kDriveMaxTurnSpeed = 12.12;
 	public static double kDriveMaxTurnAccel = 24.24;
     
-	public static final double kVisionTurnKp = 0.038;//was 0.024; // 0.012 for 2 centre nitrile
+	public static final double kVisionTurnKp = 0.026;//was 0.024; // 0.012 for 2 centre nitrile
 	public static final double kDriveTurnStictionConstant = 0.0; // FIXME
 	public static final double kGyroTurnKp = 0.007; // 0.004 for 2 centre nitrile
 	public static final double kGyroDriveTurnKp = 0.012;  // FIXME

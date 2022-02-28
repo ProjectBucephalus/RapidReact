@@ -14,23 +14,23 @@ public class Limelight {
     }
 
     Limelight() {
-      setPipeline(0);
+      //setPipeline(0);
     }
 
     public boolean getTargetAcquired() {
-      setPipeline(0);
+      //setPipeline(0);
       boolean targetAcquired = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getBoolean(false);
       return targetAcquired;
     }
 
     public double getAngleToTarget() {
-      setPipeline(0);
+      //setPipeline(0);
       double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0.0);
       return tx;
     }
 
     public void disableVision() {
-      setPipeline(7);
+      setPipeline(0);
     }
 
     private void setPipeline(int pipelineId) {
@@ -42,8 +42,12 @@ public class Limelight {
      * @return distance in metres to target
      */
     public double getDistanceToTarget() {
-      setPipeline(0);
+      //setPipeline(0);
       double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
       return ty;}
+
+    public void enableVision() {
+      setPipeline(1);
+    }
 }
 

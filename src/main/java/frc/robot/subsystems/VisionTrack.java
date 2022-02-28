@@ -40,6 +40,7 @@ public class VisionTrack {
         desiredState = VisionState.IDLE;
     }
 public void update(){
+  System.out.println(currentState);
   SmartDashboard.putString("state", stateToString());
   switch(desiredState){
       case IDLE:
@@ -49,9 +50,9 @@ public void update(){
       if(stick.getRawButton(Constants.KVisionCommandID) == true){
         if(m_lime.getAngleToTarget() != 0.0){
           timesLooped++;
-          if(timesLooped >=30){
+          if(timesLooped >=10){
+            timesLooped = 0;
           setDesiredState(VisionState.TURNING);
-          timesLooped = 0;
           }
         }
       }
@@ -59,30 +60,33 @@ public void update(){
       currentState = desiredState;
       break;
       case TURNING:
+      m_lime.enableVision();
       if(stick.getRawButton(Constants.KVisionCommandID) == true){
+        m_lime.enableVision();
+
         timesLooped++;
         if(timesLooped >=50){
-        setDesiredState(VisionState.IDLE);
-        timesLooped = 0;
+          timesLooped = 0;
+          setDesiredState(VisionState.IDLE);
         }
       }
       if(newState == true){
         newState = false;
         timesLooped = 0;
       }
-      tx = m_lime.getAngleToTarget();
+        tx = -m_lime.getAngleToTarget();
           // System.out.println("tx: " + tx);
           double visionSteering = (tx * Constants.kVisionTurnKp);
           if(tx <4 && tx >-4){
             double isn = visionSteering * 2;
-            m_drive.arcadeDrive(0.5, isn, 0.0); 
+            m_drive.arcadeDrive(1, isn, 0.0); 
           }
           else{
-            m_drive.arcadeDrive(0.5, visionSteering, 0.0); 
+            m_drive.arcadeDrive(1, visionSteering, 0.0); 
           }
-          if(tx <1 && tx >-1){
+          if(tx <4 && tx >-4){
             if(timesLooped >= 15){
-            desiredState = VisionState.FINDINGSPEED;
+            desiredState = VisionState.IDLE;//VisionState.FINDINGSPEED;
             }
             else{
               timesLooped++;
@@ -99,6 +103,8 @@ public void update(){
       currentState = desiredState;
       break;
       case FINDINGSPEED:
+      currentState = VisionState.IDLE;
+      m_lime.enableVision();
       if(stick.getRawButton(Constants.KVisionCommandID) == true){
         timesLooped++;
         if(timesLooped >=50){
@@ -122,6 +128,7 @@ public void update(){
       currentState = desiredState;
       break;
       case SHOOTING:
+      m_lime.enableVision();
       if(stick.getRawButton(Constants.KVisionCommandID) == true){
         timesLooped++;
         if(timesLooped >=50){

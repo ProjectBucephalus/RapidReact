@@ -77,6 +77,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    Limelight.getInstance().enableVision();
+
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
@@ -99,6 +101,7 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
+    Limelight.getInstance().enableVision();
     VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
     Climber.getInstance().resetSensors();
     DriverInterface.getInstance().printVersionNumber(Config.versionType, Config.version);
