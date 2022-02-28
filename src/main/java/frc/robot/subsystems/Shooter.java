@@ -45,6 +45,7 @@ public class Shooter extends Subsystems{
 
     @Override
     public void update() {
+        System.out.println(currentState);
 
         DriverInterface.getInstance().outputShooterRPMField(RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200);
 
@@ -128,6 +129,8 @@ public class Shooter extends Subsystems{
             case EJECT:
                 shooterEjectSpeed = rpm;
             break;
+            case VISION:
+            break;
         }
     }
 
@@ -188,6 +191,9 @@ public class Shooter extends Subsystems{
             break;
             case EJECT:
                 speedSlot = ShooterSpeedSlot.EJECT;
+            break;
+            case VISION:
+            
             break;
         }
     }

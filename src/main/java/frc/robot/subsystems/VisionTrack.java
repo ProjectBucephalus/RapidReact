@@ -1,10 +1,6 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.Constants;
-import frc.robot.DriverInterface;
-import frc.robot.RobotMap;
-import frc.robot.subsystems.Drive.gameMode;
 import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import frc.robot.subsystems.Shooter.ShooterState;
 import edu.wpi.first.wpilibj.Joystick;
@@ -16,10 +12,8 @@ public class VisionTrack {
     private static Shooter m_Shooter = Shooter.getInstance();
     private VisionState currentState;
     private VisionState desiredState;
-    private static DriverInterface m_driverInterface;
     private Joystick stick = new Joystick(0);
     private static Drive m_drive;
-    private String feedback;
     private int timesLooped;
     private double yOffset;
     private boolean newState;
@@ -45,7 +39,7 @@ public void update(){
   switch(desiredState){
       case IDLE:
       if(newState == true &&DriverStation.isTeleop() ){
-        m_Shooter.setDesiredState(ShooterState.IDLE);
+        //m_Shooter.setDesiredState(ShooterState.IDLE);
       }
       if(stick.getRawButton(Constants.KVisionCommandID) == true){
         if(m_lime.getAngleToTarget() != 0.0){

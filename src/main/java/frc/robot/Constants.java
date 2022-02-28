@@ -11,8 +11,8 @@ public class Constants {
     public static int kRightDriveBCanID = 6;
 	public static int kRightDriveCCanID = 7;
 
-	public static int kShooterBottomCanID = 12;
-	public static int kShooterTopCanID = 13;
+	public static int kShooterBottomCanID = 9;
+	public static int kShooterTopCanID = 10;
 
 	public static final int kLeftWinchCanID = 19;
 	public static final int kRightWinchCanID = 20;
@@ -28,8 +28,8 @@ public class Constants {
 
 	public static final int kIndexerACanID = 15;
 	public static final int kIndexerBCanID = 16;
-	public static final int kFeedACanID = 17;
-	public static final int kFeedBCanID = 18;
+	public static final int kFeedACanID = 13;
+	public static final int kFeedBCanID = 14;
 
 
     public static double kDriveMaxSpeed = 4.18;

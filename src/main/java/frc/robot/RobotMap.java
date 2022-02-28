@@ -58,7 +58,7 @@ public class RobotMap {
 		return shooterTop;
 	}
 
-	static Compressor compressor = new Compressor(Constants.kPCMCanID, PneumaticsModuleType.CTREPCM);
+	static Compressor compressor = new Compressor(Constants.kPCMCanID, PneumaticsModuleType.REVPH);
 
 	public static Compressor getCompressor() {
 		return compressor;
