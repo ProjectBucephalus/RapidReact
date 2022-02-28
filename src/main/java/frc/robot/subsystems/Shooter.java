@@ -20,12 +20,14 @@ public class Shooter extends Subsystems{
         IDLE, //Shooter in idle state
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
+        VISION,
     }
 
     public enum ShooterState {
         IDLE, //Shooter in idle state
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
+        VISION,
     }
 
 
@@ -61,6 +63,10 @@ public class Shooter extends Subsystems{
                 shooterPID();
                 currentState = desiredState;
             break;
+            case VISION:
+                setShooterSpeedSlot(ShooterSpeedSlot.VISION);
+                shooterPID();
+                currentState = desiredState;
         }
 
     }
@@ -105,7 +111,7 @@ public class Shooter extends Subsystems{
         RobotMap.getShooterTop().config_kI(0, Constants.kShooterI);     
 
         RobotMap.getShooterBottom().setInverted(true);
-        RobotMap.getShooterTop().setInverted(true);
+        RobotMap.getShooterTop().setInverted(false);
 
 
 

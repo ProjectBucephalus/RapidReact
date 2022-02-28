@@ -13,6 +13,7 @@ import frc.robot.subsystems.Climber.ClimberStates;
 import frc.robot.subsystems.FrontIntake.FrontIntakeStates;
 import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import frc.robot.subsystems.Shooter.ShooterState;
+import frc.robot.subsystems.VisionTrack.VisionState;
 
 /** Add your docs here. */
 public class TeleopController {
@@ -25,6 +26,7 @@ public class TeleopController {
     private static DriverInterface m_driverInterface;
     private static TeleopController m_instance;
     private static Climber m_climber;
+    static VisionTrack vision;
 
     private TeleopController() {
         m_driverInterface = new DriverInterface();
@@ -124,10 +126,12 @@ public class TeleopController {
     }
 
     public void callDrive() {
-        if(m_driverInterface.getRobotFowardDirection() == RobotFowardDirection.FRONT) {
-            m_drive.arcadeDrive(m_driverInterface.getJoystickAxis(JoystickAxisType.THROTTLE), -m_driverInterface.getX(), m_driverInterface.getY());
-        } else {
-            m_drive.arcadeDrive(-(m_driverInterface.getJoystickAxis(JoystickAxisType.THROTTLE)), m_driverInterface.getX(), m_driverInterface.getY());
+        if(VisionTrack.getInstance().getCurrentState() == VisionState.IDLE){
+            if(m_driverInterface.getRobotFowardDirection() == RobotFowardDirection.FRONT) {
+                m_drive.arcadeDrive(m_driverInterface.getJoystickAxis(JoystickAxisType.THROTTLE), -m_driverInterface.getX(), m_driverInterface.getY());
+            } else {
+                m_drive.arcadeDrive(-(m_driverInterface.getJoystickAxis(JoystickAxisType.THROTTLE)), m_driverInterface.getX(), m_driverInterface.getY());
+            }
         }
     }
 

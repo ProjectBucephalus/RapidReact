@@ -214,7 +214,7 @@ public class DriverInterface {
     }
 
     public double getX() {
-        return deadZone(getJoystickAxis(JoystickAxisType.X));
+        return deadZone(getJoystickAxis(JoystickAxisType.X) * .7);
     }
 
     public double getY() {
@@ -316,6 +316,9 @@ public class DriverInterface {
         return joystick1.getRawButton(3);
     }
 
+    public boolean getVisionCommand(){
+        return joystick1.getRawButton(9);
+    }
     public void update() {
         SmartDashboard.putBoolean("Climb enabled", climbEnabled);
         SmartDashboard.putBoolean("Foward direction", getRobotFowardDirection() == RobotFowardDirection.FRONT);

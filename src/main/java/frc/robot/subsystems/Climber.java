@@ -196,8 +196,8 @@ public class Climber extends Subsystems {
     }
     @Override
     public void initMotorControllers() {
-        
-        RobotMap.getRightWinch().configFactoryDefault();
+
+        RobotMap.getLeftWinch().configFactoryDefault();
         RobotMap.getRightWinch().configFactoryDefault();
 
         RobotMap.getLeftWinch().config_kP(0, Constants.kClimberWinchP);

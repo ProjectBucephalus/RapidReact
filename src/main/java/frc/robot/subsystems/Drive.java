@@ -121,6 +121,13 @@ public class Drive extends Subsystems {
     }
 
     public void arcadeDrive(double throttle, double steering, double power, double microAdjust) {
+       /* double steerDiff = steering - lastSteer;
+        steerDiff = Math.min(steerDiff,0.1);
+        steerDiff = Math.max(steerDiff,-0.1);
+        lastSteer = lastSteer + steerDiff;
+        double powderDiff = power - lastPower;
+        powderDiff -
+        */
         //Left
         double leftPower = (power + (steering)) * throttle;
         //Right
@@ -132,6 +139,7 @@ public class Drive extends Subsystems {
     public void arcadeDrive(double throttle, double steering, double power) {
         arcadeDrive(throttle, steering, power, 0);
     }
+
 
    /**
     * Drives the robot, calculating other settings

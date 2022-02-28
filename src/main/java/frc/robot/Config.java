@@ -5,10 +5,10 @@ import frc.robot.DriverInterface.VersionType;
 public class Config {
 
     //Version number. Update every pull request, release, or major change!
-    public static final String version = "0.9.2";
+    public static final String version = "1.0.0 - RC1";
 
     //Version type
-    public static final VersionType versionType = VersionType.BETA;
+    public static final VersionType versionType = VersionType.RELEASECANDIDATE;
     
     //1 = normal, -1 = inverted
     public static final double kInvertDir = 1;
