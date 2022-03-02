@@ -5,6 +5,9 @@
 package frc.robot.subsystems;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import frc.robot.Constants;
@@ -15,17 +18,21 @@ import frc.robot.RobotMap;
 public class Shooter extends Subsystems{
 
     private static Shooter m_instance;
+    private boolean shooterAtSpeed = false;
+    Map<Double, Double> speedTable = new HashMap<>();
 
     public enum ShooterSpeedSlot {
         IDLE, //Shooter in idle state
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
+        VISION,
     }
 
     public enum ShooterState {
         IDLE, //Shooter in idle state
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
+        VISION,
     }
 
 
@@ -35,33 +42,42 @@ public class Shooter extends Subsystems{
     private static ShooterSpeedSlot speedSlot = ShooterSpeedSlot.IDLE;
 
     private double shooterIdleSpeed = 0;
-    private double shooterShootSpeed = 2500;
-    private double shooterEjectSpeed = 100;
+    private double shooterShootSpeed = 2450;
+    private double shooterEjectSpeed = 500;
+
+   
 
     private double ratio = 1;
     private double wheelRatio = 2;
 
+
     @Override
     public void update() {
+        if(DriverInterface.getInstance().getManualShootCommand()) {
+            shooterAtSpeed = false;
+        }
+        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.1) {
+            shooterAtSpeed = true;
+        }
+
+        VisionTrack.getInstance().updateShooterSpeedLimelight();
+        System.out.println(currentState);
 
         DriverInterface.getInstance().outputShooterRPMField(RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200);
 
         switch(currentState) {
             default: //catches 'IDLE'
                 stopShoter();
-                stopIndexer();
                 currentState = desiredState;
             break;
             case SHOOTING:
                 setShooterSpeedSlot(ShooterSpeedSlot.SHOOTING);
                 shooterPID();
-                runIndexer();
                 currentState = desiredState;
             break;
             case EJECT:
                 setShooterSpeedSlot(ShooterSpeedSlot.EJECT);
                 shooterPID();
-                runIndexer();
                 currentState = desiredState;
             break;
         }
@@ -88,8 +104,18 @@ public class Shooter extends Subsystems{
 
     @Override
     public void initMotorControllers() {
+        
+
         RobotMap.getShooterBottom().configFactoryDefault();
         RobotMap.getShooterTop ().configFactoryDefault();
+
+        RobotMap.getIndexerA().configFactoryDefault();
+        RobotMap.getFeedA().configFactoryDefault();
+        RobotMap.getFeedB().configFactoryDefault();
+
+        RobotMap.getIndexerA().setInverted(true);;
+        RobotMap.getFeedA().setInverted(true);
+        RobotMap.getFeedB().setInverted(true);
 
         RobotMap.getShooterBottom().config_kP(0, Constants.kShooterP);       
         RobotMap.getShooterTop().config_kP(0, Constants.kShooterP);       
@@ -99,6 +125,8 @@ public class Shooter extends Subsystems{
 
         RobotMap.getShooterBottom().setInverted(true);
         RobotMap.getShooterTop().setInverted(true);
+
+
 
     }
 
@@ -112,6 +140,8 @@ public class Shooter extends Subsystems{
             break;
             case EJECT:
                 shooterEjectSpeed = rpm;
+            break;
+            case VISION:
             break;
         }
     }
@@ -174,6 +204,9 @@ public class Shooter extends Subsystems{
             case EJECT:
                 speedSlot = ShooterSpeedSlot.EJECT;
             break;
+            case VISION:
+            
+            break;
         }
     }
 
@@ -213,20 +246,34 @@ public class Shooter extends Subsystems{
 
     }
 
-    public void runIndexer() {
-        RobotMap.getIndexerA().set(ControlMode.PercentOutput, -1);
-        RobotMap.getIndexerB().set(ControlMode.PercentOutput, -1);
-        RobotMap.getFeedA().set(ControlMode.PercentOutput, -1);
-        RobotMap.getFeedB().set(ControlMode.PercentOutput, -1);
+    public void setIndexer(double speed) {
+        RobotMap.getIndexerA().set(ControlMode.PercentOutput, speed);
+        
+    }
+
+    public void setFeed(double aSpeed, double bSpeed) {
+        RobotMap.getFeedA().set(ControlMode.PercentOutput, aSpeed);
+        RobotMap.getFeedB().set(ControlMode.PercentOutput, bSpeed);
 
     }
 
-    public void stopIndexer() {
-        RobotMap.getIndexerA().set(ControlMode.PercentOutput, 0);
-        RobotMap.getIndexerB().set(ControlMode.PercentOutput, 0);
-        RobotMap.getFeedA().set(ControlMode.PercentOutput, 0);
-        RobotMap.getFeedB().set(ControlMode.PercentOutput, 0);
+    @Override
+    public void clearFaults() {
+        RobotMap.getShooterBottom().clearStickyFaults();
+        RobotMap.getShooterTop().clearStickyFaults();
+
+        RobotMap.getFeedA().clearStickyFaults();
+        RobotMap.getFeedB().clearStickyFaults();
+        RobotMap.getIndexerA().clearStickyFaults();
 
     }
-     
+
+    public boolean getShooterAtSpeed() {
+        return shooterAtSpeed;
+    }
+
+    public void setFeed(double speed) {
+        setFeed(speed, speed);
+    }
+   
 }

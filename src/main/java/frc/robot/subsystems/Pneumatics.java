@@ -65,4 +65,8 @@ public class Pneumatics extends Subsystems{
         return m_instance;
     }
 
+    @Override
+    public void clearFaults() {
+    }
+
 }

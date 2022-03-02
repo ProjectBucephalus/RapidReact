@@ -7,6 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.VisionTrack;
+import frc.robot.subsystems.VisionTrack.VisionState;
 import frc.robot.subsystems.*;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -29,7 +32,7 @@ public class Robot extends TimedRobot {
   static FrontIntake m_frontIntake;
   static TeleopController m_teleopController;
   static Climber m_Climber;
-
+  static VisionTrack vision;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -37,12 +40,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    Drive.getInstance().setBrakes(false);
+
     DriverInterface.getInstance().initSmartDashboard();
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     Shooter.getInstance().initMotorControllers();
+    VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
     Climber.getInstance().initMotorControllers();
+    Drive.getInstance().initMotorControllers();
   }
 
   /**
@@ -54,10 +61,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    if (isEnabled() && !Drive.getInstance().getBrakes()) { // set to brake when enabled if not already set to brake
-      Drive.getInstance().setBrakes(true);
-    }
-    DriverInterface.getInstance().update();
+    
   }
 
   /**
@@ -72,6 +76,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    Drive.getInstance().setBrakes(true);
+    Limelight.getInstance().enableVision();
+
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
@@ -94,9 +101,14 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
+    Pneumatics.getInstance().setCompressorStatus(true);
 
+    Climber.getInstance().initMotorControllers();
+    Limelight.getInstance().enableVision();
+    VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
     Climber.getInstance().resetSensors();
     DriverInterface.getInstance().printVersionNumber(Config.versionType, Config.version);
+    Drive.getInstance().setBrakes(true);
 
   }
 
@@ -104,26 +116,51 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
+    DriverInterface.getInstance().displayDiagnosticState();
+
+    DriverInterface.getInstance().update();
     Shooter.getInstance().update();
     Pneumatics.getInstance().update();
+    if(VisionTrack.getInstance().getCurrentState() == VisionState.IDLE){
     Drive.getInstance().update();
+    }
     TeleopController.getInstance().callTeleopController();
     FrontIntake.getInstance().update();
+    BackIntake.getInstance().update();
     Climber.getInstance().update();
+    VisionTrack.getInstance().update();
 
   }
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    Drive.getInstance().setBrakes(false);
+
+    VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
+  }
 
   /** This function is called periodically when disabled. */
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    Limelight.getInstance().disableVision();
+  }
 
   /** This function is called once when test mode is enabled. */
   @Override
-  public void testInit() {}
+  public void testInit() {
+    Drive.getInstance().setBrakes(true);
+
+    BackIntake.getInstance().clearFaults();
+    FrontIntake.getInstance().clearFaults();
+    Climber.getInstance().clearFaults();
+    Drive.getInstance().clearFaults();
+    Pneumatics.getInstance().clearFaults();
+    Shooter.getInstance().clearFaults();
+    DriverInterface.getInstance().clearPDHFaults();
+
+  }
+
 
   /** This function is called periodically during test mode. */
   @Override
