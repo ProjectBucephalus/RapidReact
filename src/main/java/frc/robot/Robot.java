@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -48,7 +46,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     Shooter.getInstance().initMotorControllers();
     VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
-  }
+
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -102,6 +100,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
     Climber.getInstance().resetSensors();
+    DriverInterface.getInstance().printVersionNumber(Config.versionType, Config.version);
 
   }
 

@@ -5,9 +5,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.Config;
 import frc.robot.Constants;
+
 import frc.robot.RobotMap;
 
 /** Add your docs here. */
@@ -35,6 +37,7 @@ public class Climber extends Subsystems {
 
     private boolean stateFinished = true;
     private byte climberStep = 0;
+    private boolean climberDone = false;
 
     private static Climber m_instance;
 
@@ -76,8 +79,8 @@ public class Climber extends Subsystems {
             break;
             case HOOKED:
                 stateFinished = false;
-                RobotMap.getLeftWinch().set(ControlMode.MotionMagic, Config.kClimberHookedPos);
-                RobotMap.getRightWinch().set(ControlMode.MotionMagic, Config.kClimberHookedPos);
+                RobotMap.getLeftWinch().set(ControlMode.Position, Config.kClimberHookedPos);
+                RobotMap.getRightWinch().set(ControlMode.Position, Config.kClimberHookedPos);
             
                 if(RobotMap.getLeftWinch().getSelectedSensorPosition() <= Config.kClimberHookedPos + Config.kClimberHysteresis && RobotMap.getRightWinch().getSelectedSensorPosition() <= Config.kClimberHookedPos + Config.kClimberHysteresis) {
                     stateFinished = true;
@@ -91,6 +94,7 @@ public class Climber extends Subsystems {
                 currentBarState = desiredBarState;
             break;
             case LOW: 
+                climberDone = false;
                 switch(climberStep) {
                     case 0:
                         setClimberDesiredState(ClimberStates.EXTENDED);
@@ -104,10 +108,33 @@ public class Climber extends Subsystems {
                             climberStep ++;
                         }
                     break;
-                    default:
+                    case 2:
+                        climberDone = true;
                         currentBarState = desiredBarState;
                     break;
                 }
+            break;
+            case MEDIUM:
+                climberDone = false;
+                switch(climberStep) {
+                    case 0:
+                        setClimberDesiredState(ClimberStates.EXTENDED);
+                        if(stateFinished) {
+                            climberStep ++;
+                        }
+                    break;
+                    case 1:
+                        setClimberDesiredState(ClimberStates.HOOKED);
+                        if(stateFinished) {
+                            climberStep ++;
+                        }
+                    break;
+                    case 2:
+                        climberDone = true;
+                        currentBarState = desiredBarState;
+                    break;
+                }
+            break;
         }
         
     
@@ -134,11 +161,18 @@ public class Climber extends Subsystems {
     @Override
     public void initMotorControllers() {
 
+
         RobotMap.getLeftWinch().configFactoryDefault();
+
         RobotMap.getRightWinch().configFactoryDefault();
 
         RobotMap.getLeftWinch().config_kP(0, Constants.kClimberWinchP);
         RobotMap.getRightWinch().config_kP(0, Constants.kClimberWinchP);
+
+        RobotMap.getLeftWinch().setNeutralMode(NeutralMode.Brake);
+        RobotMap.getRightWinch().setNeutralMode(NeutralMode.Brake);
+
+
 
     }
     @Override
@@ -177,7 +211,14 @@ public class Climber extends Subsystems {
         desiredBarState = desiredState;
     }
 
+    /**
+     * @return if climber is done
+     */
+    public boolean getClimberDone() {
+        return climberDone;
+    }
 
+   
 
     
 
