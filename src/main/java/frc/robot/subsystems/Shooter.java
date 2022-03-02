@@ -18,6 +18,7 @@ import frc.robot.RobotMap;
 public class Shooter extends Subsystems{
 
     private static Shooter m_instance;
+    private boolean shooterAtSpeed = false;
     Map<Double, Double> speedTable = new HashMap<>();
 
     public enum ShooterSpeedSlot {
@@ -52,6 +53,13 @@ public class Shooter extends Subsystems{
 
     @Override
     public void update() {
+        if(DriverInterface.getInstance().getManualShootCommand()) {
+            shooterAtSpeed = false;
+        }
+        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.1) {
+            shooterAtSpeed = true;
+        }
+
         VisionTrack.getInstance().updateShooterSpeedLimelight();
         System.out.println(currentState);
 
@@ -72,10 +80,6 @@ public class Shooter extends Subsystems{
                 shooterPID();
                 currentState = desiredState;
             break;
-            case VISION:
-                setShooterSpeedSlot(ShooterSpeedSlot.VISION);
-                shooterPID();
-                currentState = desiredState;
         }
 
     }
@@ -265,12 +269,7 @@ public class Shooter extends Subsystems{
     }
 
     public boolean getShooterAtSpeed() {
-        System.out.println(RobotMap.getShooterBottom().getSelectedSensorVelocity()/2048*1200);
-        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.1) {
-            return true;
-        } else {
-            return false;
-        }
+        return shooterAtSpeed;
     }
 
     public void setFeed(double speed) {

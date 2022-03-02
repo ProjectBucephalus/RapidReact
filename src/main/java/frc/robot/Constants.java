@@ -36,10 +36,10 @@ public class Constants {
 	public static double kDriveMaxTurnSpeed = 12.12;
 	public static double kDriveMaxTurnAccel = 24.24;
 	public static int kGoalHeightInches = 100;
-    public static int kLimelightHeightInches = 40;
+    public static int kLimelightHeightInches = 50;
 	public static final int kBackIntakeEscCanID = 12;
     
-	public static final double kVisionTurnKp = 0.027;//was 0.024; // 0.012 for 2 centre nitrile
+	public static final double kVisionTurnKp = 0.015;//was 0.024; // 0.012 for 2 centre nitrile
 	public static final double kDriveTurnStictionConstant = 0.0; // FIXME
 	public static final double kGyroTurnKp = 0.007; // 0.004 for 2 centre nitrile
 	public static final double kGyroDriveTurnKp = 0.012;  // FIXME
@@ -58,7 +58,7 @@ public class Constants {
 	
 	//Vision
 	public static final int KVisionCommandID = 3; //Vision command button id on joystick
-	public static final double kA1 = 60; // Angle of the limelight from the robot chassie (degrees)
+	public static final double kA1 = 55; // Angle of the limelight from the robot chassie (degrees)
 	public static final double kH1 = 0.65; //Height of the limelight lense (metres)
 	public static final double kH2 = 2.61; //height of the middle of the target (metres)
 }

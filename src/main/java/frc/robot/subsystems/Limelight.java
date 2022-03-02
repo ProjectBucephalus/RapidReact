@@ -15,6 +15,7 @@ public class Limelight {
 
     Limelight() {
       //setPipeline(0);
+      boolean targetAcquired = false;
     }
 
     double targetOffsetVertical = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
@@ -48,11 +49,12 @@ public class Limelight {
      * @return distance in metres to target
      */
     public double getDistanceToTarget() {
+      targetOffsetVertical = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
+    double angleToGoalDegrees = Constants.kA1 + targetOffsetVertical;
       angleToGoalDegrees = Constants.kA1 + targetOffsetVertical;
       angleToGoalRadians = angleToGoalDegrees * (Math.PI / 180.0);
       //setPipeline(0);
-      double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
-      return ty;
+      return (Constants.kGoalHeightInches - Constants.kLimelightHeightInches)/Math.tan(angleToGoalRadians);
     }
 
     public void enableVision() {

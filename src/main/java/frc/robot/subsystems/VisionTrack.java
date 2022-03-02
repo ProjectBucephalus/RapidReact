@@ -117,27 +117,14 @@ public void update(){
       //FIXME 
       //A calculation between yOffset,distance and motor speed needs to be implemented once we have a finalized shooter.
       if(speed != 0.0){
-      setDesiredState(VisionState.SHOOTING);
+      ///setDesiredState(VisionState.SHOOTING);
       }
+      double distance = Limelight.getInstance().getDistanceToTarget();
+      speed = 19221960 + (1944.031 - 19221960)/(1 + Math.pow((distance/432.44566), 5.125014));
       currentState = desiredState;
       break;
-      case SHOOTING:
-      m_lime.enableVision();
-      if(stick.getRawButton(Constants.KVisionCommandID) == true){
-        timesLooped++;
-        if(timesLooped >=50){
-        setDesiredState(VisionState.IDLE);
-        timesLooped = 0;
-        }
-      }
-      if(newState == true){
-        timesLooped = 0;
-        newState = false;
-      }
-      
-      m_Shooter.setDesiredState(ShooterState.VISION);
-      m_Shooter.setShooterSpeed(ShooterSpeedSlot.VISION, speed);
-      System.out.println(yOffset);
+      case SHOOTING: 
+      desiredState = VisionState.IDLE;
       currentState = desiredState;
       break;
       case AUTOTURN:
@@ -218,8 +205,10 @@ public void update(){
   }
   
   public void updateShooterSpeedLimelight() {
+    double distance = Limelight.getInstance().getDistanceToTarget();
+      speed = 19221960 + (1944.031 - 19221960)/(1 + Math.pow((distance/432.44566), 5.125014));
     if(true) {
-            //m_Shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, m_Shooter.speedTable.get((m_lime.getDistanceToTarget())));
+      m_Shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, speed);
     }
 }
 }

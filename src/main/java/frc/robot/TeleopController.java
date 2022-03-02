@@ -49,7 +49,7 @@ public class TeleopController {
 
     public void callTeleopController() {
 
-        m_shooter.setShooterWheelRatio(m_driverInterface.getShooterRatioNumeratorField(), m_driverInterface.getShooterRatioDenomonatorField());
+        //m_shooter.setShooterWheelRatio(m_driverInterface.getShooterRatioNumeratorField(), m_driverInterface.getShooterRatioDenomonatorField());
 
         if(m_driverInterface.getManualShootCommand()) {
             m_shooter.setDesiredState(ShooterState.SHOOTING); {
@@ -135,7 +135,7 @@ public class TeleopController {
         m_pneumatics.setCompressorStatus(true);
 
         //Update shooter values
-        m_shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, m_driverInterface.getShooterSpeedField());
+        ///m_shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, m_driverInterface.getShooterSpeedField());
 
     }
 

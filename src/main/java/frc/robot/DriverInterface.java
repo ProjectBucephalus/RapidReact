@@ -96,7 +96,7 @@ public class DriverInterface {
     private double limelightSpeedOffset = 0;
     private boolean oldButtonState = false;
 
-    boolean climbEnabled = true;
+    boolean climbEnabled = false;
 
     /**
      * Method to set Xbox controller vibrate/rumble
@@ -564,7 +564,6 @@ public class DriverInterface {
         CameraServer.startAutomaticCapture(1);  
   
         Shuffleboard.update();
-        SmartDashboard.putNumber("Shooter target", Shooter.getInstance().getShooterSetSpeed());
         verboseOutputChooser.setDefaultOption("None", "NONE");
         verboseOutputChooser.addOption("Verbose only", "VERBOSE");
         verboseOutputChooser.addOption("Debug only", "DEBUG");
