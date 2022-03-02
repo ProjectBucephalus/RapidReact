@@ -105,7 +105,6 @@ public class RobotMap {
 	static TalonSRX feedA = new TalonSRX(Constants.kFeedACanID);
 	static TalonSRX feedB = new TalonSRX(Constants.kFeedBCanID);
 	static TalonSRX indexerA = new TalonSRX(Constants.kIndexerACanID);
-	static TalonSRX indexerB = new TalonSRX(Constants.kIndexerBCanID);
 
 	public static TalonSRX getFeedA() {
 		return feedA;
@@ -116,8 +115,6 @@ public class RobotMap {
 	public static TalonSRX getIndexerA() {
 		return indexerA;
 	}
-	public static TalonSRX getIndexerB() {
-		return indexerB;
-	}
+
 
 }

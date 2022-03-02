@@ -5,6 +5,9 @@
 package frc.robot.subsystems;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import frc.robot.Constants;
@@ -15,6 +18,7 @@ import frc.robot.RobotMap;
 public class Shooter extends Subsystems{
 
     private static Shooter m_instance;
+    Map<Double, Double> speedTable = new HashMap<>();
 
     public enum ShooterSpeedSlot {
         IDLE, //Shooter in idle state
@@ -37,14 +41,18 @@ public class Shooter extends Subsystems{
     private static ShooterSpeedSlot speedSlot = ShooterSpeedSlot.IDLE;
 
     private double shooterIdleSpeed = 0;
-    private double shooterShootSpeed = 2500;
-    private double shooterEjectSpeed = 100;
+    private double shooterShootSpeed = 2450;
+    private double shooterEjectSpeed = 500;
+
+   
 
     private double ratio = 1;
     private double wheelRatio = 2;
 
+
     @Override
     public void update() {
+        VisionTrack.getInstance().updateShooterSpeedLimelight();
         System.out.println(currentState);
 
         DriverInterface.getInstance().outputShooterRPMField(RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200);
@@ -92,16 +100,16 @@ public class Shooter extends Subsystems{
 
     @Override
     public void initMotorControllers() {
+        
+
         RobotMap.getShooterBottom().configFactoryDefault();
         RobotMap.getShooterTop ().configFactoryDefault();
 
         RobotMap.getIndexerA().configFactoryDefault();
-        RobotMap.getIndexerB().configFactoryDefault();
         RobotMap.getFeedA().configFactoryDefault();
         RobotMap.getFeedB().configFactoryDefault();
 
         RobotMap.getIndexerA().setInverted(true);;
-        RobotMap.getIndexerB().setInverted(true);
         RobotMap.getFeedA().setInverted(true);
         RobotMap.getFeedB().setInverted(true);
 
@@ -112,7 +120,7 @@ public class Shooter extends Subsystems{
         RobotMap.getShooterTop().config_kI(0, Constants.kShooterI);     
 
         RobotMap.getShooterBottom().setInverted(true);
-        RobotMap.getShooterTop().setInverted(false);
+        RobotMap.getShooterTop().setInverted(true);
 
 
 
@@ -236,13 +244,12 @@ public class Shooter extends Subsystems{
 
     public void setIndexer(double speed) {
         RobotMap.getIndexerA().set(ControlMode.PercentOutput, speed);
-        RobotMap.getIndexerB().set(ControlMode.PercentOutput, speed);
         
     }
 
-    public void setFeed(double speed) {
-        RobotMap.getFeedA().set(ControlMode.PercentOutput, speed);
-        RobotMap.getFeedB().set(ControlMode.PercentOutput, speed);
+    public void setFeed(double aSpeed, double bSpeed) {
+        RobotMap.getFeedA().set(ControlMode.PercentOutput, aSpeed);
+        RobotMap.getFeedB().set(ControlMode.PercentOutput, bSpeed);
 
     }
 
@@ -254,7 +261,6 @@ public class Shooter extends Subsystems{
         RobotMap.getFeedA().clearStickyFaults();
         RobotMap.getFeedB().clearStickyFaults();
         RobotMap.getIndexerA().clearStickyFaults();
-        RobotMap.getIndexerB().clearStickyFaults();
 
     }
 
@@ -266,5 +272,9 @@ public class Shooter extends Subsystems{
             return false;
         }
     }
-     
+
+    public void setFeed(double speed) {
+        setFeed(speed, speed);
+    }
+   
 }

@@ -34,7 +34,7 @@ public class VisionTrack {
         desiredState = VisionState.IDLE;
     }
 public void update(){
-  System.out.println(currentState);
+  System.out.println(m_lime.getDistanceToTarget());
   SmartDashboard.putString("state", stateToString());
   switch(desiredState){
       case IDLE:
@@ -97,7 +97,7 @@ public void update(){
       currentState = desiredState;
       break;
       case FINDINGSPEED:
-      currentState = VisionState.IDLE;
+      //currentState = VisionState.IDLE;
       m_lime.enableVision();
       if(stick.getRawButton(Constants.KVisionCommandID) == true){
         timesLooped++;
@@ -216,4 +216,10 @@ public void update(){
       return "default";
     }
   }
+  
+  public void updateShooterSpeedLimelight() {
+    if(true) {
+            //m_Shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, m_Shooter.speedTable.get((m_lime.getDistanceToTarget())));
+    }
+}
 }

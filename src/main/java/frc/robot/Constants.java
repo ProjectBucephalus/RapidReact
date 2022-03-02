@@ -26,16 +26,17 @@ public class Constants {
 
 	public static int kFrontIntakeSolenoidChannel = 0;
 
-	public static final int kIndexerACanID = 15;
-	public static final int kIndexerBCanID = 16;
-	public static final int kFeedACanID = 13;
-	public static final int kFeedBCanID = 14;
+	public static final int kIndexerACanID = 13;
+	public static final int kFeedACanID = 14;
+	public static final int kFeedBCanID = 15;
 
 
     public static double kDriveMaxSpeed = 4.18;
 	public static double kDriveMaxAccel = 4.0;
 	public static double kDriveMaxTurnSpeed = 12.12;
 	public static double kDriveMaxTurnAccel = 24.24;
+	public static int kGoalHeightInches = 100;
+    public static int kLimelightHeightInches = 40;
 	public static final int kBackIntakeEscCanID = 12;
     
 	public static final double kVisionTurnKp = 0.027;//was 0.024; // 0.012 for 2 centre nitrile
@@ -48,7 +49,7 @@ public class Constants {
 	public static final double kShooterP = 0.25;
 	public static final double kShooterI = 0.00014;
 
-	public static final double kClimberWinchP = 0.0054;
+	public static final double kClimberWinchP = 0.005;
 
 	public static final double kIdleCurrent = 1; //Ampres
 	public static final double kIdleVoltageCutoff = 12.2; //volts
@@ -56,7 +57,7 @@ public class Constants {
 
 	
 	//Vision
-	public static final int KVisionCommandID = 9; //Vision command button id on joystick
+	public static final int KVisionCommandID = 3; //Vision command button id on joystick
 	public static final double kA1 = 60; // Angle of the limelight from the robot chassie (degrees)
 	public static final double kH1 = 0.65; //Height of the limelight lense (metres)
 	public static final double kH2 = 2.61; //height of the middle of the target (metres)

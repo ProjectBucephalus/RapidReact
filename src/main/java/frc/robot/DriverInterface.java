@@ -26,8 +26,6 @@ public class DriverInterface {
         
     }
 
-    private double gameTime = System.currentTimeMillis() / 1000;
-    private double oldTime = 0;
 
     public static DriverInterface getInstance() {
         if(m_instance == null) {
@@ -96,6 +94,7 @@ public class DriverInterface {
     XboxController xbox1 = new XboxController(Config.kXbox1Port);
 
     private double limelightSpeedOffset = 0;
+    private boolean oldButtonState = false;
 
     boolean climbEnabled = true;
 
@@ -196,18 +195,20 @@ public class DriverInterface {
     }
 
     public RobotFowardDirection getRobotFowardDirection() {
-        if(joystick1.getRawButton(2)) {
+        if(joystick1.getRawButtonPressed(2)) {
             if(robotFowardDirection == RobotFowardDirection.FRONT) {
-                if(/*oldTime + 0.1 <= gameTime*/true) {
+                if(oldButtonState == false) {
                     robotFowardDirection = RobotFowardDirection.BACK;
-                    oldTime = gameTime;
+                    oldButtonState = true;
                 }
             } else {
-                if(/*oldTime + 0.1 <= gameTime*/true) {
+                if(oldButtonState == false) {
                     robotFowardDirection = RobotFowardDirection.FRONT;
-                    oldTime = gameTime;
+                    oldButtonState = true;
                 }
             }
+        } else {
+            oldButtonState = false;
         }
         return robotFowardDirection;
     }
@@ -234,14 +235,14 @@ public class DriverInterface {
 
     public boolean getFrontIntakeCommand() {
 
-        if(robotFowardDirection == RobotFowardDirection.FRONT) {
-            if(joystick1.getTrigger()) {
+        if(SmartDashboard.getBoolean("Foward direction", true)) {
+            if(joystick1.getTrigger() || xbox1.getLeftTriggerAxis() >= 0.25) {
                 return true;
             } else {
                 return false;
             }
         } else {
-            if(joystick1.getRawButton(4)) {
+            if(joystick1.getRawButton(4) || xbox1.getLeftBumper()) {
                 return true;
             } else {
                 return false;
@@ -251,14 +252,14 @@ public class DriverInterface {
 
     public boolean getBackIntakeCommand() {
 
-        if(robotFowardDirection == RobotFowardDirection.BACK) {
-            if(joystick1.getTrigger()) {
+        if(SmartDashboard.getBoolean("Foward direction", true)) {
+            if(joystick1.getRawButton(4) || xbox1.getLeftBumper()) {
                 return true;
             } else {
                 return false;
             }
         } else {
-            if(joystick1.getRawButton(4)) {
+            if(joystick1.getTrigger() || xbox1.getLeftTriggerAxis() >= 0.25) {
                 return true;
             } else {
                 return false;
@@ -322,7 +323,6 @@ public class DriverInterface {
         SmartDashboard.putBoolean("Climb enabled", climbEnabled);
         SmartDashboard.putBoolean("Foward direction", getRobotFowardDirection() == RobotFowardDirection.FRONT);
 
-        gameTime = System.currentTimeMillis()/1000;
         Shuffleboard.update();
         SmartDashboard.updateValues();
 
