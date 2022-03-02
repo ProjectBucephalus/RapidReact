@@ -20,12 +20,14 @@ public class Shooter extends Subsystems{
         IDLE, //Shooter in idle state
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
+        VISION,
     }
 
     public enum ShooterState {
         IDLE, //Shooter in idle state
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
+        VISION,
     }
 
 
@@ -49,18 +51,26 @@ public class Shooter extends Subsystems{
         switch(currentState) {
             default: //catches 'IDLE'
                 stopShoter();
+                stopIndexer();
                 currentState = desiredState;
             break;
             case SHOOTING:
                 setShooterSpeedSlot(ShooterSpeedSlot.SHOOTING);
                 shooterPID();
+                runIndexer();
                 currentState = desiredState;
             break;
             case EJECT:
                 setShooterSpeedSlot(ShooterSpeedSlot.EJECT);
                 shooterPID();
+                runIndexer();
                 currentState = desiredState;
             break;
+            case VISION:
+                setShooterSpeedSlot(ShooterSpeedSlot.VISION);
+                shooterPID();
+                runIndexer();
+                currentState = desiredState;
         }
 
     }
@@ -207,6 +217,22 @@ public class Shooter extends Subsystems{
     public void stopShoter() {
         RobotMap.getShooterBottom().set(ControlMode.PercentOutput, 0);
         RobotMap.getShooterTop().set(ControlMode.PercentOutput, 0);
+
+    }
+
+    public void runIndexer() {
+        RobotMap.getIndexerA().set(ControlMode.PercentOutput, -1);
+        RobotMap.getIndexerB().set(ControlMode.PercentOutput, -1);
+        RobotMap.getFeedA().set(ControlMode.PercentOutput, -1);
+        RobotMap.getFeedB().set(ControlMode.PercentOutput, -1);
+
+    }
+
+    public void stopIndexer() {
+        RobotMap.getIndexerA().set(ControlMode.PercentOutput, 0);
+        RobotMap.getIndexerB().set(ControlMode.PercentOutput, 0);
+        RobotMap.getFeedA().set(ControlMode.PercentOutput, 0);
+        RobotMap.getFeedB().set(ControlMode.PercentOutput, 0);
 
     }
      

@@ -88,7 +88,7 @@ public class DriverInterface {
                 joystickAxisReturn = joystick1.getY();
             break;
             case THROTTLE:
-                joystickAxisReturn = ((-joystick1.getThrottle() + 1) / 2);
+                joystickAxisReturn = -(joystick1.getThrottle() + 1)/2;
             break;
             case ROTATION:
                 joystickAxisReturn = joystick1.getTwist();

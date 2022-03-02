@@ -163,7 +163,6 @@ public class Climber extends Subsystems {
 
 
         RobotMap.getLeftWinch().configFactoryDefault();
-
         RobotMap.getRightWinch().configFactoryDefault();
 
         RobotMap.getLeftWinch().config_kP(0, Constants.kClimberWinchP);
