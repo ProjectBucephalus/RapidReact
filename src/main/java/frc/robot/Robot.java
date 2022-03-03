@@ -106,9 +106,18 @@ public class Robot extends TimedRobot {
     Drive.getInstance().setBrakes(true);
     Limelight.getInstance().enableVision();
 
+    Sequence selectedAuto = seqChooser.getSelected();
+    Drive.getInstance().setAngle(getFieldAngle(selectedAuto.getStartPos()));
+    mySeq = new Sequencer();
+    mySeq.setInitialTransitions(selectedAuto.getInitialTransitions());
+    mySeq.setInitialSteps(selectedAuto.getInitialSteps());
+    mySeq.sequenceStart();
+
+
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
+
   }
 
   /** This function is called periodically during autonomous. */
@@ -192,4 +201,24 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+  private static double getFieldAngle(int aPosition)
+  {
+    if (aPosition == 1)
+    {
+      return -91.5;
+    }
+    if (aPosition == 2)
+    {
+      return -46.5;
+    }
+    if (aPosition == 3)
+    {
+      return -1.5;
+    }
+    if (aPosition == 4)
+    {
+      return 43.5;
+    }
+    return 0.0;
+  }
 }

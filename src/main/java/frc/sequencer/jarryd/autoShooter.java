@@ -52,7 +52,6 @@ public class autoShooter extends SequenceTransition implements SequenceStepIf {
     
     @Override
     public boolean isTransComplete() {
-        return true;
-        // return Shooter.getInstance().getShooterAtSpeed(0.0);
+        return Shooter.getInstance().shooterAtSpeed;
     } 
 }

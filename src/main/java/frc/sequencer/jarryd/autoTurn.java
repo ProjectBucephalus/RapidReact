@@ -9,7 +9,6 @@ public class autoTurn extends SequenceTransition implements SequenceStepIf{
 
     @Override
     public void stepStart() {
-        
     }
 
     @Override
@@ -39,7 +38,7 @@ public class autoTurn extends SequenceTransition implements SequenceStepIf{
 
     @Override
     public String stepName() {
-        return "jturn - " + myAngle;
+        return "turn - " + myAngle;
     }
     private double myAngle = 0;
     public void setAngle(double anAngle)

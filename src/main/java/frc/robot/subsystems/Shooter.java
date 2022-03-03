@@ -18,7 +18,7 @@ import frc.robot.RobotMap;
 public class Shooter extends Subsystems{
 
     private static Shooter m_instance;
-    private boolean shooterAtSpeed = false;
+    public boolean shooterAtSpeed = false;
     Map<Double, Double> speedTable = new HashMap<>();
 
     public enum ShooterSpeedSlot {
@@ -283,8 +283,7 @@ public class Shooter extends Subsystems{
         } else {
             return false;
         }
-        return shooterAtSpeed;
-    }
+}
 
     public void setFeed(double speed) {
         setFeed(speed, speed);

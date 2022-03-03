@@ -183,6 +183,18 @@ public class Drive extends Subsystems {
         ACC_REV_LIMIT = anAccRevLimit;
     }
 
+    private double myAngleOffset = 0;
+    public void setAngle(double anAngle)
+    {
+        zeroPosition();
+        myAngleOffset = anAngle;
+    }
+
+    public boolean zeroPosition() {
+        _imu.zeroYaw();
+        return false;
+    }
+
    /**
     * Drives the robot, calculating other settings
     *Stall detection disabled currently

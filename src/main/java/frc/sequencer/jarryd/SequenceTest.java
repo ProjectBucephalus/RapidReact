@@ -1,5 +1,6 @@
 package frc.sequencer.jarryd;
 
+import java.time.format.TextStyle;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class SequenceTest {
             theSequences.add(createRevAccTest());
             theSequences.add(create5Ball());
             theSequences.add(create4redcover());
-            theSequences.add(createCollision());
+            theSequences.add(createVision());
 
         }
         return Collections.unmodifiableList(theSequences);
@@ -37,28 +38,20 @@ public class SequenceTest {
     }
 
 
-    private static Sequence createCollision(){
-        autoCollisionDrive cd1 = new autoCollisionDrive();
-        autoDrive d1 = new autoDrive();
-        d1.setDist(-4);
-        d1.setSpeed(0.35);
-        d1.setAngle(0);
+    private static Sequence createVision()
+    {
 
-        autoBackIntake intake = new autoBackIntake();
-        autoShooter shoot = new autoShooter();
+        autoLimelight l1 = new autoLimelight();
 
-        cd1.setNextSteps(intake);
-        d1.setNextSteps(shoot);
-        
-        Sequence seq = new Sequence("Collision Detection", 0);
-        seq.setInitialTransitions(cd1, d1);
-        seq.setInitialSteps(d1);
+        Sequence seq = new Sequence("VISION TEST", 0);
+        seq.setInitialTransitions(l1);
+        seq.setInitialSteps(l1);
         return seq;
-    }
   
+    }
 
     /*
-    NOT TESTED!! (with Phoenix or rapid react)
+    NOT TESTED!! (with Phoenix or Pegasus)
         -robot still turning when stops
             -drivetrain?
             -code?
@@ -66,7 +59,7 @@ public class SequenceTest {
         -need to make accurate
             -specific angles
             -specific distances
-                -should be accurate for mid section
+                -should be more accurate for mid section
             -speed?
         -time
             -make faster
