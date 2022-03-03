@@ -196,8 +196,8 @@ public class Climber extends Subsystems {
     }
     @Override
     public void initMotorControllers() {
-        
-        RobotMap.getRightWinch().configFactoryDefault();
+
+        RobotMap.getLeftWinch().configFactoryDefault();
         RobotMap.getRightWinch().configFactoryDefault();
 
         RobotMap.getLeftWinch().config_kP(0, Constants.kClimberWinchP);
@@ -206,8 +206,8 @@ public class Climber extends Subsystems {
         RobotMap.getLeftWinch().setNeutralMode(NeutralMode.Brake);
         RobotMap.getRightWinch().setNeutralMode(NeutralMode.Brake);
 
-        RobotMap.getLeftWinch().setInverted(true);
-        RobotMap.getRightWinch().setInverted(false);
+        RobotMap.getLeftWinch().setInverted(false);
+        RobotMap.getRightWinch().setInverted(true);
 
         RobotMap.getLeftWinch().configClosedloopRamp(2);
         RobotMap.getRightWinch().configClosedloopRamp(2);

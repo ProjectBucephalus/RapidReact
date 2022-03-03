@@ -17,13 +17,11 @@ public class RobotMap {
 	static TalonFX leftDriveA = new TalonFX(Constants.kLeftDriveACanID);
 	static TalonFX leftDriveB = new TalonFX(Constants.kLeftDriveBCanID);
 	static TalonFX leftDriveC = new TalonFX(Constants.kLeftDriveCCanID);
-	//public static MotorControllerGroup leftDriveMotors = new MotorControllerGroup(leftDriveA, leftDriveB, leftDriveC);
 
 
 	static TalonFX rightDriveA = new TalonFX(Constants.kRightDriveACanID);
 	static TalonFX rightDriveB = new TalonFX(Constants.kRightDriveBCanID);
 	static TalonFX rightDriveC = new TalonFX(Constants.kRightDriveCCanID);
-	//public static MotorControllerGroup rightDriveMotors = new MotorControllerGroup(rightDriveA, rightDriveB, rightDriveC);
 
 	public static TalonFX getLeftDriveA() {
 		return leftDriveA;
@@ -94,18 +92,6 @@ public class RobotMap {
 		return rightWinch;
 	}
 
-	static TalonSRX indexerA = new TalonSRX(Constants.kIndexerACanID);
-	static TalonSRX indexerB = new TalonSRX(Constants.kIndexerBCanID);
-	static TalonSRX feedA = new TalonSRX(Constants.kFeedACanID);
-	static TalonSRX feedB = new TalonSRX(Constants.kFeedBCanID);
-
-
-	public static TalonSRX getIndexerA() {
-		return indexerA;
-	}
-	public static TalonSRX getIndexerB() {
-		return indexerB;
-	}
 	public static CANifier getClimberSensors() {
 		return climberSensors;
 	}
@@ -116,11 +102,18 @@ public class RobotMap {
 		return pdh;
 	}
 
+	static TalonSRX feedA = new TalonSRX(Constants.kFeedACanID);
+	static TalonSRX feedB = new TalonSRX(Constants.kFeedBCanID);
+	static TalonSRX indexerA = new TalonSRX(Constants.kIndexerACanID);
+
 	public static TalonSRX getFeedA() {
 		return feedA;
 	}
 	public static TalonSRX getFeedB() {
 		return feedB;
+	}
+	public static TalonSRX getIndexerA() {
+		return indexerA;
 	}
 
 
