@@ -11,7 +11,6 @@ import frc.robot.subsystems.*;
 import frc.robot.subsystems.BackIntake.BackIntakeStates;
 import frc.robot.subsystems.Climber.ClimberStates;
 import frc.robot.subsystems.FrontIntake.FrontIntakeStates;
-import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import frc.robot.subsystems.Shooter.ShooterState;
 import frc.robot.subsystems.VisionTrack.VisionState;
 

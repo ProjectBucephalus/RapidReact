@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
     DriverInterface.getInstance().initSmartDashboard();
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
+    SmartDashboard.putData("Auto choices", seqChooser);
     Shooter.getInstance().initMotorControllers();
     VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
     Climber.getInstance().initMotorControllers();
