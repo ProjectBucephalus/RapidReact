@@ -5,6 +5,7 @@ import frc.robot.subsystems.Limelight;
 import frc.sequencer.SequenceStepIf;
 import frc.sequencer.SequenceTransition;
 
+//cannot be used with much sunlight
 public class autoLimelight extends SequenceTransition implements SequenceStepIf {
 
 
@@ -20,6 +21,7 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
     @Override
     public void stepUpdate() {
         double limeErr = (Limelight.getInstance().getAngleToTarget()) % 360;
+        // System.out.println("limeErr" + limeErr);
         if (limeErr > 180)
         {
             limeErr = limeErr - 360;

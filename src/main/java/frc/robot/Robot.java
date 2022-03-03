@@ -49,7 +49,6 @@ public class Robot extends TimedRobot {
     DriverInterface.getInstance().initSmartDashboard();
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", seqChooser);
     Shooter.getInstance().initMotorControllers();
     VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
     Climber.getInstance().initMotorControllers();
@@ -58,6 +57,7 @@ public class Robot extends TimedRobot {
     LinkedList<Sequence> seqList = new LinkedList<Sequence>();
     seqList.addAll(SequenceTest.getSequences());
     seqChooser = new SendableChooser<Sequence>();
+    SmartDashboard.putData("Auto choices", seqChooser);
     boolean first = true;
     for (Sequence s : seqList)
     {
@@ -115,23 +115,19 @@ public class Robot extends TimedRobot {
 
 
     m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
+    // System.out.println("Auto selected: " + m_autoSelected);
 
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
+    SmartDashboard.putString("Auto Step", mySeq.getStepName());
+    mySeq.update();
+    Drive.getInstance().autoUpdate();
+    Shooter.getInstance().update();
+    BackIntake.getInstance().update();    
   }
 
   /** This function is called once when teleop is enabled. */

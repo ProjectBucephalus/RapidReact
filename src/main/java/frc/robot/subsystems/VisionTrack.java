@@ -33,7 +33,7 @@ public class VisionTrack {
         desiredState = VisionState.IDLE;
     }
 public void update(){
-  System.out.println(m_lime.getDistanceToTarget());
+  // System.out.println(m_lime.getDistanceToTarget());
   SmartDashboard.putString("state", stateToString());
   switch(desiredState){
       case IDLE:

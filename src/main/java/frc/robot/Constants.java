@@ -1,6 +1,7 @@
 
 package frc.robot;
 
+
 public class Constants {
 
     public static int kLeftDriveACanID = 1;
@@ -27,8 +28,8 @@ public class Constants {
 	public static int kFrontIntakeSolenoidChannel = 0;
 
 	public static final int kIndexerACanID = 13;
-	public static final int kFeedACanID = 14;
-	public static final int kFeedBCanID = 15;
+	public static final int kFeedACanID = 15;
+	public static final int kFeedBCanID = 14;
 
 
     public static double kDriveMaxSpeed = 4.18;

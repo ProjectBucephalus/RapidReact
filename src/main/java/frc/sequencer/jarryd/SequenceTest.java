@@ -151,17 +151,17 @@ public class SequenceTest {
         t4.setNextTrans(d4);
         t4.setNextSteps(d4);
 
-        // d4.setNextTrans(t5);
-        // d4.setNextSteps(t5, shoot, intake);
-        // t5.setNextTrans(d5);
-        // t5.setNextSteps(d5, shoot, intake);
-        // d5.setNextTrans(T1);
-        // d5.setNextSteps(shoot, intake);
+        d4.setNextTrans(t5);
+        d4.setNextSteps(t5, shoot, intake);
+        t5.setNextTrans(d5);
+        t5.setNextSteps(d5, shoot, intake);
+        d5.setNextTrans(T1);
+        d5.setNextSteps(shoot, intake);
         
-        // T1.setNextTrans(c1);
-        // T1.setNextSteps(c1, shoot, intake);
-        // c1.setNextTrans(ball2);
-        // c1.setNextSteps(shoot, intake, index);
+        T1.setNextTrans(c1);
+        T1.setNextSteps(c1, shoot, intake);
+        c1.setNextTrans(ball2);
+        c1.setNextSteps(shoot, intake);
 
         Sequence seq = new Sequence("5 Ball Auto", 1);
         seq.setInitialTransitions(t1);

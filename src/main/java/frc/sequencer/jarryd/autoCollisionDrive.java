@@ -43,7 +43,7 @@ public class autoCollisionDrive extends SequenceTransition{
         double average = sum / pastAccel.length;
         // System.out.println(pastAccel);
         // System.out.println(accBuf.toString() + average);
-        System.out.println("Average " + String.format("%1.7f", average));
+        // System.out.println("Average " + String.format("%1.7f", average));
         if (average > 1.3){
             return true;
         }

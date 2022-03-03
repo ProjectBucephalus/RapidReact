@@ -61,7 +61,6 @@ public class Shooter extends Subsystems{
         }
 
         VisionTrack.getInstance().updateShooterSpeedLimelight();
-        System.out.println(currentState);
 
         DriverInterface.getInstance().outputShooterRPMField(RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200);
 
