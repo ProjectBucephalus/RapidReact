@@ -121,17 +121,10 @@ public class Drive extends Subsystems {
     }
 
     public void arcadeDrive(double throttle, double steering, double power, double microAdjust) {
-       /* double steerDiff = steering - lastSteer;
-        steerDiff = Math.min(steerDiff,0.1);
-        steerDiff = Math.max(steerDiff,-0.1);
-        lastSteer = lastSteer + steerDiff;
-        double powderDiff = power - lastPower;
-        powderDiff -
-        */
         //Left
-        double leftPower = (power + (steering)) * throttle;
+        double leftPower = (power + (-steering + microAdjust)) * throttle;
         //Right
-        double rightPower = (power - (steering)) * throttle;
+        double rightPower = (power - (-steering + microAdjust)) * throttle;
         //Write to motors
         setMotors(-leftPower, rightPower);
     }
@@ -352,7 +345,7 @@ public class Drive extends Subsystems {
 
     @Override
     public boolean initMechanism() {
-
+        // TODO Auto-generated method stub
         return false;
     }
     @Override
@@ -362,16 +355,8 @@ public class Drive extends Subsystems {
     }
     @Override
     public void initMotorControllers() {
-        RobotMap.getLeftDriveA().configFactoryDefault();
-        RobotMap.getLeftDriveB().configFactoryDefault();
-        RobotMap.getRightDriveA().configFactoryDefault();
-        RobotMap.getRightDriveB().configFactoryDefault();
-
-        RobotMap.getLeftDriveA().configOpenloopRamp(0.55);
-        RobotMap.getLeftDriveB().configOpenloopRamp(0.55);
-        RobotMap.getRightDriveA().configOpenloopRamp(0.55);
-        RobotMap.getRightDriveB().configOpenloopRamp(0.55);
-
+        // TODO Auto-generated method stub
+        
     }
     @Override
     public diagnosticState test() {
