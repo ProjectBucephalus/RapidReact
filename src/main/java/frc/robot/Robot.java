@@ -102,15 +102,17 @@ public class Robot extends TimedRobot {
    * chooser code above as well.
    */
   @Override
-  public void autonomousInit() {
+    public void autonomousInit() {
     Drive.getInstance().setBrakes(true);
-    Limelight.getInstance().enableVision();
+    Limelight.getInstance().enableVision();       
+
 
     Sequence selectedAuto = seqChooser.getSelected();
     Drive.getInstance().setAngle(getFieldAngle(selectedAuto.getStartPos()));
+
     mySeq = new Sequencer();
-    mySeq.setInitialTransitions(selectedAuto.getInitialTransitions());
     mySeq.setInitialSteps(selectedAuto.getInitialSteps());
+    mySeq.setInitialTransitions(selectedAuto.getInitialTransitions());
     mySeq.sequenceStart();
 
 
@@ -193,7 +195,7 @@ public class Robot extends TimedRobot {
 
   }
 
-
+  
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
@@ -203,7 +205,7 @@ public class Robot extends TimedRobot {
     {
       return -91.5;
     }
-    if (aPosition == 2)
+      if (aPosition == 2)
     {
       return -46.5;
     }

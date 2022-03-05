@@ -10,7 +10,7 @@ public class autoShooter extends SequenceTransition implements SequenceStepIf {
     @Override
     public void stepStart() {
         Shooter.getInstance().setDesiredState(ShooterState.SHOOTING);
-        // TODO Auto-generated method stub
+        Shooter.getInstance().setFeed(1);
         
     }
 
@@ -23,7 +23,13 @@ public class autoShooter extends SequenceTransition implements SequenceStepIf {
 
     @Override
     public void stepUpdate() {
-        
+        if (Shooter.getInstance().shooterAtSpeed)
+        {
+            Shooter.getInstance().setIndexer(1);
+        }
+        else {
+            Shooter.getInstance().setIndexer(0);
+        }
         Shooter.getInstance().update();
         Shooter.getInstance().getShooterRPM();
         // System.out.println("shoot rpm" + Shooter.getInstance().getShooterRPM());

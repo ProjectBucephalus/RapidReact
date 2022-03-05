@@ -132,11 +132,11 @@ public class SequenceTest {
         T2.setDelay(3);
         
         t1.setNextTrans(d1);
-        t1.setNextSteps(d1, shoot, intake);
+        t1.setNextSteps(d1, intake);
         d1.setNextTrans(t2);
-        d1.setNextSteps(t2, shoot, intake);
+        d1.setNextSteps(t2, intake);
         t2.setNextTrans(shoot);
-        t2.setNextSteps(shoot, intake);
+        t2.setNextSteps(shoot);
         shoot.setNextTrans(T2);
         shoot.setNextSteps(shoot, intake);
         T2.setNextTrans(d2);
@@ -146,15 +146,15 @@ public class SequenceTest {
         t3.setNextTrans(d3);
         t3.setNextSteps(d3, intake);
         d3.setNextTrans(t4);
-        d3.setNextSteps(t4);
+        d3.setNextSteps(t4, intake);
 
         t4.setNextTrans(d4);
         t4.setNextSteps(d4);
 
         d4.setNextTrans(t5);
-        d4.setNextSteps(t5, shoot, intake);
+        d4.setNextSteps(t5, intake);
         t5.setNextTrans(d5);
-        t5.setNextSteps(d5, shoot, intake);
+        t5.setNextSteps(d5, intake);
         d5.setNextTrans(T1);
         d5.setNextSteps(shoot, intake);
         
@@ -168,6 +168,11 @@ public class SequenceTest {
         seq.setInitialSteps(t1, shoot, intake);
         return seq;
     }
+
+
+
+
+
 
     private static Sequence create4redcover()
     {//ball spit code? toggle-able rpm to spit out enemy team balls

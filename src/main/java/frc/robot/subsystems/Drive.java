@@ -15,7 +15,6 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Config;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -245,6 +244,7 @@ public class Drive extends Subsystems {
     public void setAngle(double anAngle)
     {
         zeroPosition();
+        // _imu.setAngleAdjustment(anAngle);
         myAngleOffset = anAngle;
     }
 
@@ -378,7 +378,7 @@ public class Drive extends Subsystems {
      * @return gyro angle in degrees
      */
     public double getYaw() {
-        return _imu.getYaw();
+        return _imu.getYaw() + myAngleOffset;
     }
 
     public void update() {
