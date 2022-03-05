@@ -34,6 +34,7 @@ public class VisionTrack {
         desiredState = VisionState.IDLE;
     }
 public void update(){
+  updateShooterSpeedLimelight();
   System.out.println(m_lime.getDistanceToTarget());
   SmartDashboard.putString("state", stateToString());
   switch(desiredState){
@@ -138,10 +139,10 @@ public void update(){
           double AutoVisionSteering = (tx * Constants.kVisionTurnKp);
           if(tx <4 && tx >-4){
             double isn = AutoVisionSteering * 2;
-            m_drive.arcadeDrive(0.5, isn, 0.0); 
+            m_drive.arcadeDrive(1, isn, 0.0); 
           }
           else{
-            m_drive.arcadeDrive(0.5, AutoVisionSteering, 0.0); 
+            m_drive.arcadeDrive(1, AutoVisionSteering, 0.0); 
           }
           if(tx <1 && tx >-1){
             if(timesLooped >= 15){
