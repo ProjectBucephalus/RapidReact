@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.LinkedList;
@@ -88,7 +89,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    
+    Shuffleboard.update();
   }
 
   /**
@@ -130,6 +131,7 @@ public class Robot extends TimedRobot {
     Drive.getInstance().autoUpdate();
     Shooter.getInstance().update();
     BackIntake.getInstance().update();    
+    VisionTrack.getInstance().update();
   }
 
   /** This function is called once when teleop is enabled. */

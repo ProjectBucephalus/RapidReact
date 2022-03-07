@@ -2,6 +2,10 @@ package frc.sequencer.jarryd;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.VisionTrack;
+import frc.robot.subsystems.Shooter.ShooterState;
+import frc.robot.subsystems.VisionTrack.VisionState;
 import frc.sequencer.SequenceStepIf;
 import frc.sequencer.SequenceTransition;
 
@@ -11,6 +15,8 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
 
     @Override
     public void stepStart() {
+        VisionTrack.getInstance().setDesiredState(VisionState.AUTOTURN);
+    
     }
 
     @Override
@@ -20,23 +26,12 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
 
     @Override
     public void stepUpdate() {
-        double limeErr = (Limelight.getInstance().getAngleToTarget()) % 360;
-        // System.out.println("limeErr" + limeErr);
-        if (limeErr > 180)
+        VisionTrack.getInstance().setDesiredState(VisionState.AUTOTURN);
+        if (Limelight.getInstance().getAngleToTarget()<4)
         {
-            limeErr = limeErr - 360;
+                Shooter.getInstance().setDesiredState(ShooterState.SHOOTING);
+                Shooter.getInstance().setFeed(1);
         }
-        if (limeErr < -180)
-        {
-            limeErr = limeErr + 360;
-        }
-
-        double limeCmd = Math.sqrt(Math.abs(limeErr)) *0.045;
-        if (limeErr < 0)
-        {
-            limeCmd = -limeCmd;
-        }
-        Drive.getInstance().autoArcadeDrive(limeCmd, 0);    
     }
 
     @Override
@@ -46,7 +41,7 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
 
 
     @Override
-    public void transStart() {        
+    public void transStart() {
     }
 
     @Override
@@ -56,7 +51,7 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
 
     @Override
     public boolean isTransComplete() {
-    if (Limelight.getInstance().getAngleToTarget()<5)
+    if (Math.abs(Limelight.getInstance().getAngleToTarget())<5)
     {
         return true;
     }

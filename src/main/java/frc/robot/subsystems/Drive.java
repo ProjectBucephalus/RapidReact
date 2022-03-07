@@ -15,6 +15,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Config;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -125,7 +126,11 @@ public class Drive extends Subsystems {
     }
 
     public void arcadeDrive(double throttle, double steering, double power, double microAdjust) {
-       /* double steerDiff = steering - lastSteer;
+        SmartDashboard.putNumber("throttle", throttle);
+        SmartDashboard.putNumber("steering", steering);
+        SmartDashboard.putNumber("power", power);
+
+        /* double steerDiff = steering - lastSteer;
         steerDiff = Math.min(steerDiff,0.1);
         steerDiff = Math.max(steerDiff,-0.1);
         lastSteer = lastSteer + steerDiff;

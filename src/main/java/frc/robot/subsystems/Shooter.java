@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.DriverInterface;
 import frc.robot.RobotMap;
@@ -51,8 +52,44 @@ public class Shooter extends Subsystems{
     private double wheelRatio = 2;
 
 
+    private void ballDetected()
+    {
+        numBalls = numBalls + 1;
+        SmartDashboard.putNumber("balls shot", numBalls);
+    }
+
+    private double numBalls = 0;
+    private final static int waitTime = 10;
+    private int waitCounts = waitTime;
+
+    private final static int pastLength = 5;
+    private double[] pastRPM = new double[pastLength];
+
     @Override
     public void update() {
+        if (waitCounts > 0)
+        { 
+            waitCounts --;
+        }
+        double currRPM = Shooter.getInstance().getShooterRPM();    
+        // compare currRPM with pastRPM[pastLength]
+        if ( (currRPM / pastRPM[0]) < 0.95)
+        {
+            //ball detected
+            if (waitCounts == 0)
+            {
+                waitCounts = waitTime;
+                ballDetected();
+            }
+        }
+        for ( int ii = 0 ; ii < pastLength - 1 ; ii++)
+        {
+            pastRPM[ii] = pastRPM[ii++];
+        }
+        pastRPM[pastLength-1] = currRPM;
+
+
+
         if(DriverInterface.getInstance().getManualShootCommand()) {
             shooterAtSpeed = false;
         }
