@@ -93,7 +93,7 @@ public class Shooter extends Subsystems{
         if(DriverInterface.getInstance().getManualShootCommand()) {
             shooterAtSpeed = false;
         }
-        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.1) {
+        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.05) {
             shooterAtSpeed = true;
         }
 

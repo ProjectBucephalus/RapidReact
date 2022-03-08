@@ -607,12 +607,13 @@ public class DriverInterface {
     }
 
     public diagnosticState getDiagnosticState() {
-        if(RobotMap.getPDH().getTotalCurrent() <= Constants.kIdleCurrent && RobotMap.getPDH().getVoltage() <= Constants.kIdleVoltageCutoff) {
-            return diagnosticState.WARNING;
-        }
-        else {
-            return diagnosticState.OK;
-        }
+        // if(RobotMap.getPDH().getTotalCurrent() <= Constants.kIdleCurrent && RobotMap.getPDH().getVoltage() <= Constants.kIdleVoltageCutoff) {
+        //     return diagnosticState.WARNING;
+        // }
+        // else {
+        //     return diagnosticState.OK;
+        // }
+        return diagnosticState.OK;
     }
 
     public void displayDiagnosticState() {
