@@ -56,7 +56,7 @@ public class Shooter extends Subsystems{
         if(DriverInterface.getInstance().getManualShootCommand()) {
             shooterAtSpeed = false;
         }
-        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.1) {
+        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.05) {
             shooterAtSpeed = true;
         }
 
@@ -125,6 +125,10 @@ public class Shooter extends Subsystems{
 
         RobotMap.getShooterBottom().setInverted(true);
         RobotMap.getShooterTop().setInverted(true);
+
+        RobotMap.getShooterBottom().configPeakOutputReverse(0);
+        RobotMap.getShooterTop().configPeakOutputReverse(0);
+
 
 
 

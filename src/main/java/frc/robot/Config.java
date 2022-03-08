@@ -74,7 +74,7 @@ public class Config {
     public static final boolean kVerboseOutputDefault = true;
 
     //Minimum pressure for Compressor cutoff
-    public static final double kCompressorMin = 110;
+    public static final double kCompressorMin = 100;
 
     //Max pressure for the Compressor cutoff
     public static final double kCompressorMax = 120;
