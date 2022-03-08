@@ -365,7 +365,7 @@ public class DriverInterface {
     }
 
     public boolean getClimbUpCommand() {
-        System.out.println(xbox1.getPOV());
+        // System.out.println(xbox1.getPOV());
         return (xbox1.getPOV() == 0 && SmartDashboard.getBoolean("Climb enabled", true));
     }
 

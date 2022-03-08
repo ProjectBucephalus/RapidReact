@@ -5,12 +5,17 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.util.LinkedList;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.VisionTrack;
 import frc.robot.subsystems.VisionTrack.VisionState;
 import frc.robot.subsystems.*;
+import frc.sequencer.Sequence;
+import frc.sequencer.Sequencer;
+import frc.sequencer.jarryd.SequenceTest;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -45,13 +50,36 @@ public class Robot extends TimedRobot {
     DriverInterface.getInstance().initSmartDashboard();
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
     Shooter.getInstance().initMotorControllers();
     VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
     Climber.getInstance().initMotorControllers();
+
+    //sequencer
+    LinkedList<Sequence> seqList = new LinkedList<Sequence>();
+    seqList.addAll(SequenceTest.getSequences());
+    seqChooser = new SendableChooser<Sequence>();
+    SmartDashboard.putData("Auto choices", seqChooser);
+    boolean first = true;
+    for (Sequence s : seqList)
+    {
+      if (first)
+      {
+        first = false;
+        seqChooser.setDefaultOption(s.getName(), s);
+        myDefault = s;
+      }
+      else
+      {
+        seqChooser.addOption(s.getName(), s);
+      }
+    }
     Drive.getInstance().initMotorControllers();
   }
 
+  SendableChooser<Sequence> seqChooser;
+  Sequence myDefault = null;
+  Sequencer mySeq;
+  
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
    * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
@@ -61,7 +89,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    
+    Shuffleboard.update();
   }
 
   /**
@@ -75,27 +103,35 @@ public class Robot extends TimedRobot {
    * chooser code above as well.
    */
   @Override
-  public void autonomousInit() {
+    public void autonomousInit() {
     Drive.getInstance().setBrakes(true);
-    Limelight.getInstance().enableVision();
+    Limelight.getInstance().enableVision();       
+
+
+    Sequence selectedAuto = seqChooser.getSelected();
+    Drive.getInstance().setAngle(getFieldAngle(selectedAuto.getStartPos()));
+
+    mySeq = new Sequencer();
+    mySeq.setInitialSteps(selectedAuto.getInitialSteps());
+    mySeq.setInitialTransitions(selectedAuto.getInitialTransitions());
+    mySeq.sequenceStart();
+
 
     m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
+    // System.out.println("Auto selected: " + m_autoSelected);
+
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
+    SmartDashboard.putString("Auto Step", mySeq.getStepName());
+    mySeq.update();
+    Drive.getInstance().autoUpdate();
+    Shooter.getInstance().update();
+    BackIntake.getInstance().update();    
+    VisionTrack.getInstance().update();
   }
 
   /** This function is called once when teleop is enabled. */
@@ -161,8 +197,28 @@ public class Robot extends TimedRobot {
 
   }
 
-
+  
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+  private static double getFieldAngle(int aPosition)
+  {
+    if (aPosition == 1)
+    {
+      return -91.5;
+    }
+      if (aPosition == 2)
+    {
+      return -46.5;
+    }
+    if (aPosition == 3)
+    {
+      return -1.5;
+    }
+    if (aPosition == 4)
+    {
+      return 43.5;
+    }
+    return 0.0;
+  }
 }

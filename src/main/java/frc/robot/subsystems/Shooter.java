@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.DriverInterface;
 import frc.robot.RobotMap;
@@ -18,7 +19,7 @@ import frc.robot.RobotMap;
 public class Shooter extends Subsystems{
 
     private static Shooter m_instance;
-    private boolean shooterAtSpeed = false;
+    public boolean shooterAtSpeed = false;
     Map<Double, Double> speedTable = new HashMap<>();
 
     public enum ShooterSpeedSlot {
@@ -51,8 +52,44 @@ public class Shooter extends Subsystems{
     private double wheelRatio = 2;
 
 
+    private void ballDetected()
+    {
+        numBalls = numBalls + 1;
+        SmartDashboard.putNumber("balls shot", numBalls);
+    }
+
+    private double numBalls = 0;
+    private final static int waitTime = 10;
+    private int waitCounts = waitTime;
+
+    private final static int pastLength = 5;
+    private double[] pastRPM = new double[pastLength];
+
     @Override
     public void update() {
+        if (waitCounts > 0)
+        { 
+            waitCounts --;
+        }
+        double currRPM = Shooter.getInstance().getShooterRPM();    
+        // compare currRPM with pastRPM[pastLength]
+        if ( (currRPM / pastRPM[0]) < 0.95)
+        {
+            //ball detected
+            if (waitCounts == 0)
+            {
+                waitCounts = waitTime;
+                ballDetected();
+            }
+        }
+        for ( int ii = 0 ; ii < pastLength - 1 ; ii++)
+        {
+            pastRPM[ii] = pastRPM[ii++];
+        }
+        pastRPM[pastLength-1] = currRPM;
+
+
+
         if(DriverInterface.getInstance().getManualShootCommand()) {
             shooterAtSpeed = false;
         }
@@ -61,7 +98,6 @@ public class Shooter extends Subsystems{
         }
 
         VisionTrack.getInstance().updateShooterSpeedLimelight();
-        System.out.println(currentState);
 
         DriverInterface.getInstance().outputShooterRPMField(RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200);
 
@@ -125,6 +161,10 @@ public class Shooter extends Subsystems{
 
         RobotMap.getShooterBottom().setInverted(true);
         RobotMap.getShooterTop().setInverted(true);
+
+        RobotMap.getShooterBottom().configPeakOutputReverse(0);
+        RobotMap.getShooterTop().configPeakOutputReverse(0);
+
 
 
 
@@ -219,6 +259,14 @@ public class Shooter extends Subsystems{
         
     }
 
+    public double getShooterRPM() {
+        return RobotMap.getShooterTop().getSelectedSensorVelocity() * 600 / 2048;
+    }
+
+    public double getShooterTargetSpeed() {
+        return getShooterSetSpeed();
+    }
+
     @Override
     public diagnosticState test() {
         // TODO Auto-generated method stub
@@ -269,8 +317,13 @@ public class Shooter extends Subsystems{
     }
 
     public boolean getShooterAtSpeed() {
-        return shooterAtSpeed;
-    }
+        System.out.println(RobotMap.getShooterBottom().getSelectedSensorVelocity()/2048*1200);
+        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.1) {
+            return true;
+        } else {
+            return false;
+        }
+}
 
     public void setFeed(double speed) {
         setFeed(speed, speed);

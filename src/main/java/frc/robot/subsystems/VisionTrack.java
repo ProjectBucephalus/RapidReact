@@ -1,8 +1,9 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
+import frc.robot.DriverInterface;
+import frc.robot.DriverInterface.JoystickAxisType;
 import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
-import frc.robot.subsystems.Shooter.ShooterState;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -34,7 +35,7 @@ public class VisionTrack {
         desiredState = VisionState.IDLE;
     }
 public void update(){
-  System.out.println(m_lime.getDistanceToTarget());
+  // System.out.println(m_lime.getDistanceToTarget());
   SmartDashboard.putString("state", stateToString());
   switch(desiredState){
       case IDLE:
@@ -54,6 +55,18 @@ public void update(){
       currentState = desiredState;
       break;
       case TURNING:
+        if (Math.abs(DriverInterface.getInstance().getX()) > 0.5)
+        {
+          setDesiredState(VisionState.IDLE);
+          currentState = desiredState;
+          break;
+        }
+        if (Math.abs(DriverInterface.getInstance().getY()) > 0.5)
+        {
+          setDesiredState(VisionState.IDLE);
+          currentState = desiredState;
+          break;
+        }
       m_lime.enableVision();
       if(stick.getRawButton(Constants.KVisionCommandID) == true){
         m_lime.enableVision();
@@ -138,10 +151,12 @@ public void update(){
           double AutoVisionSteering = (tx * Constants.kVisionTurnKp);
           if(tx <4 && tx >-4){
             double isn = AutoVisionSteering * 2;
-            m_drive.arcadeDrive(0.5, isn, 0.0); 
+            // m_drive.arcadeDrive(0.5, -1, 0.0);
+            Drive.getInstance().autoArcadeDrive(isn, 0); 
           }
           else{
-            m_drive.arcadeDrive(0.5, AutoVisionSteering, 0.0); 
+            // m_drive.arcadeDrive(0.5, -0.9, 0.0); 
+            Drive.getInstance().autoArcadeDrive(AutoVisionSteering, 0);
           }
           if(tx <1 && tx >-1){
             if(timesLooped >= 15){
