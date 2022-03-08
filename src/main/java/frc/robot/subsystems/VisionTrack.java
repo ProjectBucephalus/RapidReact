@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
+import frc.robot.DriverInterface;
+import frc.robot.DriverInterface.JoystickAxisType;
 import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -53,6 +55,18 @@ public void update(){
       currentState = desiredState;
       break;
       case TURNING:
+        if (Math.abs(DriverInterface.getInstance().getX()) > 0.5)
+        {
+          setDesiredState(VisionState.IDLE);
+          currentState = desiredState;
+          break;
+        }
+        if (Math.abs(DriverInterface.getInstance().getY()) > 0.5)
+        {
+          setDesiredState(VisionState.IDLE);
+          currentState = desiredState;
+          break;
+        }
       m_lime.enableVision();
       if(stick.getRawButton(Constants.KVisionCommandID) == true){
         m_lime.enableVision();
