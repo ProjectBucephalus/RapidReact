@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -233,6 +234,10 @@ public class DriverInterface {
         return xbox1.getRightBumper();
     }
 
+    public boolean getVisionAbort() {
+        return(!(joystick1.getX() <= 0.5 && joystick1.getX() >= -0.5) || !(joystick1.getY() <= 0.5 && joystick1.getY() >= -0.5));
+    }
+
     public boolean getFrontIntakeCommand() {
 
         if(SmartDashboard.getBoolean("Foward direction", true)) {
@@ -306,7 +311,7 @@ public class DriverInterface {
 
     public boolean getIndexerManualOverride() {
         return (xbox1.getRightY() > 0.25 || xbox1.getRightY() < -0.25);
-    }
+    }29
 
     public double getIndexerManual() {
         return xbox1.getRightY();
@@ -554,7 +559,7 @@ public class DriverInterface {
     }
 
     public boolean getClimberManualOverride() {
-        return !(xbox1.getLeftY() <= 0.25 && xbox1.getLeftY() >= -0.25);
+        return (!(xbox1.getLeftY() <= 0.25 && xbox1.getLeftY() >= -0.25) && SmartDashboard.getBoolean("Climb enabled", false));
     }
 
     public double getClimberManualOverridePower() {
