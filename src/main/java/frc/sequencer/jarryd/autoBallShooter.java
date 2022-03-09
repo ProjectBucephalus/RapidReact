@@ -38,7 +38,7 @@ public class autoBallShooter extends SequenceTransition{
         System.out.println();
         for ( int ii = 0 ; ii < pastLength - 1 ; ii++)
         {
-            pastRPM[ii] = pastRPM[ii++];
+            pastRPM[ii] = pastRPM[ii+1];
         }
         pastRPM[pastLength-1] = currRPM;
         // System.out.println("shoot rpm, " + Shooter.getInstance().getShooterRPM() + ", " + numBalls);
