@@ -45,6 +45,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    Limelight.getInstance().disableVision();
+
     Drive.getInstance().setBrakes(false);
 
     DriverInterface.getInstance().initSmartDashboard();
@@ -171,6 +173,7 @@ public class Robot extends TimedRobot {
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
+    Limelight.getInstance().disableVision();
     Drive.getInstance().setBrakes(false);
 
     VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
@@ -179,7 +182,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {
-    Limelight.getInstance().disableVision();
+    //Limelight.getInstance().disableVision();
   }
 
   /** This function is called once when test mode is enabled. */

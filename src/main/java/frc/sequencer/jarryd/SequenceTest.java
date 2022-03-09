@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import frc.robot.subsystems.Shooter;
 import frc.sequencer.Sequence;
 
 public class SequenceTest {
@@ -77,7 +76,7 @@ public class SequenceTest {
         d2.setDist(0.2);
        
         autoTurn t2 = new autoTurn();
-        t2.setAngle(20);
+        t2.setAngle(15);
 
         autoDrive d3 = new autoDrive();
         d3.setAngle(20);
@@ -92,7 +91,7 @@ public class SequenceTest {
     
         autoDrive d4 = new autoDrive();
         d4.setAngle(0);
-        d4.setDist(-3.65);
+        d4.setDist(-3.2);
         d4.setSpeed(0.45);
         d4.setAccFwdLimit(0.15);
         d4.setAccRevLimit(0.25);
@@ -103,7 +102,7 @@ public class SequenceTest {
 
         autoDrive d5 = new autoDrive();
         d5.setAngle(-45);
-        d5.setDist(-0.95);
+        d5.setDist(-0.5);
         d5.setSpeed(0.3);
 
         timedStep T1 = new timedStep();
@@ -125,8 +124,8 @@ public class SequenceTest {
         lime1.setNextSteps(shoot);
         shoot.setNextTrans(ball);
         shoot.setNextSteps(shoot);
-        // ball.setNextTrans(d2);
-        // ball.setNextSteps(d2);
+        ball.setNextTrans(d2);
+        ball.setNextSteps(d2);
         d2.setNextTrans(t2);
         d2.setNextSteps(t2, intake);
         t2.setNextTrans(d3);
@@ -141,8 +140,8 @@ public class SequenceTest {
         d4.setNextSteps(t4, intake);
         t4.setNextTrans(d5);
         t4.setNextSteps(d5, intake);
-        d5.setNextTrans(T1);
-        d5.setNextSteps(shoot, intake);
+        //d5.setNextTrans(T1);
+        //d5.setNextSteps(shoot, intake);
         
         T1.setNextTrans(c1);
         T1.setNextSteps(c1, shoot, intake);

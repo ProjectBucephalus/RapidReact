@@ -47,7 +47,7 @@ public class Constants {
 	public static final double kEncoderDriveKp = 0.7;  // FIXME
 	public static final double kDriveEncoderConversionFactor = 0.000023077; //1; //0.00089291;
 
-	public static final double kShooterP = 0.25;
+	public static final double kShooterP = 0.23;
 	public static final double kShooterI = 0.00014;
 
 	public static final double kClimberWinchP = 0.005;

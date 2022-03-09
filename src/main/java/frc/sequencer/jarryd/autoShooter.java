@@ -23,15 +23,15 @@ public class autoShooter extends SequenceTransition implements SequenceStepIf {
 
     @Override
     public void stepUpdate() {
-        if (Shooter.getInstance().shooterAtSpeed)
+        if (Shooter.getInstance().getShooterAtSpeed())
         {
             Shooter.getInstance().setIndexer(1);
             Shooter.getInstance().setFeed(1);
             BackIntake.getInstance().setDesiredState(BackIntakeStates.INTAKING);
         }
         else {
-            Shooter.getInstance().setIndexer(-0.2);
-            Shooter.getInstance().setFeed(-0.05, -0.05);
+            Shooter.getInstance().setIndexer(-0.02);
+            Shooter.getInstance().setFeed(0.05);
         }
         Shooter.getInstance().update();
     }
