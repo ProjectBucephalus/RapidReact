@@ -373,6 +373,10 @@ public class DriverInterface {
         return (xbox1.getPOV() == 180 && SmartDashboard.getBoolean("Climb enabled", true));
     }
 
+    public boolean getClimbFinishedCommand() {
+        return (xbox1.getPOV() == 90 && SmartDashboard.getBoolean("Climb enabled", true));
+    }
+
 
     public void setRumblePattern(RumblePattern pattern, double leftIntensity, double rightIntensity) {
         rumblePattern = pattern;
