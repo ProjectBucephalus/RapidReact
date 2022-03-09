@@ -27,6 +27,7 @@ public class Shooter extends Subsystems{
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
         VISION,
+        SPINUP, //to be constantly run during auto
     }
 
     public enum ShooterState {
@@ -34,6 +35,7 @@ public class Shooter extends Subsystems{
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
         VISION,
+        SPINUP, //to be constantly run during auto
     }
 
 
@@ -45,6 +47,7 @@ public class Shooter extends Subsystems{
     private double shooterIdleSpeed = 0;
     private double shooterShootSpeed = 2450;
     private double shooterEjectSpeed = 500;
+    private double shooterSpinUpSpeed = shooterShootSpeed;
 
    
 
@@ -97,7 +100,7 @@ public class Shooter extends Subsystems{
             shooterAtSpeed = true;
         }
 
-        VisionTrack.getInstance().updateShooterSpeedLimelight();
+        // VisionTrack.getInstance().updateShooterSpeedLimelight();
 
         DriverInterface.getInstance().outputShooterRPMField(RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200);
 
@@ -116,6 +119,10 @@ public class Shooter extends Subsystems{
                 shooterPID();
                 currentState = desiredState;
             break;
+            case SPINUP:
+                setShooterSpeedSlot(ShooterSpeedSlot.SHOOTING);
+                shooterPID();
+                currentState = desiredState;
         }
 
     }
@@ -183,6 +190,9 @@ public class Shooter extends Subsystems{
             break;
             case VISION:
             break;
+            case SPINUP:
+                shooterSpinUpSpeed = rpm;
+            break;
         }
     }
 
@@ -222,6 +232,8 @@ public class Shooter extends Subsystems{
                 return shooterShootSpeed;
             case EJECT:
                 return shooterEjectSpeed;
+            case SPINUP:
+                return shooterSpinUpSpeed;
         }
     }
 
@@ -246,6 +258,9 @@ public class Shooter extends Subsystems{
             break;
             case VISION:
             
+            break;
+            case SPINUP:
+                speedSlot = ShooterSpeedSlot.SPINUP;
             break;
         }
     }
@@ -319,7 +334,11 @@ public class Shooter extends Subsystems{
     public boolean getShooterAtSpeed() {
         System.out.println(RobotMap.getShooterBottom().getSelectedSensorVelocity()/2048*1200);
         if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.1) {
-            return true;
+            if(currentState == ShooterState.SPINUP) {
+                return false;
+            } else {
+                return true;
+            }
         } else {
             return false;
         }

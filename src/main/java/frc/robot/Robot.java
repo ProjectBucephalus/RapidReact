@@ -155,7 +155,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     DriverInterface.getInstance().displayDiagnosticState();
-
+    VisionTrack.getInstance().updateShooterSpeedLimelight();
     DriverInterface.getInstance().update();
     Shooter.getInstance().update();
     Pneumatics.getInstance().update();

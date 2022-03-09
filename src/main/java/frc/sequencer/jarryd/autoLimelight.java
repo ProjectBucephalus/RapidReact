@@ -51,7 +51,7 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
 
     @Override
     public boolean isTransComplete() {
-    if (Math.abs(Limelight.getInstance().getAngleToTarget())<5)
+    if (Math.abs(Limelight.getInstance().getAngleToTarget())<3)
     {
         return true;
     }

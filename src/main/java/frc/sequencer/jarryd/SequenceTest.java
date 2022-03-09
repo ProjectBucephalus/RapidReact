@@ -53,12 +53,7 @@ public class SequenceTest {
     */
     private static Sequence create5Ball()
     {
-        autoShooter shoot = new autoShooter();
         autoBackIntake intake = new autoBackIntake();
-        autoBallShooter ball = new autoBallShooter();
-        ball.setNumBalls(2);
-        autoBallShooter ball2 = new autoBallShooter();
-        ball2.setNumBalls(3);
        
         autoTurn t1 = new autoTurn();
         t1.setAngle(-86.5);
@@ -69,7 +64,12 @@ public class SequenceTest {
         d1.setSpeed(0.3);
 
         autoLimelight lime1 = new autoLimelight();
-        
+
+        autoBallShooter ball = new autoBallShooter();
+        ball.setNumBalls(2);
+
+        autoShooter shoot = new autoShooter();
+        shoot.setShootSpeed(2200);
 
         autoDrive d2 = new autoDrive();
         d2.setAngle(-75);
@@ -79,19 +79,29 @@ public class SequenceTest {
         t2.setAngle(15);
 
         autoDrive d3 = new autoDrive();
-        d3.setAngle(20);
+        d3.setAngle(17);
         d3.setDist(-2.5);
         d3.setSpeed(0.4);
         d3.setAccFwdLimit(0.15);
         d3.setAccRevLimit(0.25);
 
+        autoTurn t02 = new autoTurn();
+        t02.setAngle(-30);
+
+        autoLimelight lime2 = new autoLimelight();
+
+        autoBallShooter ball2 = new autoBallShooter();
+        ball2.setNumBalls(1);
+
+        autoShooter shoot2 = new autoShooter();
+        shoot2.setShootSpeed(2300);
+
         autoTurn t3 = new autoTurn();
         t3.setAngle(0);
 
-    
         autoDrive d4 = new autoDrive();
         d4.setAngle(0);
-        d4.setDist(-3.2);
+        d4.setDist(-3);
         d4.setSpeed(0.45);
         d4.setAccFwdLimit(0.15);
         d4.setAccRevLimit(0.25);
@@ -102,19 +112,36 @@ public class SequenceTest {
 
         autoDrive d5 = new autoDrive();
         d5.setAngle(-45);
-        d5.setDist(-0.5);
+        d5.setDist(-0.7);
         d5.setSpeed(0.3);
 
         timedStep T1 = new timedStep();
-        T1.setDelay(0.35);
+        T1.setDelay(1);
 
-        autoCurve c1 = new autoCurve();
-        c1.setRadius(0.5);
-        c1.setAngle(10);
-        c1.setSpeed(0.3);
+        autoDrive d6 = new autoDrive();
+        d6.setAngle(-45);
+        d6.setDist(1);
+        d6.setSpeed(0.3);
 
-        timedStep T2 = new timedStep();
-        T2.setDelay(3);
+        autoTurn t5 = new autoTurn();
+        t5.setAngle(0);
+
+        autoDrive d7 = new autoDrive();
+        d7.setAngle(0);
+        d7.setDist(3);
+        d7.setSpeed(0.3);
+
+        autoTurn t6 = new autoTurn();
+        t6.setAngle(-30);
+
+        autoLimelight lime3 = new autoLimelight();
+
+        autoBallShooter ball3 = new autoBallShooter();
+        ball3.setNumBalls(3);
+
+        autoShooter shoot3 = new autoShooter();
+        shoot3.setShootSpeed(2250);
+
         
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake);
@@ -130,23 +157,35 @@ public class SequenceTest {
         d2.setNextSteps(t2, intake);
         t2.setNextTrans(d3);
         t2.setNextSteps(d3, intake);
-        d3.setNextTrans(t3);
-        d3.setNextSteps(t3, intake);
-
+        d3.setNextTrans(t02);
+        d3.setNextSteps(t02, intake);
+        t02.setNextTrans(lime2);
+        t02.setNextSteps(lime2);
+        lime2.setNextTrans(ball2);
+        lime2.setNextSteps(shoot2);
+        ball2.setNextTrans(t3);
+        ball2.setNextSteps(t3);
         t3.setNextTrans(d4);
         t3.setNextSteps(d4);
-
         d4.setNextTrans(t4);
         d4.setNextSteps(t4, intake);
         t4.setNextTrans(d5);
-        t4.setNextSteps(d5, intake);
-        //d5.setNextTrans(T1);
-        //d5.setNextSteps(shoot, intake);
-        
-        T1.setNextTrans(c1);
-        T1.setNextSteps(c1, shoot, intake);
-        c1.setNextTrans(ball2);
-        c1.setNextSteps(shoot, intake);
+        t4.setNextSteps(d5);
+        d5.setNextTrans(T1);
+        d5.setNextSteps(intake);
+        T1.setNextTrans(d6);
+        T1.setNextSteps(d6);
+        d6.setNextTrans(t5);
+        d6.setNextSteps(t5);
+        t5.setNextTrans(d7);
+        t5.setNextSteps(d7);
+        d7.setNextTrans(t6);
+        d7.setNextSteps(t6);
+        t6.setNextTrans(lime3);
+        t6.setNextSteps(lime3);
+        lime3.setNextTrans(ball3);
+        lime3.setNextSteps(shoot3);
+
 
         Sequence seq = new Sequence("5 Ball Auto", 1);
         seq.setInitialTransitions(t1);

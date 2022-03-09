@@ -35,7 +35,7 @@ public class VisionTrack {
         desiredState = VisionState.IDLE;
     }
 public void update(){
-  updateShooterSpeedLimelight();
+  // updateShooterSpeedLimelight();
   System.out.println(m_lime.getDistanceToTarget());
   SmartDashboard.putString("state", stateToString());
   switch(desiredState){
