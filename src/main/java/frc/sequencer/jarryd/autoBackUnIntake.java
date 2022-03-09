@@ -6,12 +6,12 @@ import frc.robot.subsystems.BackIntake.BackIntakeStates;
 import frc.robot.subsystems.Shooter.ShooterState;
 import frc.sequencer.SequenceStepIf;
 
-public class autoBackIntake implements SequenceStepIf{
+public class autoBackUnIntake implements SequenceStepIf{
 
     @Override
     public void stepStart() {
-        BackIntake.getInstance().setDesiredState(BackIntakeStates.INTAKING);  
-        Shooter.getInstance().setFeed(0.7);
+        BackIntake.getInstance().setDesiredState(BackIntakeStates.UNINTAKING);  
+        Shooter.getInstance().setFeed(0.5);
         Shooter.getInstance().setIndexer(-0.5);
         Shooter.getInstance().setDesiredState(ShooterState.IDLE);
     }

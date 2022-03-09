@@ -54,6 +54,7 @@ public class SequenceTest {
     private static Sequence create5Ball()
     {
         autoBackIntake intake = new autoBackIntake();
+        autoBackUnIntake unIntake = new autoBackUnIntake();
        
         autoTurn t1 = new autoTurn();
         t1.setAngle(-86.5);
@@ -91,10 +92,10 @@ public class SequenceTest {
         autoLimelight lime2 = new autoLimelight();
 
         autoBallShooter ball2 = new autoBallShooter();
-        ball2.setNumBalls(1);
+        ball2.setNumBalls(2);
 
         autoShooter shoot2 = new autoShooter();
-        shoot2.setShootSpeed(2300);
+        shoot2.setShootSpeed(2350);
 
         autoTurn t3 = new autoTurn();
         t3.setAngle(0);
@@ -102,7 +103,7 @@ public class SequenceTest {
         autoDrive d4 = new autoDrive();
         d4.setAngle(0);
         d4.setDist(-3);
-        d4.setSpeed(0.45);
+        d4.setSpeed(0.48);
         d4.setAccFwdLimit(0.15);
         d4.setAccRevLimit(0.25);
         d4.setDistGain(1.7);
@@ -120,27 +121,27 @@ public class SequenceTest {
 
         autoDrive d6 = new autoDrive();
         d6.setAngle(-45);
-        d6.setDist(1);
+        d6.setDist(0.5);
         d6.setSpeed(0.3);
 
         autoTurn t5 = new autoTurn();
-        t5.setAngle(0);
-
-        autoDrive d7 = new autoDrive();
-        d7.setAngle(0);
-        d7.setDist(3);
-        d7.setSpeed(0.3);
-
-        autoTurn t6 = new autoTurn();
-        t6.setAngle(-30);
+        t5.setAngle(-19);
 
         autoLimelight lime3 = new autoLimelight();
+
+        autoDrive d7 = new autoDrive();
+        d7.setAngle(-19);
+        d7.setDist(2.5);
+        d7.setSpeed(0.3);
+
+        timedStep T2 = new timedStep();
+        T2.setDelay(0.2);
 
         autoBallShooter ball3 = new autoBallShooter();
         ball3.setNumBalls(3);
 
         autoShooter shoot3 = new autoShooter();
-        shoot3.setShootSpeed(2250);
+        shoot3.setShootSpeed(2400);
 
         
         t1.setNextTrans(d1);
@@ -160,7 +161,7 @@ public class SequenceTest {
         d3.setNextTrans(t02);
         d3.setNextSteps(t02, intake);
         t02.setNextTrans(lime2);
-        t02.setNextSteps(lime2);
+        t02.setNextSteps(lime2, intake);
         lime2.setNextTrans(ball2);
         lime2.setNextSteps(shoot2);
         ball2.setNextTrans(t3);
@@ -174,17 +175,17 @@ public class SequenceTest {
         d5.setNextTrans(T1);
         d5.setNextSteps(intake);
         T1.setNextTrans(d6);
-        T1.setNextSteps(d6);
+        T1.setNextSteps(d6, unIntake);
         d6.setNextTrans(t5);
-        d6.setNextSteps(t5);
+        d6.setNextSteps(t5, unIntake);
         t5.setNextTrans(d7);
         t5.setNextSteps(d7);
-        d7.setNextTrans(t6);
-        d7.setNextSteps(t6);
-        t6.setNextTrans(lime3);
-        t6.setNextSteps(lime3);
-        lime3.setNextTrans(ball3);
-        lime3.setNextSteps(shoot3);
+        d7.setNextTrans(lime3);
+        d7.setNextSteps(lime3);
+        lime3.setNextTrans(T2);
+        lime3.setNextSteps();
+        T2.setNextTrans(ball3);
+        T2.setNextSteps(shoot3);
 
 
         Sequence seq = new Sequence("5 Ball Auto", 1);
@@ -202,7 +203,7 @@ public class SequenceTest {
     {//ball spit code? toggle-able rpm to spit out enemy team balls
         autoShooter shoot = new autoShooter();
         autoShooter shoot2 = new autoShooter();
-        autoBackIntake intake = new autoBackIntake();
+        autoBackUnIntake intake = new autoBackUnIntake();
 
         autoTurn t01 = new autoTurn();
         t01.setAngle(27);
@@ -319,7 +320,7 @@ public class SequenceTest {
     private static Sequence create1b()
     {
         autoShooter step1C1 = new autoShooter();
-        autoBackIntake step1C2 = new autoBackIntake();
+        autoBackUnIntake step1C2 = new autoBackUnIntake();
 
         autoTurn step1C4 = new autoTurn();
         step1C4.setAngle(-86.5);
@@ -353,7 +354,7 @@ public class SequenceTest {
     private static Sequence create1bCut()
     {
         autoShooter step1C1 = new autoShooter();
-        autoBackIntake step1C2 = new autoBackIntake();
+        autoBackUnIntake step1C2 = new autoBackUnIntake();
 
         autoTurn step1C4 = new autoTurn();
         step1C4.setAngle(-86.5);
@@ -435,7 +436,7 @@ public class SequenceTest {
         step2B14.setSpeed(0.3);
 
         autoShooter step2B4 = new autoShooter();
-        autoBackIntake step2B6 = new autoBackIntake();
+        autoBackUnIntake step2B6 = new autoBackUnIntake();
 
         step2B13.setNextTrans(step2B14);
         step2B13.setNextSteps(step2B14);//, step2B6
@@ -468,7 +469,7 @@ public class SequenceTest {
     private static Sequence create2bCut()
     {
         autoShooter step2C1 = new autoShooter();
-        autoBackIntake step2C2 = new autoBackIntake();
+        autoBackUnIntake step2C2 = new autoBackUnIntake();
 
         timedStep timer2C1 = new timedStep();
         timer2C1.setDelay(7);
@@ -502,7 +503,7 @@ public class SequenceTest {
     private static Sequence create3b()
     {
         autoShooter shoot = new autoShooter();
-        autoBackIntake intake = new autoBackIntake();
+        autoBackUnIntake intake = new autoBackUnIntake();
 
         autoTurn step3B1 = new autoTurn();
         step3B1.setAngle(64);
@@ -562,7 +563,7 @@ public class SequenceTest {
     private static Sequence create4b()
     {
         autoShooter shoot = new autoShooter();
-        autoBackIntake intake = new autoBackIntake();
+        autoBackUnIntake intake = new autoBackUnIntake();
 
         autoTurn step4B1 = new autoTurn();
         step4B1.setAngle(36);
@@ -588,7 +589,7 @@ public class SequenceTest {
     private static Sequence create4bCut()
     {
         autoShooter shoot = new autoShooter();
-        autoBackIntake intake = new autoBackIntake();
+        autoBackUnIntake intake = new autoBackUnIntake();
 
         autoTurn step4B1 = new autoTurn();
         step4B1.setAngle(36);
@@ -738,7 +739,7 @@ public class SequenceTest {
 
 private static Sequence createFullShooter()
 {
-    autoBackIntake stepf1 = new autoBackIntake();
+    autoBackUnIntake stepf1 = new autoBackUnIntake();
     autoShooter stepf2 = new autoShooter();
 
     timedStep timerf1 = new timedStep();
