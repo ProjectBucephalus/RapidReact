@@ -83,6 +83,8 @@ public class TeleopController {
             m_climber.setClimberDesiredState(ClimberStates.HOOKED);
         } else if(m_driverInterface.getClimbResetCommand()) {
             m_climber.setClimberDesiredState(ClimberStates.STOWED);
+        } else if(m_driverInterface.getClimbFinishedCommand()) {
+            m_climber.setClimberDesiredState(ClimberStates.FINISHED);
         } else if(m_driverInterface.getClimberManualOverride()) {
             m_climber.setClimberManualSpeed(m_driverInterface.getClimberManualOverridePower());
             m_climber.setClimberDesiredState(ClimberStates.MANUAL);
