@@ -49,8 +49,9 @@ public class Constants {
 	public static final double kShooterP = 0.25;
 	public static final double kShooterI = 0.00014;
 
-	public static final double kClimberWinchP = 0.005;
+	public static final double kClimberWinchP = 0.029;
 
+	
 	public static final double kIdleCurrent = 1; //Ampres
 	public static final double kIdleVoltageCutoff = 12.2; //volts
 
