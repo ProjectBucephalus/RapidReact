@@ -41,7 +41,7 @@ public class Shooter extends Subsystems{
 
     private static ShooterSpeedSlot speedSlot = ShooterSpeedSlot.IDLE;
 
-    private double shooterIdleSpeed = 0;
+    private double shooterIdleSpeed = 1500;
     private double shooterShootSpeed = 2450;
     private double shooterEjectSpeed = 500;
 
@@ -56,7 +56,7 @@ public class Shooter extends Subsystems{
         if(DriverInterface.getInstance().getManualShootCommand()) {
             shooterAtSpeed = false;
         }
-        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.05) {
+        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.05985) {
             shooterAtSpeed = true;
         }
 
@@ -67,7 +67,7 @@ public class Shooter extends Subsystems{
 
         switch(currentState) {
             default: //catches 'IDLE'
-                stopShoter();
+                stopShooter();
                 currentState = desiredState;
             break;
             case SHOOTING:
@@ -244,10 +244,8 @@ public class Shooter extends Subsystems{
         return currentState;
     }
 
-    public void stopShoter() {
-        RobotMap.getShooterBottom().set(ControlMode.PercentOutput, 0);
-        RobotMap.getShooterTop().set(ControlMode.PercentOutput, 0);
-
+    public void stopShooter() {
+        shooterPID();
     }
 
     public void setIndexer(double speed) {
