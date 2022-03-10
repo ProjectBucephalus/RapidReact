@@ -25,7 +25,6 @@ import frc.sequencer.jarryd.SequenceTest;
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   Drive drivetrain = Drive.getInstance();
@@ -119,8 +118,6 @@ public class Robot extends TimedRobot {
     mySeq.sequenceStart();
 
 
-    m_autoSelected = m_chooser.getSelected();
-    m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     // System.out.println("Auto selected: " + m_autoSelected);
 
   }

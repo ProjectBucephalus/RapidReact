@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import frc.robot.DriverInterface;
-import frc.robot.DriverInterface.JoystickAxisType;
 import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,7 +15,6 @@ public class VisionTrack {
     private Joystick stick = new Joystick(0);
     private static Drive m_drive;
     private int timesLooped;
-    private double yOffset;
     private boolean newState;
     private double speed;
     private double tx;
@@ -125,7 +123,6 @@ public void update(){
         speed = 0.0;
       }
       m_drive.arcadeDrive(0, 0, 0);
-      yOffset = m_lime.getDistanceToTarget();
 
 
       //FIXME 
