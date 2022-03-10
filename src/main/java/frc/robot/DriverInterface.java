@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -311,7 +310,7 @@ public class DriverInterface {
 
     public boolean getIndexerManualOverride() {
         return (xbox1.getRightY() > 0.25 || xbox1.getRightY() < -0.25);
-    }29
+    }
 
     public double getIndexerManual() {
         return xbox1.getRightY();
