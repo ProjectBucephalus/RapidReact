@@ -25,7 +25,9 @@ public class Constants {
 
 	public static int kFrontIntakeEscCanID = 11;
 
-	public static int kFrontIntakeSolenoidChannel = 0;
+	public static int kFrontIntakeSolenoidAChannel = 0;
+	public static int kFrontIntakeSolenoidBChannel = 1;
+
 
 	public static final int kIndexerACanID = 13;
 	public static final int kFeedACanID = 15;

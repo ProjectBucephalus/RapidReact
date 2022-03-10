@@ -75,6 +75,10 @@ public class TeleopController {
             m_backIntake.setDesiredState(BackIntakeStates.IDLE);
         }
 
+        if(m_driverInterface.getVisionAbort()) {
+            VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
+        }
+
         
 
         if(m_driverInterface.getClimbUpCommand()) {
@@ -119,8 +123,14 @@ public class TeleopController {
             m_shooter.setFeed(-0.75);
             m_shooter.setIndexer(-0.5);
         } else if(m_driverInterface.getIndexerManualOverride()) {
-            m_shooter.setIndexer(m_driverInterface.getIndexerManual());
-            m_shooter.setFeed(0);
+            if(m_driverInterface.getIndexerManual() < 0) {
+                m_shooter.setIndexer(-m_driverInterface.getIndexerManual());
+
+            } else {
+                m_shooter.setIndexer(-m_driverInterface.getIndexerManual());
+                m_shooter.setFeed(-m_driverInterface.getIndexerManual());
+
+            }
         } else if(m_frontIntake.getCurrentState() == FrontIntakeStates.UNINTAKING) {
             m_shooter.setFeed(-0.75, 0.75);
             m_shooter.setIndexer(-0.5);

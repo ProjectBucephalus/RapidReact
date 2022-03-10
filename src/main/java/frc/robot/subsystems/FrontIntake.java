@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Config;
 import frc.robot.RobotMap;
 
@@ -42,21 +43,21 @@ public class FrontIntake extends Subsystems{
             default:
 
                 RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, 0);
-                RobotMap.getFrontIntakeSolenoid().set(false);
+                RobotMap.getFrontIntakeSolenoid().set(Value.kReverse);
                 currentState = desiredState;
 
             break;
             case INTAKING: 
 
                 RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed);
-                RobotMap.getFrontIntakeSolenoid().set(true);
+                RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
                 currentState = desiredState;
 
             break;
             case UNINTAKING: 
 
                 RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed * -1);
-                RobotMap.getFrontIntakeSolenoid().set(true);
+                RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
                 currentState = desiredState;
 
             break;
