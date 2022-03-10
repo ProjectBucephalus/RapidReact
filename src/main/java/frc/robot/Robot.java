@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.VisionTrack;
 import frc.robot.subsystems.VisionTrack.VisionState;
+import frc.robot.DriverInterface.MessageType;
 import frc.robot.subsystems.*;
 import frc.sequencer.Sequence;
 import frc.sequencer.Sequencer;
@@ -151,19 +152,30 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    DriverInterface.getInstance().displayDiagnosticState();
-    VisionTrack.getInstance().updateShooterSpeedLimelight();
+    try {
+      DriverInterface.getInstance().displayDiagnosticState();
     DriverInterface.getInstance().update();
     Shooter.getInstance().update();
     Pneumatics.getInstance().update();
-    if(VisionTrack.getInstance().getCurrentState() == VisionState.IDLE){
-    Drive.getInstance().update();
-    }
+    
     TeleopController.getInstance().callTeleopController();
     FrontIntake.getInstance().update();
     BackIntake.getInstance().update();
     Climber.getInstance().update();
-    VisionTrack.getInstance().update();
+    try {
+      if(VisionTrack.getInstance().getCurrentState() == VisionState.IDLE){
+        Drive.getInstance().update();
+        }
+      VisionTrack.getInstance().updateShooterSpeedLimelight();
+      VisionTrack.getInstance().update();
+    } catch(Exception e) {
+      DriverInterface.getInstance().consoleOutput(MessageType.CRITICAL, "VISION CRASH " + e);
+    }
+    } catch (Exception e){
+      DriverInterface.getInstance().consoleOutput(MessageType.CRITICAL, "Something went really really wrong " + e + " :)");
+    }
+    
+
 
   }
 
