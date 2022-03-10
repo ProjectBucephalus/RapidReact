@@ -8,7 +8,7 @@ public class Config {
     public static final String version = "1.0.0";
 
     //Version type
-    public static final VersionType versionType = VersionType.RELEASE
+    public static final VersionType versionType = VersionType.RELEASE;
     
     //1 = normal, -1 = inverted
     public static final double kInvertDir = 1;
