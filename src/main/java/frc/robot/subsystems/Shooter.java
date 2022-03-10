@@ -330,7 +330,7 @@ public class Shooter extends Subsystems{
     }
 
     public boolean getShooterAtSpeed() {
-        System.out.println(RobotMap.getShooterBottom().getSelectedSensorVelocity()/2048*1200);
+        // System.out.println(RobotMap.getShooterBottom().getSelectedSensorVelocity()/2048*1200);
         if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.1) {
             if(currentState == ShooterState.SPINUP) {
                 return false;

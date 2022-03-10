@@ -216,9 +216,9 @@ public class SequenceTest {
     {
         autoBackIntake intake = new autoBackIntake();
         autoTurn t1 = new autoTurn();
-        t1.setAngle(47);
+        t1.setAngle(42);
         autoDrive d1 = new autoDrive();
-        d1.setAngle(47);
+        d1.setAngle(42);
         d1.setDist(-1.5);
         d1.setSpeed(0.3);
         autoTurn t2 = new autoTurn();
@@ -232,7 +232,7 @@ public class SequenceTest {
         t3.setAngle(133.5);
         autoDrive d2 = new autoDrive();
         d2.setAngle(133.5);
-        d2.setDist(1.7);
+        d2.setDist(-1.7);
         d2.setSpeed(0.3);
         timedStep T1 = new timedStep();
         T1.setDelay(0.3);
@@ -263,9 +263,9 @@ public class SequenceTest {
         d2.setNextTrans(T1);
         d2.setNextSteps(intake);
         T1.setNextTrans(d3);
-        T1.setNextSteps(d3);
+        T1.setNextSteps(d3, intake);
         d3.setNextTrans(t4);
-        d3.setNextSteps(t4);
+        d3.setNextSteps(t4, intake);
         t4.setNextTrans(ball2);
         t4.setNextSteps(shoot2);
 

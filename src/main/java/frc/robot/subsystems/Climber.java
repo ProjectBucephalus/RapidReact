@@ -63,7 +63,7 @@ public class Climber extends Subsystems {
 
         if(!RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
             resetSensors();
-            System.out.println("triggered");
+            // System.out.println("triggered");
         }
 
 
