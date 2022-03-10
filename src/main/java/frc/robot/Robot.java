@@ -157,6 +157,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     try {
+      System.out.println("Climber " + Climber.getInstance().getClimberCurrentState() + " Vision " + VisionTrack.getInstance().getCurrentState() + " Shooter " + Shooter.getInstance().getCurrentState() + " Intakes " + FrontIntake.getInstance().getCurrentState() + BackIntake.getInstance().getCurrentState());
+
       DriverInterface.getInstance().displayDiagnosticState();
     DriverInterface.getInstance().update();
     Shooter.getInstance().update();
