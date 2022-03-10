@@ -16,16 +16,15 @@ public class SequenceTest {
             // READY FOR COMP TUNING
             theSequences.add(createDefault());
             
-            theSequences.add(create5Ball());
+            theSequences.add(createPos1Complex());
             theSequences.add(createPos1Basic());
             theSequences.add(createPos2Basic());
+            theSequences.add(createPos3Basic());
+            theSequences.add(createPos4Normal());
 
-            theSequences.add(create4redcover());
 
-            // not ready
-            theSequences.add(create3bCut());
-            theSequences.add(create4bCut());
-
+    // not used
+            // theSequences.add(create4bCut());
             // theSequences.add(createshoot());
             // theSequences.add(createSquare());
             // theSequences.add(createCurveShoot());
@@ -84,7 +83,7 @@ public class SequenceTest {
 
 
 
-    private static Sequence create5Ball()
+    private static Sequence createPos1Complex()
     {
         autoBackIntake intake = new autoBackIntake();
         autoBackUnIntake unIntake = new autoBackUnIntake();
@@ -198,7 +197,7 @@ public class SequenceTest {
         T2.setNextTrans(ball3);
         T2.setNextSteps(shoot3);
 
-        Sequence seq = new Sequence("5 Ball Auto", 1);
+        Sequence seq = new Sequence("Pos 1 Complex", 1);
         seq.setInitialTransitions(t1);
         seq.setInitialSteps(t1, shoot, intake);
         return seq;
@@ -213,7 +212,7 @@ public class SequenceTest {
 
 
 
-    private static Sequence create4redcover()
+    private static Sequence createPos4Normal()
     {
         autoBackIntake intake = new autoBackIntake();
         autoTurn t1 = new autoTurn();
@@ -355,6 +354,33 @@ public class SequenceTest {
 
 
 
+
+    private static Sequence createPos3Basic()
+    {
+        autoDrive d1 = new autoDrive();
+        d1.setAngle(0);
+        d1.setDist(2);
+        d1.setSpeed(0.3);
+        timedStep T1 = new timedStep();
+        T1.setDelay(0.3);
+        autoLimelight lime1 = new autoLimelight();
+        autoBallShooter ball1 = new autoBallShooter();
+        ball1.setNumBalls(5);
+        autoShooter shoot1 = new autoShooter();
+        shoot1.setShootSpeed(2200);
+        
+        d1.setNextTrans(T1);
+        d1.setNextSteps();
+        T1.setNextTrans(lime1);
+        T1.setNextSteps(lime1);
+        lime1.setNextTrans(ball1);
+        lime1.setNextSteps(shoot1);
+
+        Sequence seq = new Sequence("Pos 3 Basic", 3);
+        seq.setInitialTransitions(d1);
+        seq.setInitialSteps(d1);
+        return seq;
+    }
 
     // private static Sequence createAccTest()
     // {
@@ -541,33 +567,6 @@ public class SequenceTest {
     //     seq.setInitialSteps(step3B1);
     //     return seq;
     // }  
-    
-    private static Sequence create3bCut()
-    {
-        autoDrive d1 = new autoDrive();
-        d1.setAngle(0);
-        d1.setDist(2);
-        d1.setSpeed(0.3);
-        timedStep T1 = new timedStep();
-        T1.setDelay(0.3);
-        autoLimelight lime1 = new autoLimelight();
-        autoBallShooter ball1 = new autoBallShooter();
-        ball1.setNumBalls(5);
-        autoShooter shoot1 = new autoShooter();
-        shoot1.setShootSpeed(2200);
-        
-        d1.setNextTrans(T1);
-        d1.setNextSteps();
-        T1.setNextTrans(lime1);
-        T1.setNextSteps(lime1);
-        lime1.setNextTrans(ball1);
-        lime1.setNextSteps(shoot1);
-
-        Sequence seq = new Sequence("3B start pos cut", 3);
-        seq.setInitialTransitions(d1);
-        seq.setInitialSteps(d1);
-        return seq;
-    }
 
     // private static Sequence create4b()
     // {
@@ -597,27 +596,28 @@ public class SequenceTest {
 
     private static Sequence create4bCut()
     {
-        autoShooter shoot = new autoShooter();
-        autoBackUnIntake intake = new autoBackUnIntake();
+        // autoShooter shoot = new autoShooter();
+        // autoBackUnIntake intake = new autoBackUnIntake();
 
-        autoTurn step4B1 = new autoTurn();
-        step4B1.setAngle(36);
+        // autoTurn step4B1 = new autoTurn();
+        // step4B1.setAngle(36);
 
-        autoDrive step4B2 = new autoDrive();
-        step4B2.setAngle(36);
-        step4B2.setDist(-1.5);
-        step4B2.setSpeed(0.3);
+        // autoDrive step4B2 = new autoDrive();
+        // step4B2.setAngle(36);
+        // step4B2.setDist(-1.5);
+        // step4B2.setSpeed(0.3);
 
-        timedStep timer4B1 = new timedStep();
-        timer4B1.setDelay(5);
+        // timedStep timer4B1 = new timedStep();
+        // timer4B1.setDelay(5);
 
-        step4B1.setNextTrans(step4B2);
-        step4B1.setNextSteps(step4B2, shoot, intake);
-        step4B2.setNextTrans(timer4B1);
-        step4B2.setNextSteps(shoot);
+        // step4B1.setNextTrans(step4B2);
+        // step4B1.setNextSteps(step4B2, shoot, intake);
+        // step4B2.setNextTrans(timer4B1);
+        // step4B2.setNextSteps(shoot);
+
         Sequence seq = new Sequence("4B start pos", 4);
-        seq.setInitialTransitions(step4B1);
-        seq.setInitialSteps(step4B1, shoot);
+        seq.setInitialTransitions();
+        seq.setInitialSteps();
         return seq;
     }
 
