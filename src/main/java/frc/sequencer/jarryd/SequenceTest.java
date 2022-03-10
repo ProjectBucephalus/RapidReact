@@ -49,7 +49,7 @@ public class SequenceTest {
         t1.setAngle(5);
         autoDrive d1 = new autoDrive();
         d1.setAngle(5);
-        d1.setDist(1.5);
+        d1.setDist(-1.5);
         d1.setSpeed(0.2);
         autoDrive d2 = new autoDrive();
         d2.setAngle(5);
@@ -219,7 +219,7 @@ public class SequenceTest {
         t1.setAngle(47);
         autoDrive d1 = new autoDrive();
         d1.setAngle(47);
-        d1.setDist(1);
+        d1.setDist(-1.5);
         d1.setSpeed(0.3);
         autoTurn t2 = new autoTurn();
         t2.setAngle(27);
@@ -296,7 +296,7 @@ public class SequenceTest {
         autoBallShooter ball1 = new autoBallShooter();
         ball1.setNumBalls(5);
         autoShooter shoot1 = new autoShooter();
-        shoot1.setShootSpeed(2175);
+        shoot1.setShootSpeed(2200);
 
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake);
@@ -359,26 +359,26 @@ public class SequenceTest {
     {
         autoDrive d1 = new autoDrive();
         d1.setAngle(0);
-        d1.setDist(2);
+        d1.setDist(-2);
         d1.setSpeed(0.3);
         timedStep T1 = new timedStep();
-        T1.setDelay(0.3);
+        T1.setDelay(5);
         autoLimelight lime1 = new autoLimelight();
         autoBallShooter ball1 = new autoBallShooter();
         ball1.setNumBalls(5);
         autoShooter shoot1 = new autoShooter();
-        shoot1.setShootSpeed(2200);
+        shoot1.setShootSpeed(2100);
         
-        d1.setNextTrans(T1);
-        d1.setNextSteps();
-        T1.setNextTrans(lime1);
-        T1.setNextSteps(lime1);
-        lime1.setNextTrans(ball1);
+        lime1.setNextTrans(ball1, T1);
         lime1.setNextSteps(shoot1);
+        ball1.setNextTrans(d1);
+        ball1.setNextSteps(d1);
+        T1.setNextTrans(d1);
+        T1.setNextSteps(d1);
 
         Sequence seq = new Sequence("Pos 3 Basic", 3);
-        seq.setInitialTransitions(d1);
-        seq.setInitialSteps(d1);
+        seq.setInitialTransitions(lime1);
+        seq.setInitialSteps(lime1);
         return seq;
     }
 
