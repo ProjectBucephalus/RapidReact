@@ -15,7 +15,6 @@ public class Limelight {
 
     Limelight() {
       //setPipeline(0);
-      boolean targetAcquired = false;
     }
 
     double targetOffsetVertical = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);

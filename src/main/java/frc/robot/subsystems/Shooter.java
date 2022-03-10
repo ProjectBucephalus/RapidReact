@@ -27,6 +27,7 @@ public class Shooter extends Subsystems{
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
         VISION,
+        SPINUP, //to be constantly run during auto
     }
 
     public enum ShooterState {
@@ -34,6 +35,7 @@ public class Shooter extends Subsystems{
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
         VISION,
+        SPINUP, //to be constantly run during auto
     }
 
 
@@ -42,9 +44,10 @@ public class Shooter extends Subsystems{
 
     private static ShooterSpeedSlot speedSlot = ShooterSpeedSlot.IDLE;
 
-    private double shooterIdleSpeed = 0;
+    private double shooterIdleSpeed = 1500;
     private double shooterShootSpeed = 2450;
     private double shooterEjectSpeed = 500;
+    private double shooterSpinUpSpeed = shooterShootSpeed;
 
    
 
@@ -93,17 +96,17 @@ public class Shooter extends Subsystems{
         if(DriverInterface.getInstance().getManualShootCommand()) {
             shooterAtSpeed = false;
         }
-        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.1) {
+        if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.05985) {
             shooterAtSpeed = true;
         }
 
-        VisionTrack.getInstance().updateShooterSpeedLimelight();
+        // VisionTrack.getInstance().updateShooterSpeedLimelight();
 
         DriverInterface.getInstance().outputShooterRPMField(RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200);
 
         switch(currentState) {
             default: //catches 'IDLE'
-                stopShoter();
+                stopShooter();
                 currentState = desiredState;
             break;
             case SHOOTING:
@@ -116,6 +119,10 @@ public class Shooter extends Subsystems{
                 shooterPID();
                 currentState = desiredState;
             break;
+            case SPINUP:
+                setShooterSpeedSlot(ShooterSpeedSlot.SHOOTING);
+                shooterPID();
+                currentState = desiredState;
         }
 
     }
@@ -183,6 +190,9 @@ public class Shooter extends Subsystems{
             break;
             case VISION:
             break;
+            case SPINUP:
+                shooterSpinUpSpeed = rpm;
+            break;
         }
     }
 
@@ -222,6 +232,8 @@ public class Shooter extends Subsystems{
                 return shooterShootSpeed;
             case EJECT:
                 return shooterEjectSpeed;
+            case SPINUP:
+                return shooterSpinUpSpeed;
         }
     }
 
@@ -246,6 +258,9 @@ public class Shooter extends Subsystems{
             break;
             case VISION:
             
+            break;
+            case SPINUP:
+                speedSlot = ShooterSpeedSlot.SPINUP;
             break;
         }
     }
@@ -288,10 +303,8 @@ public class Shooter extends Subsystems{
         return currentState;
     }
 
-    public void stopShoter() {
-        RobotMap.getShooterBottom().set(ControlMode.PercentOutput, 0);
-        RobotMap.getShooterTop().set(ControlMode.PercentOutput, 0);
-
+    public void stopShooter() {
+        shooterPID();
     }
 
     public void setIndexer(double speed) {
@@ -317,9 +330,13 @@ public class Shooter extends Subsystems{
     }
 
     public boolean getShooterAtSpeed() {
-        System.out.println(RobotMap.getShooterBottom().getSelectedSensorVelocity()/2048*1200);
+        // System.out.println(RobotMap.getShooterBottom().getSelectedSensorVelocity()/2048*1200);
         if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.1) {
-            return true;
+            if(currentState == ShooterState.SPINUP) {
+                return false;
+            } else {
+                return true;
+            }
         } else {
             return false;
         }

@@ -21,6 +21,7 @@ public class Climber extends Subsystems {
         HOOKED,
         MANUAL,
         IDLE,
+        FINISHED,
     }
 
     public enum ClimberBarStates {
@@ -62,7 +63,7 @@ public class Climber extends Subsystems {
 
         if(!RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
             resetSensors();
-            System.out.println("triggered");
+            // System.out.println("triggered");
         }
 
 
@@ -99,6 +100,15 @@ public class Climber extends Subsystems {
             
                     stateFinished = true;
                     currentClimberState = desiredClimberState;
+            break;
+            case FINISHED:
+                oldClimberState = ClimberStates.FINISHED;
+                stateFinished = false;
+                RobotMap.getLeftWinch().set(ControlMode.Position, Config.kClimberFinishedPos);
+                RobotMap.getRightWinch().set(ControlMode.Position, Config.kClimberFinishedPos);
+                stateFinished = true;
+                currentClimberState = desiredClimberState;
+
             break;
             case MANUAL:
                 oldClimberState = ClimberStates.MANUAL;
@@ -209,8 +219,8 @@ public class Climber extends Subsystems {
         RobotMap.getLeftWinch().setInverted(false);
         RobotMap.getRightWinch().setInverted(true);
 
-        RobotMap.getLeftWinch().configClosedloopRamp(2);
-        RobotMap.getRightWinch().configClosedloopRamp(2);
+        RobotMap.getLeftWinch().configClosedloopRamp(0.7);
+        RobotMap.getRightWinch().configClosedloopRamp(0.7);
 
         RobotMap.getClimberSensors().configFactoryDefault();
     }

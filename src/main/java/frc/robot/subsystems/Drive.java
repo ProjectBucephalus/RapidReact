@@ -272,10 +272,10 @@ public class Drive extends Subsystems {
         double tipThreshold = (Config.kTipThreshold);
         if(pitch > tipThreshold && stallSense == true) {
             setMotors(-Config.kTipCorrectionPower, -Config.kTipCorrectionPower);
-            System.out.println("PITCH > THRESHOLD");
+            // System.out.println("PITCH > THRESHOLD");
         } else if(pitch < -tipThreshold && stallSense == true) {
             setMotors(Config.kTipCorrectionPower, Config.kTipCorrectionPower);
-            System.out.println("PITCH < THRESHOLD");
+            // System.out.println("PITCH < THRESHOLD");
         } else {
             //Normal
               arcadeDrive(throttle, steering, power);

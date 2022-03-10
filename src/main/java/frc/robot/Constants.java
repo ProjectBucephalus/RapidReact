@@ -25,7 +25,9 @@ public class Constants {
 
 	public static int kFrontIntakeEscCanID = 11;
 
-	public static int kFrontIntakeSolenoidChannel = 0;
+	public static int kFrontIntakeSolenoidAChannel = 0;
+	public static int kFrontIntakeSolenoidBChannel = 1;
+
 
 	public static final int kIndexerACanID = 13;
 	public static final int kFeedACanID = 15;
@@ -47,11 +49,12 @@ public class Constants {
 	public static final double kEncoderDriveKp = 0.7;  // FIXME
 	public static final double kDriveEncoderConversionFactor = 0.000023077; //1; //0.00089291;
 
-	public static final double kShooterP = 0.25;
+	public static final double kShooterP = 0.23;
 	public static final double kShooterI = 0.00014;
 
-	public static final double kClimberWinchP = 0.005;
+	public static final double kClimberWinchP = 0.029;
 
+	
 	public static final double kIdleCurrent = 1; //Ampres
 	public static final double kIdleVoltageCutoff = 12.2; //volts
 

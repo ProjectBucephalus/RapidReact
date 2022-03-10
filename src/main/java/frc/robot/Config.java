@@ -74,7 +74,7 @@ public class Config {
     public static final boolean kVerboseOutputDefault = true;
 
     //Minimum pressure for Compressor cutoff
-    public static final double kCompressorMin = 110;
+    public static final double kCompressorMin = 100;
 
     //Max pressure for the Compressor cutoff
     public static final double kCompressorMax = 120;
@@ -86,10 +86,13 @@ public class Config {
     public static final double kClimberStowedPos = 0; //in encoder units (2048 EPR)
 
     //Climber 'Up' position
-    public static final double kClimberUpPos = 525000; //in encoder units (2048 EPR)
+    public static final double kClimberUpPos = 215000; //in encoder units (2048 EPR)
 
     //Climber 'Hooked' position
-    public static final double kClimberHookedPos = 0; //in encoder units (2048 EPR)
+    public static final double kClimberHookedPos = -5000; //in encoder units (2048 EPR)
+
+    //Climber 'Finished' position
+    public static final double kClimberFinishedPos = 100000; //in encoder units (2048 EPR)
 
     //Climber hysteresis
     public static final double kClimberHysteresis = 1000;

@@ -75,6 +75,10 @@ public class TeleopController {
             m_backIntake.setDesiredState(BackIntakeStates.IDLE);
         }
 
+        if(m_driverInterface.getVisionAbort()) {
+            VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
+        }
+
         
 
         if(m_driverInterface.getClimbUpCommand()) {
@@ -83,6 +87,8 @@ public class TeleopController {
             m_climber.setClimberDesiredState(ClimberStates.HOOKED);
         } else if(m_driverInterface.getClimbResetCommand()) {
             m_climber.setClimberDesiredState(ClimberStates.STOWED);
+        } else if(m_driverInterface.getClimbFinishedCommand()) {
+            m_climber.setClimberDesiredState(ClimberStates.FINISHED);
         } else if(m_driverInterface.getClimberManualOverride()) {
             m_climber.setClimberManualSpeed(m_driverInterface.getClimberManualOverridePower());
             m_climber.setClimberDesiredState(ClimberStates.MANUAL);
@@ -93,37 +99,44 @@ public class TeleopController {
         if(m_shooter.getCurrentState() == ShooterState.SHOOTING) {
             if(m_shooter.getShooterAtSpeed()) {
                 m_shooter.setIndexer(1);
+                m_shooter.setFeed(1);
             } else {
                 m_shooter.setIndexer(-1);
+                m_shooter.setFeed(0);
             }
-            m_shooter.setFeed(1);
 
         } else if(m_shooter.getCurrentState() == ShooterState.EJECT || m_shooter.getCurrentState() == ShooterState.EJECT) {
             m_shooter.setIndexer(1);
             m_shooter.setFeed(1);
 
         } else if(m_backIntake.getCurrentState() == BackIntakeStates.INTAKING) {
-            m_shooter.setFeed(1);
-            m_shooter.setIndexer(-1);
+            m_shooter.setFeed(0.75);
+            m_shooter.setIndexer(-0.5);
         } else if(m_backIntake.getCurrentState() == BackIntakeStates.UNINTAKING) {
-            m_shooter.setFeed(-1);
+            m_shooter.setFeed(-0.75);
             m_shooter.setIndexer(-0.5);
         } else if(m_frontIntake.getCurrentState() == FrontIntakeStates.INTAKING) {
-            m_shooter.setFeed(1);
+            m_shooter.setFeed(0.75);
             m_shooter.setIndexer(-0.5);
 
         } else if(m_frontIntake.getCurrentState() == FrontIntakeStates.UNINTAKING) {
-            m_shooter.setFeed(-1);
-            m_shooter.setIndexer(-1);
+            m_shooter.setFeed(-0.75);
+            m_shooter.setIndexer(-0.5);
         } else if(m_driverInterface.getIndexerManualOverride()) {
-            m_shooter.setIndexer(m_driverInterface.getIndexerManual());
-            m_shooter.setFeed(0);
+            if(m_driverInterface.getIndexerManual() < 0) {
+                m_shooter.setIndexer(-m_driverInterface.getIndexerManual());
+
+            } else {
+                m_shooter.setIndexer(-m_driverInterface.getIndexerManual());
+                m_shooter.setFeed(-m_driverInterface.getIndexerManual());
+
+            }
         } else if(m_frontIntake.getCurrentState() == FrontIntakeStates.UNINTAKING) {
-            m_shooter.setFeed(-1, 1);
-            m_shooter.setIndexer(-1);
+            m_shooter.setFeed(-0.75, 0.75);
+            m_shooter.setIndexer(-0.5);
         } else if(m_backIntake.getCurrentState() == BackIntakeStates.UNINTAKING) {
-            m_shooter.setFeed(-1, 1);
-            m_shooter.setIndexer(-1);
+            m_shooter.setFeed(-0.75, 0.75);
+            m_shooter.setIndexer(-0.5);
         } else {
             m_shooter.setFeed(0);
             m_shooter.setIndexer(0);
