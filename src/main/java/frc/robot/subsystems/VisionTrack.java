@@ -33,9 +33,11 @@ public class VisionTrack {
         desiredState = VisionState.IDLE;
     }
 public void update(){
-  // updateShooterSpeedLimelight();
+  //updateShooterSpeedLimelight();
   // System.out.println(m_lime.getDistanceToTarget());
   SmartDashboard.putString("state", stateToString());
+  SmartDashboard.putNumber("Distance to target", m_lime.getDistanceToTarget());
+
   switch(desiredState){
       case IDLE:
       if(newState == true &&DriverStation.isTeleop() ){
