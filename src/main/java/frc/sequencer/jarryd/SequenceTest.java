@@ -46,7 +46,7 @@ public class SequenceTest {
     {
         autoBackIntake intake = new autoBackIntake();
         autoTurn t1 = new autoTurn();
-        t1.setAngle(5);
+        t1.setAngle(4);
         autoDrive d1 = new autoDrive();
         d1.setAngle(5);
         d1.setDist(-1.5);
@@ -273,7 +273,7 @@ public class SequenceTest {
         t4.setNextTrans(ball2);
         t4.setNextSteps(shoot2);
 
-        Sequence seq = new Sequence("4 Red Cover", 4);
+        Sequence seq = new Sequence("Pos 4 Normal", 4);
         seq.setInitialTransitions(t1);
         seq.setInitialSteps(t1, intake);
         return seq;
