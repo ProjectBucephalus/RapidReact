@@ -148,7 +148,7 @@ public class TeleopController {
         m_pneumatics.setCompressorStatus(true);
 
         //Update shooter values
-        m_shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, m_driverInterface.getShooterSpeedField());
+        //m_shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, m_driverInterface.getShooterSpeedField());
 
     }
 

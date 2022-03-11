@@ -174,7 +174,7 @@ public class Robot extends TimedRobot {
       if(VisionTrack.getInstance().getCurrentState() == VisionState.IDLE){
         Drive.getInstance().update();
         }
-      //VisionTrack.getInstance().updateShooterSpeedLimelight();
+      VisionTrack.getInstance().updateShooterSpeedLimelight();
       VisionTrack.getInstance().update();
     } catch(Exception e) {
       DriverInterface.getInstance().consoleOutput(MessageType.CRITICAL, "VISION CRASH " + e);
