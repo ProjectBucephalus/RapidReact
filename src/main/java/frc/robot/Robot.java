@@ -141,6 +141,8 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
+    SmartDashboard.putNumber("Shooter target", 2000);
+
     Pneumatics.getInstance().setCompressorStatus(true);
 
     Climber.getInstance().initMotorControllers();
@@ -172,7 +174,7 @@ public class Robot extends TimedRobot {
       if(VisionTrack.getInstance().getCurrentState() == VisionState.IDLE){
         Drive.getInstance().update();
         }
-      VisionTrack.getInstance().updateShooterSpeedLimelight();
+      //VisionTrack.getInstance().updateShooterSpeedLimelight();
       VisionTrack.getInstance().update();
     } catch(Exception e) {
       DriverInterface.getInstance().consoleOutput(MessageType.CRITICAL, "VISION CRASH " + e);

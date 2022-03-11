@@ -583,6 +583,7 @@ public class DriverInterface {
         SmartDashboard.putNumber("Shooter Ratio Numerator", 1);
         SmartDashboard.putNumber("Shooter Ratio Denomonator", 1);
         SmartDashboard.putBoolean("Foward direction", getRobotFowardDirection() == RobotFowardDirection.FRONT);
+        SmartDashboard.putNumber("Shooter target", 2000);
 
     }
 
