@@ -126,7 +126,7 @@ public class SequenceTest {
         t3.setAngle(0);
         autoDrive d4 = new autoDrive();
         d4.setAngle(0);
-        d4.setDist(-2.7);
+        d4.setDist(-2.8);
         d4.setSpeed(0.48);
         d4.setAccFwdLimit(0.15);
         d4.setAccRevLimit(0.25);
