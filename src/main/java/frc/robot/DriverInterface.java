@@ -584,7 +584,12 @@ public class DriverInterface {
         SmartDashboard.putNumber("Shooter Ratio Denomonator", 1);
         SmartDashboard.putBoolean("Foward direction", getRobotFowardDirection() == RobotFowardDirection.FRONT);
         SmartDashboard.putNumber("Shooter target", 2000);
+        SmartDashboard.putNumber("Vision TUNING", 5);
 
+    }
+
+    public double getVisionAngleOffset() {
+        return SmartDashboard.getNumber("Vision TUNING", 5);
     }
 
     public double getShooterSpeedField() {

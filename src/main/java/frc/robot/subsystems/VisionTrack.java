@@ -85,14 +85,15 @@ public void update(){
         tx = -m_lime.getAngleToTarget();
           // System.out.println("tx: " + tx);
           double visionSteering = (tx * Constants.kVisionTurnKp);
-          if(tx <4 && tx >-4){
+          double driverTuning = DriverInterface.getInstance().getVisionAngleOffset();
+          if(tx + driverTuning <4 && tx  + driverTuning>-4){
             double isn = visionSteering * 2;
             m_drive.arcadeDrive(1, isn, 0.0); 
           }
           else{
             m_drive.arcadeDrive(1, visionSteering, 0.0); 
           }
-          if(tx <4 && tx >-4){
+          if(tx  + driverTuning <4 && tx  + driverTuning >-4){
             if(timesLooped >= 15){
             desiredState = VisionState.IDLE;//VisionState.FINDINGSPEED;
             }
