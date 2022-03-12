@@ -207,6 +207,7 @@ public class SequenceTest {
 
         Sequence seq = new Sequence("Pos 1 Complex", 1);
         seq.setInitialTransitions(t1);
+        
         seq.setInitialSteps(t1, shoot, intake);
         return seq;
     }
