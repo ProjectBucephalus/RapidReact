@@ -99,7 +99,7 @@ public class SequenceTest {
         timedStep T01 = new timedStep();
         T01.setDelay(3);
         autoShooter shoot = new autoShooter();
-        shoot.setShootSpeed(2175);
+        shoot.setShootSpeed(2200);
         autoDrive d2 = new autoDrive();
         d2.setAngle(-75);
         d2.setDist(0.2);
@@ -114,6 +114,8 @@ public class SequenceTest {
         autoTurn t02 = new autoTurn();
         t02.setAngle(-30);
         autoLimelight lime2 = new autoLimelight();
+        timedStep T1 = new timedStep();
+        T1.setDelay(0.2);
         autoBallShooter ball2 = new autoBallShooter();
         ball2.setNumBalls(1);
         timedStep T02 = new timedStep();
@@ -135,8 +137,8 @@ public class SequenceTest {
         d5.setAngle(-45);
         d5.setDist(-0.9);
         d5.setSpeed(0.3);
-        timedStep T1 = new timedStep();
-        T1.setDelay(1);
+        timedStep T2 = new timedStep();
+        T2.setDelay(1);
         autoDrive d6 = new autoDrive();
         d6.setAngle(-45);
         d6.setDist(0.5);
@@ -151,8 +153,8 @@ public class SequenceTest {
         d7.setAccFwdLimit(0.15);
         d7.setAccRevLimit(0.25);
         d7.setDistGain(1.7);
-        timedStep T2 = new timedStep();
-        T2.setDelay(0.4);
+        timedStep T3 = new timedStep();
+        T3.setDelay(0.4);
         autoBallShooter ball3 = new autoBallShooter();
         ball3.setNumBalls(3);
         autoShooter shoot3 = new autoShooter();
@@ -178,8 +180,10 @@ public class SequenceTest {
         d3.setNextSteps(t02, intake);
         t02.setNextTrans(lime2);
         t02.setNextSteps(lime2, intake);
-        lime2.setNextTrans(ball2, T02);
-        lime2.setNextSteps(shoot2);
+        lime2.setNextTrans(T1);
+        lime2.setNextSteps();
+        T1.setNextTrans(ball2, T02);
+        T1.setNextSteps(shoot2);
         ball2.setNextTrans(t3);
         ball2.setNextSteps(t3);
         T02.setNextTrans(t3);
@@ -190,24 +194,24 @@ public class SequenceTest {
         d4.setNextSteps(t4, intake);
         t4.setNextTrans(d5);
         t4.setNextSteps(d5);
-        d5.setNextTrans(T1);
+        d5.setNextTrans(T2);
         d5.setNextSteps(intake);
-        T1.setNextTrans(d6);
-        T1.setNextSteps(d6, unIntake);
+        T2.setNextTrans(d6);
+        T2.setNextSteps(d6, unIntake);
         d6.setNextTrans(t5);
         d6.setNextSteps(t5, unIntake);
         t5.setNextTrans(d7);
         t5.setNextSteps(d7);
         d7.setNextTrans(lime3);
         d7.setNextSteps(lime3);
-        lime3.setNextTrans(T2);
+        lime3.setNextTrans(T3);
         lime3.setNextSteps();
-        T2.setNextTrans(ball3);
-        T2.setNextSteps(shoot3);
+        T3.setNextTrans(ball3);
+        T3.setNextSteps(shoot3);
 
         Sequence seq = new Sequence("Pos 1 Complex", 1);
         seq.setInitialTransitions(t1);
-        
+
         seq.setInitialSteps(t1, shoot, intake);
         return seq;
     }
