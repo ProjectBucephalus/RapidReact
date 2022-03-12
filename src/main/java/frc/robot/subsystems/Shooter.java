@@ -44,7 +44,7 @@ public class Shooter extends Subsystems{
 
     private static ShooterSpeedSlot speedSlot = ShooterSpeedSlot.IDLE;
 
-    private double shooterIdleSpeed = 1500;
+    private double shooterIdleSpeed = 1900;
     private double shooterShootSpeed = 2450;
     private double shooterEjectSpeed = 500;
     private double shooterSpinUpSpeed = shooterShootSpeed;
@@ -70,6 +70,17 @@ public class Shooter extends Subsystems{
 
     @Override
     public void update() {
+        try{
+            if(Limelight.getInstance().getTargetAcquired() == true){
+                setShooterSpeed(ShooterSpeedSlot.IDLE, getShooterSetSpeed());
+            }
+            else{
+                setShooterSpeed(ShooterSpeedSlot.IDLE, shooterIdleSpeed);
+            }
+        }
+        catch(Exception e) {
+        System.out.println("CRITICAL ERROR,,, ERROR CHECKING JUST STOPPED A MAJOR CRASH!!!!!! PLEASE COME TO ADAM OR JOSH WITH THIS");
+        }
         if (waitCounts > 0)
         { 
             waitCounts --;

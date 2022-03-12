@@ -222,8 +222,8 @@ public void update(){
   
   public void updateShooterSpeedLimelight() {
     double distance = Limelight.getInstance().getDistanceToTarget();
-    //y = 2974.481 + (1764.167 - 2974.481)/(1 + (x/58.4789)^4.300038)
-      speed = 2974.481 + (1764.167 - 2974.481)/(1 + Math.pow((distance/58.4789), 4.3000384));
+    //y = 3257.394 + (1738.027 - 3257.394)/(1 + (x/64.89115)^3.353237)
+      speed = 3257.394 + (1738.027 - 3257.394)/(1 + Math.pow((distance/64.89115), 3.353237));
     if(true) {
       m_Shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, speed);
     }
