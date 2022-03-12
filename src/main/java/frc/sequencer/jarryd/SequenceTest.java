@@ -103,7 +103,7 @@ public class SequenceTest {
         autoBallShooter ball = new autoBallShooter();
         ball.setNumBalls(2);
         timedStep T01 = new timedStep();
-        T01.setDelay(3);
+        T01.setDelay(2);
         autoShooter shoot = new autoShooter();
         shoot.setShootSpeed(2200);
         autoDrive d2 = new autoDrive();
@@ -125,7 +125,7 @@ public class SequenceTest {
         autoBallShooter ball2 = new autoBallShooter();
         ball2.setNumBalls(1);
         timedStep T02 = new timedStep();
-        T02.setDelay(3);
+        T02.setDelay(1.5);
         autoShooter shoot2 = new autoShooter();
         shoot2.setShootSpeed(2350);
         autoTurn t3 = new autoTurn();
