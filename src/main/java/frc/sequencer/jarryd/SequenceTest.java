@@ -126,7 +126,7 @@ public class SequenceTest {
         t3.setAngle(0);
         autoDrive d4 = new autoDrive();
         d4.setAngle(0);
-        d4.setDist(-2.8);
+        d4.setDist(-3.05);
         d4.setSpeed(0.48);
         d4.setAccFwdLimit(0.15);
         d4.setAccRevLimit(0.25);
@@ -158,7 +158,7 @@ public class SequenceTest {
         autoBallShooter ball3 = new autoBallShooter();
         ball3.setNumBalls(3);
         autoShooter shoot3 = new autoShooter();
-        shoot3.setShootSpeed(2375);
+        shoot3.setShootSpeed(2350);
         
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake);
