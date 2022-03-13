@@ -150,7 +150,7 @@ public void update(){
       tx = m_lime.getAngleToTarget();
         // System.out.println("tx: " + tx);
           double AutoVisionSteering = (tx * Constants.kVisionTurnKp);
-          if(tx+ 5 <4   && tx  + 5 >-4){
+          if(tx <4   && tx  >-4){
             double isn = AutoVisionSteering * 2;
             // m_drive.arcadeDrive(0.5, -1, 0.0);
             Drive.getInstance().autoArcadeDrive(isn, 0); 
@@ -159,7 +159,7 @@ public void update(){
             // m_drive.arcadeDrive(0.5, -0.9, 0.0); 
             Drive.getInstance().autoArcadeDrive(AutoVisionSteering, 0);
           }
-          if(tx + 5 <1&& tx  + 5 >-1){
+          if(tx <1&& tx  >-1){
             if(timesLooped >= 15){
             desiredState = VisionState.IDLE;
             turnStatus = true;
@@ -241,7 +241,7 @@ public double returnShooterSpeedLimelight(){
   return aspeed;
   }
   catch(Exception e){
-    return 2000;
+    return 2050;
   }
 }
 
