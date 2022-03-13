@@ -309,6 +309,8 @@ public class SequenceTest {
 
     private static Sequence createPos1Basic()
     {
+        autoSpinUp spin1 = new autoSpinUp();
+        spin1.setShootSpeed(2000);
         autoBackIntake intake = new autoBackIntake();
         autoTurn t1 = new autoTurn();
         t1.setAngle(-86.5);
@@ -320,17 +322,18 @@ public class SequenceTest {
         autoBallShooter ball1 = new autoBallShooter();
         ball1.setNumBalls(5);
         autoShooter shoot1 = new autoShooter();
-        try{
+      /*  try{
         shoot1.setShootSpeed(VisionTrack.getInstance().returnShooterSpeedLimelight());
         }
         catch(Exception e){
         shoot1.setShootSpeed(2050);
-        }
+        }*/
+        shoot1.setShootSpeed(2100);
         t1.setNextTrans(d1);
-        t1.setNextSteps(d1, intake);
+        t1.setNextSteps(d1, intake, spin1);
         d1.setNextTrans(lime1);
-        d1.setNextSteps(lime1);
-        lime1.setNextTrans(ball1);
+        d1.setNextSteps(lime1, spin1);
+        lime1.setNextTrans(ball1, spin1);
         lime1.setNextSteps(shoot1);
 
         Sequence seq = new Sequence("Pos 1 Basic", 1);
