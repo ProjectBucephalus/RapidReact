@@ -330,10 +330,10 @@ public class SequenceTest {
         }*/
         shoot1.setShootSpeed(2100);
         t1.setNextTrans(d1);
-        t1.setNextSteps(d1, intake, spin1);
+        t1.setNextSteps(d1, intake);
         d1.setNextTrans(lime1);
-        d1.setNextSteps(lime1, spin1);
-        lime1.setNextTrans(ball1, spin1);
+        d1.setNextSteps(lime1);
+        lime1.setNextTrans(ball1);
         lime1.setNextSteps(shoot1);
 
         Sequence seq = new Sequence("Pos 1 Basic", 1);
