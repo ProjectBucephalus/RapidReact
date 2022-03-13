@@ -150,7 +150,7 @@ public void update(){
       tx = m_lime.getAngleToTarget();
         // System.out.println("tx: " + tx);
           double AutoVisionSteering = (tx * Constants.kVisionTurnKp);
-          if(tx <4 && tx >-4){
+          if(tx+ 5 <4   && tx  + 5 >-4){
             double isn = AutoVisionSteering * 2;
             // m_drive.arcadeDrive(0.5, -1, 0.0);
             Drive.getInstance().autoArcadeDrive(isn, 0); 
@@ -159,7 +159,7 @@ public void update(){
             // m_drive.arcadeDrive(0.5, -0.9, 0.0); 
             Drive.getInstance().autoArcadeDrive(AutoVisionSteering, 0);
           }
-          if(tx <1 && tx >-1){
+          if(tx + 5 <1&& tx  + 5 >-1){
             if(timesLooped >= 15){
             desiredState = VisionState.IDLE;
             turnStatus = true;
@@ -222,10 +222,28 @@ public void update(){
   
   public void updateShooterSpeedLimelight() {
     double distance = Limelight.getInstance().getDistanceToTarget();
+
+    //NEW
+    //y = 2759.394 + (1874.137 - 2759.394)/(1 + (x/52.33355)^6.507768)
+    speed = 2759.394 + (1874.137 - 2759.394)/(1 + Math.pow((distance/52.33355), 6.507768));
+
+    //OLD !!!!
     //y = 2744.632 + (1878.076 - 2744.632)/(1 + (x/52.17749)^6.838287)
-      speed = 2744.632 + (1878.076 - 2744.632)/(1 + Math.pow((distance/52.17749), 6.838287));
+    //speed = 2744.632 + (1878.076 - 2744.632)/(1 + Math.pow((distance/52.17749), 6.838287));
     if(true) {
       m_Shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, speed);
     }
 }
+public double returnShooterSpeedLimelight(){
+  try{
+  double distance = Limelight.getInstance().getDistanceToTarget();
+  double aspeed = 2759.394 + (1874.137 - 2759.394)/(1 + Math.pow((distance/52.33355), 6.507768));
+  return aspeed;
+  }
+  catch(Exception e){
+    return 2000;
+  }
+}
+
+
 }

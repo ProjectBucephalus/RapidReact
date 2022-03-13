@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import frc.sequencer.Sequence;
-
+import frc.robot.subsystems.VisionTrack;
 public class SequenceTest {
     // sequence lib
     public static synchronized List<Sequence> getSequences()
@@ -320,8 +320,12 @@ public class SequenceTest {
         autoBallShooter ball1 = new autoBallShooter();
         ball1.setNumBalls(5);
         autoShooter shoot1 = new autoShooter();
-        shoot1.setShootSpeed(2200);
-
+        try{
+        shoot1.setShootSpeed(VisionTrack.getInstance().returnShooterSpeedLimelight());
+        }
+        catch(Exception e){
+        shoot1.setShootSpeed(2050);
+        }
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake);
         d1.setNextTrans(lime1);

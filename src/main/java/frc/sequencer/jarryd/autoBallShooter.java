@@ -27,7 +27,7 @@ public class autoBallShooter extends SequenceTransition{
         // compare currRPM with pastRPM[pastLength]
         if ( (currRPM / pastRPM[0]) < 0.965)
         {
-                        //ball detected
+                    //ball detected
             if (waitCounts == 0)
             {
                 waitCounts = waitTime;
