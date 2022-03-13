@@ -92,7 +92,7 @@ public class SequenceTest {
         autoSpinUp spin2 = new autoSpinUp();
         spin2.setShootSpeed(2350);
         autoSpinUp spin3 = new autoSpinUp();
-        spin3.setShootSpeed(2350);
+        spin3.setShootSpeed(2300);
         autoTurn t1 = new autoTurn();
         t1.setAngle(-86.5);
         autoDrive d1 = new autoDrive();
@@ -164,7 +164,7 @@ public class SequenceTest {
         autoBallShooter ball3 = new autoBallShooter();
         ball3.setNumBalls(3);
         autoShooter shoot3 = new autoShooter();
-        shoot3.setShootSpeed(2350);
+        shoot3.setShootSpeed(2290);
         
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake, spin1);
