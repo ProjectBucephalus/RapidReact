@@ -164,8 +164,11 @@ public class SequenceTest {
         autoBallShooter ball3 = new autoBallShooter();
         ball3.setNumBalls(3);
         autoShooter shoot3 = new autoShooter();
+        //Please note, the desync between the prespin and the actual shooting of the last shot cycle is an intentional descision to the ball isn't affected by any drop off acceleration and nicely lands in the circle.
         shoot3.setShootSpeed(2290);
         
+
+
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake, spin1);
         d1.setNextTrans(lime1);
