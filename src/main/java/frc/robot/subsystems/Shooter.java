@@ -319,7 +319,7 @@ public class Shooter extends Subsystems{
     }
 
     public void setIndexer(double speed) {
-        RobotMap.getIndexerA().set(ControlMode.PercentOutput, speed);
+        RobotMap.getIndexerA().set(ControlMode.PercentOutput, -speed);
         
     }
 

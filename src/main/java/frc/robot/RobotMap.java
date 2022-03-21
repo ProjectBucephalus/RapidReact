@@ -101,8 +101,8 @@ public class RobotMap {
 		return pdh;
 	}
 
-	static VictorSPX feedA = new VictorSPX(Constants.kFeedACanID);
-	static VictorSPX feedB = new VictorSPX(Constants.kFeedBCanID);
+	static VictorSPX feedA = new VictorSPX(Constants.kFeedBCanID);
+	static VictorSPX feedB = new VictorSPX(Constants.kFeedACanID);
 	static VictorSPX indexerA = new VictorSPX(Constants.kIndexerACanID);
 
 	public static VictorSPX getFeedA() {

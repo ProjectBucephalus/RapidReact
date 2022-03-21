@@ -314,7 +314,7 @@ public class DriverInterface {
     }
 
     public double getIndexerManual() {
-        return xbox1.getRightY();
+        return -xbox1.getRightY();
     }
 
     public boolean getLimelightCommand() {

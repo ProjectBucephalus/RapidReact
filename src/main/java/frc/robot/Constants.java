@@ -29,9 +29,9 @@ public class Constants {
 	public static int kFrontIntakeSolenoidBChannel = 1;
 
 
-	public static final int kIndexerACanID = 13;
-	public static final int kFeedACanID = 15;
-	public static final int kFeedBCanID = 14;
+	public static final int kIndexerACanID = 15;
+	public static final int kFeedBCanID = 13;
+	public static final int kFeedACanID = 14;
 
 
     public static double kDriveMaxSpeed = 4.18;
