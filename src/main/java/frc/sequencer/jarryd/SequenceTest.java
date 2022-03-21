@@ -32,7 +32,7 @@ public class SequenceTest {
             // theSequences.add(create2b());
             // theSequences.add(create3b());
             // theSequences.add(create4b());
-            // theSequences.add(createAccTest());
+            theSequences.add(createAccTest());
             // theSequences.add(createRevAccTest());
 
         }
@@ -408,20 +408,18 @@ public class SequenceTest {
         return seq;
     }
 
-    // private static Sequence createAccTest()
-    // {
-    //     autoDrive drive1 = new autoDrive();
-    //     drive1.setDist(2);
-    //     drive1.setAngle(0);
-    //     drive1.setSpeed(0.5);
-    //     drive1.setAccFwdLimit(0.3);
-    //     drive1.setAccRevLimit(0.15);
+    private static Sequence createAccTest()
+    {
+        autoDrive drive1 = new autoDrive();
+        drive1.setDist(1.5);
+        drive1.setAngle(0);
+        drive1.setSpeed(0.2);
 
-    //     Sequence seq = new Sequence("Acceleration Test", 0);
-    //     seq.setInitialTransitions(drive1);
-    //     seq.setInitialSteps(drive1);
-    //     return seq;
-    // }    
+        Sequence seq = new Sequence("Acceleration Test", 0);
+        seq.setInitialTransitions(drive1);
+        seq.setInitialSteps(drive1);
+        return seq;
+    }    
 
     // private static Sequence createRevAccTest()
     // {

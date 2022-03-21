@@ -137,6 +137,7 @@ public class Robot extends TimedRobot {
     Shooter.getInstance().update();
     BackIntake.getInstance().update();    
     VisionTrack.getInstance().update();
+    
   }
 
   /** This function is called once when teleop is enabled. */
