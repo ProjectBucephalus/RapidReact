@@ -277,6 +277,13 @@ public class DriverInterface {
 
     }
 
+    public boolean getClimbSolenoidForward() {
+        return joystick1.getRawButton(5);
+    }
+    public boolean getClimbSolenoidReverse() {
+        return joystick1.getRawButton(6);
+    }
+
     public boolean getFrontIntakeReverse() {
         if(getRobotFowardDirection() == RobotFowardDirection.FRONT) {
             if(joystick1.getRawButton(12)) {

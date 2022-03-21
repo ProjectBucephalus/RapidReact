@@ -28,6 +28,9 @@ public class Constants {
 	public static int kFrontIntakeSolenoidAChannel = 0;
 	public static int kFrontIntakeSolenoidBChannel = 1;
 
+	public static int kClimberSolenoidAChannel = 2;
+	public static int kClimberSolenoidBChannel = 3;
+
 
 	public static final int kIndexerACanID = 15;
 	public static final int kFeedBCanID = 13;

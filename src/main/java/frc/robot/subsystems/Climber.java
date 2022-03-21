@@ -8,6 +8,7 @@ import com.ctre.phoenix.CANifier.GeneralPin;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Config;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -223,6 +224,8 @@ public class Climber extends Subsystems {
         RobotMap.getRightWinch().configClosedloopRamp(0.7);
 
         RobotMap.getClimberSensors().configFactoryDefault();
+
+        setClimberHooks(false);
     }
     @Override
     public diagnosticState test() {
@@ -265,6 +268,14 @@ public class Climber extends Subsystems {
      */
     public boolean getClimberDone() {
         return climberDone;
+    }
+
+    public void setClimberHooks(boolean state) {
+        if(state) {
+            RobotMap.getClimberSolenoid().set(Value.kForward);
+        } else {
+            RobotMap.getClimberSolenoid().set(Value.kReverse);
+        }
     }
 
     public void setClimberManualSpeed(double manualSpeed) {

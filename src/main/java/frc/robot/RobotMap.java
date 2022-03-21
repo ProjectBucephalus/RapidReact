@@ -83,6 +83,8 @@ public class RobotMap {
 	static TalonFX rightWinch = new TalonFX(Constants.kRightWinchCanID);
 	static CANifier climberSensors = new CANifier(Constants.kClimberCanifierCanID);
 
+	static DoubleSolenoid climberSolenoid = new DoubleSolenoid(Constants.kPCMCanID, PneumaticsModuleType.REVPH, Constants.kClimberSolenoidAChannel, Constants.kClimberSolenoidBChannel);
+
 	public static TalonFX getLeftWinch() {
 		return leftWinch;
 	}
@@ -93,6 +95,10 @@ public class RobotMap {
 
 	public static CANifier getClimberSensors() {
 		return climberSensors;
+	}
+
+	public static DoubleSolenoid getClimberSolenoid() {
+		return climberSolenoid;
 	}
 
 	static PowerDistribution pdh = new PowerDistribution(Constants.kPDHCanID, ModuleType.kRev);

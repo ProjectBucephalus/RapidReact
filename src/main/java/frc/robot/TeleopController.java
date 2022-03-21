@@ -143,6 +143,12 @@ public class TeleopController {
             m_shooter.setIndexer(0);
         } 
 
+        if(m_driverInterface.getClimbSolenoidForward()) {
+            m_climber.setClimberHooks(true);
+        } else if(m_driverInterface.getClimbSolenoidReverse()) {
+            m_climber.setClimberHooks(false);
+        } 
+
         callDrive();
         m_driverInterface.updateLimelightSpeedOffset();
         m_pneumatics.setCompressorStatus(true);
