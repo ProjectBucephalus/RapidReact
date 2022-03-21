@@ -130,6 +130,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    VisionTrack.getInstance().updateShooterSpeedLimelight();
     SmartDashboard.putString("Auto Step", mySeq.getStepName());
     mySeq.update();
     Drive.getInstance().autoUpdate();

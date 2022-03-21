@@ -26,7 +26,7 @@ public class Limelight {
     public boolean getTargetAcquired() {
       //setPipeline(0);
       boolean targetAcquired = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getBoolean(false);
-      return targetAcquired;
+      return targetAcquired; 
     }
 
     public double getAngleToTarget() {

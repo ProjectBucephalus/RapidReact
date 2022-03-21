@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import frc.sequencer.Sequence;
-import frc.robot.subsystems.VisionTrack;
 public class SequenceTest {
     // sequence lib
     public static synchronized List<Sequence> getSequences()
@@ -88,11 +87,8 @@ public class SequenceTest {
         autoBackIntake intake = new autoBackIntake();
         autoBackUnIntake unIntake = new autoBackUnIntake();
         autoSpinUp spin1 = new autoSpinUp();
-        spin1.setShootSpeed(2200);
         autoSpinUp spin2 = new autoSpinUp();
-        spin2.setShootSpeed(2350);
         autoSpinUp spin3 = new autoSpinUp();
-        spin3.setShootSpeed(2300);
         autoTurn t1 = new autoTurn();
         t1.setAngle(-86.5);
         autoDrive d1 = new autoDrive();
@@ -310,7 +306,6 @@ public class SequenceTest {
     private static Sequence createPos1Basic()
     {
         autoSpinUp spin1 = new autoSpinUp();
-        spin1.setShootSpeed(2000);
         autoBackIntake intake = new autoBackIntake();
         autoTurn t1 = new autoTurn();
         t1.setAngle(-86.5);
@@ -625,8 +620,8 @@ public class SequenceTest {
     //     return seq;
     // }
 
-    private static Sequence create4bCut()
-    {
+    // private static Sequence create4bCut()
+    // {
         // autoShooter shoot = new autoShooter();
         // autoBackUnIntake intake = new autoBackUnIntake();
 
@@ -646,11 +641,11 @@ public class SequenceTest {
         // step4B2.setNextTrans(timer4B1);
         // step4B2.setNextSteps(shoot);
 
-        Sequence seq = new Sequence("4B start pos", 4);
-        seq.setInitialTransitions();
-        seq.setInitialSteps();
-        return seq;
-    }
+    //     Sequence seq = new Sequence("4B start pos", 4);
+    //     seq.setInitialTransitions();
+    //     seq.setInitialSteps();
+    //     return seq;
+    // }
 
 
 

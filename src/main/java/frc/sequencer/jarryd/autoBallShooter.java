@@ -23,24 +23,21 @@ public class autoBallShooter extends SequenceTransition{
             waitCounts --;
         }
         double currRPM = Shooter.getInstance().getShooterRPM();    
-        System.out.println((currRPM / pastRPM[0]) + " - detect, wait " + waitCounts);
         // compare currRPM with pastRPM[pastLength]
-        if ( (currRPM / pastRPM[0]) < 0.965)
+        if ( (currRPM / pastRPM[0]) < 0.97)
         {
-                    //ball detected
+        //ball detected
             if (waitCounts == 0)
             {
                 waitCounts = waitTime;
                 ballDetected();
             }
         }
-        System.out.println();
         for ( int ii = 0 ; ii < pastLength - 1 ; ii++)
         {
             pastRPM[ii] = pastRPM[ii+1];
         }
         pastRPM[pastLength-1] = currRPM;
-        // System.out.println("shoot rpm, " + Shooter.getInstance().getShooterRPM() + ", " + numBalls);
         return isTransComplete();
     }
 

@@ -199,7 +199,7 @@ public class DriverInterface {
         if(joystick1.getRawButtonPressed(2)) {
             if(robotFowardDirection == RobotFowardDirection.FRONT) {
                 if(oldButtonState == false) {
-                    robotFowardDirection = RobotFowardDirection.BACK;
+                    robotFowardDirection = RobotFowardDirection.FRONT;
                     oldButtonState = true;
                 }
             } else {
