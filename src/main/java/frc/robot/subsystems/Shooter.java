@@ -72,10 +72,17 @@ public class Shooter extends Subsystems{
     public void update() {
         try{
             if(Limelight.getInstance().getTargetAcquired() == true){
-                setShooterSpeed(ShooterSpeedSlot.IDLE, getShooterSetSpeed());
+                setShooterSpeed(ShooterSpeedSlot.IDLE, VisionTrack.getInstance().returnShooterSpeedLimelight());
+                // System.out.println("Current Set Speed " + getShooterSetSpeed());
+                // System.out.println("Current Speed " + getShooterAtSpeed());
+                // System.out.println("Current State " + getCurrentState());
             }
             else{
                 setShooterSpeed(ShooterSpeedSlot.IDLE, shooterIdleSpeed);
+                // System.out.println("Current Set Speed " + getShooterSetSpeed());
+                // System.out.println("Current Speed " + getShooterAtSpeed());
+                // System.out.println("Current State " + getCurrentState());
+                System.out.println("Shooter Defaulted to Idle. Sorry :(");
             }
         }
         catch(Exception e) {

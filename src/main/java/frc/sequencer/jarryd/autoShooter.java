@@ -3,6 +3,7 @@ package frc.sequencer.jarryd;
 import frc.robot.subsystems.BackIntake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.BackIntake.BackIntakeStates;
+import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import frc.robot.subsystems.Shooter.ShooterState;
 import frc.sequencer.SequenceStepIf;
 import frc.sequencer.SequenceTransition;
@@ -16,21 +17,24 @@ public class autoShooter extends SequenceTransition implements SequenceStepIf {
 
     @Override
     public void stepEnd() {
-        Shooter.getInstance().setDesiredState(ShooterState.SPINUP);
+        Shooter.getInstance().setDesiredState(ShooterState.IDLE);
+        Shooter.getInstance().setIndexer(0);
+        Shooter.getInstance().setFeed(0);
+
         // TODO Auto-generated method stub
         
     }
 
     @Override
     public void stepUpdate() {
-        if (Shooter.getInstance().getShooterRPM() >= (shootSpeed - 200))
+        if (Shooter.getInstance().getShooterRPM() >= (Shooter.getInstance().getShooterSetSpeed(ShooterSpeedSlot.SHOOTING) - 50))
         {
             Shooter.getInstance().setIndexer(1);
             Shooter.getInstance().setFeed(1);
             BackIntake.getInstance().setDesiredState(BackIntakeStates.INTAKING);
         }
         else {
-            Shooter.getInstance().setIndexer(-0.2);
+            Shooter.getInstance().setIndexer(0);
             Shooter.getInstance().setFeed(0.1);
         }
         Shooter.getInstance().update();

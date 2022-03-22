@@ -11,8 +11,8 @@ public class autoBackIntake implements SequenceStepIf{
     @Override
     public void stepStart() {
         BackIntake.getInstance().setDesiredState(BackIntakeStates.INTAKING);  
-        Shooter.getInstance().setFeed(0.7);
-        Shooter.getInstance().setIndexer(-0.5);
+        Shooter.getInstance().setFeed(0.8);
+        Shooter.getInstance().setIndexer(-0.45);
         Shooter.getInstance().setDesiredState(ShooterState.IDLE);
     }
 
@@ -21,7 +21,7 @@ public class autoBackIntake implements SequenceStepIf{
         BackIntake.getInstance().setDesiredState(BackIntakeStates.IDLE);        
         Shooter.getInstance().setFeed(0);
         Shooter.getInstance().setIndexer(0);
-        Shooter.getInstance().setDesiredState(ShooterState.SPINUP);
+        Shooter.getInstance().setDesiredState(ShooterState.IDLE);
     }
 
     @Override

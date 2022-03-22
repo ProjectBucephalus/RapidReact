@@ -27,7 +27,7 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
     @Override
     public void stepUpdate() {
         VisionTrack.getInstance().setDesiredState(VisionState.AUTOTURN);
-        if (Limelight.getInstance().getAngleToTarget()<4)
+        if (Limelight.getInstance().getAngleToTarget()<2)
         {
                 Shooter.getInstance().setDesiredState(ShooterState.SHOOTING);
                 Shooter.getInstance().setFeed(1);
@@ -51,7 +51,7 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
 
     @Override
     public boolean isTransComplete() {
-    if (Math.abs(Limelight.getInstance().getAngleToTarget())<3)
+    if (Math.abs(Limelight.getInstance().getAngleToTarget())<2)
     {
         return true;
     }

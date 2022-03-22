@@ -12,7 +12,7 @@ public class autoBackUnIntake implements SequenceStepIf{
     public void stepStart() {
         BackIntake.getInstance().setDesiredState(BackIntakeStates.UNINTAKING);  
         Shooter.getInstance().setFeed(0.5);
-        Shooter.getInstance().setIndexer(-0.5);
+        Shooter.getInstance().setIndexer(0);
         Shooter.getInstance().setDesiredState(ShooterState.IDLE);
     }
 

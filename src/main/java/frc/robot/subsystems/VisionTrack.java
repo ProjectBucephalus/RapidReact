@@ -1,10 +1,12 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
+import frc.robot.Config;
 import frc.robot.DriverInterface;
 import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.wpilibj.DriverStation;
 public class VisionTrack {
     private static VisionTrack mInstance;
@@ -226,21 +228,28 @@ public void update(){
     //NEW
     //y = 2759.394 + (1874.137 - 2759.394)/(1 + (x/52.33355)^6.507768)
     speed = 2759.394 + (1874.137 - 2759.394)/(1 + Math.pow((distance/52.33355), 6.507768));
-
+    speed = speed * Config.kLimelightShooterSpeedModiferPercentage;
     //OLD !!!!
     //y = 2744.632 + (1878.076 - 2744.632)/(1 + (x/52.17749)^6.838287)
     //speed = 2744.632 + (1878.076 - 2744.632)/(1 + Math.pow((distance/52.17749), 6.838287));
     if(true) {
       m_Shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, speed);
+      if(Limelight.getInstance().getTargetAcquired()){
+      m_Shooter.setShooterSpeed(ShooterSpeedSlot.IDLE, speed);
+      System.out.println("Idle was impacted by limelight speed :)");
+      }
     }
+    
 }
 public double returnShooterSpeedLimelight(){
   try{
   double distance = Limelight.getInstance().getDistanceToTarget();
   double aspeed = 2759.394 + (1874.137 - 2759.394)/(1 + Math.pow((distance/52.33355), 6.507768));
+  aspeed = aspeed * Config.kLimelightShooterSpeedModiferPercentage;
   return aspeed;
   }
   catch(Exception e){
+    System.out.println("Shooter speed was impacted by a crital hecking error");
     return 2050;
   }
 }
