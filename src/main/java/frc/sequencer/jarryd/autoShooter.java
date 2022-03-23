@@ -27,9 +27,9 @@ public class autoShooter extends SequenceTransition implements SequenceStepIf {
 
     @Override
     public void stepUpdate() {
-        if (Shooter.getInstance().getShooterRPM() >= (Shooter.getInstance().getShooterSetSpeed(ShooterSpeedSlot.SHOOTING) - 125))
+        if (Shooter.getInstance().getShooterRPM() >= (Shooter.getInstance().getShooterSetSpeed(ShooterSpeedSlot.SHOOTING) - 25))
         {
-            Shooter.getInstance().setIndexer(1);
+            Shooter.getInstance().setIndexer(.55);
             Shooter.getInstance().setFeed(1);
             BackIntake.getInstance().setDesiredState(BackIntakeStates.INTAKING);
         }
