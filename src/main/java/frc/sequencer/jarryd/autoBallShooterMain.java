@@ -55,14 +55,14 @@ public class autoBallShooterMain extends SequenceTransition{
             if(sensorStatus == true){
                 ticks++;
                 ballsgonefor = 0;
-                if(ticks >= 8){
+                if(ticks >= 1){
                     assumedBallStatus = true;
                 }
             }
-            else if(sensorStatus == false){
+            else{
                 ballsgonefor++;
                 ticks = 0;
-                if(assumedBallStatus = true && ballsgonefor > 5){
+                if(assumedBallStatus == true && ballsgonefor >1){
                     ballDetected();
                     assumedBallStatus = false;
                 }
