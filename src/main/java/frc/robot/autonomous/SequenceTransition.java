@@ -2,7 +2,9 @@ package frc.sequencer;
 
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * The logic running transition sequencing
+ */
 public abstract class SequenceTransition implements SequenceTransitionIf
 {
     /** 

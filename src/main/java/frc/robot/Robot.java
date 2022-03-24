@@ -8,6 +8,9 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.VisionTrack;
 import frc.robot.subsystems.VisionTrack.VisionState;
 import frc.robot.DriverInterface.MessageType;
+import frc.robot.autonomous.CompletedSequences;
+import frc.robot.autonomous.Sequence;
+import frc.robot.autonomous.Sequencer;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
@@ -18,10 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.LinkedList;
 import frc.robot.subsystems.*;
-import frc.sequencer.Sequence;
-import frc.sequencer.Sequencer;
-import frc.sequencer.jarryd.SequenceTest;
-
+// TODO comment this lol
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
 
     //Sequencer
     LinkedList<Sequence> seqList = new LinkedList<Sequence>();
-    seqList.addAll(SequenceTest.getSequences());
+    seqList.addAll(CompletedSequences.getSequences());
     seqChooser = new SendableChooser<Sequence>();
     SmartDashboard.putData("Auto choices", seqChooser);
     boolean first = true;

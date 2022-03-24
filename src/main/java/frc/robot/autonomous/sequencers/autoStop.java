@@ -2,7 +2,9 @@ package frc.sequencer.jarryd;
 
 import frc.robot.subsystems.Drive;
 import frc.sequencer.SequenceStepIf;
-
+/**
+ * Just a stop
+ */
 public class autoStop implements SequenceStepIf{
 
     @Override

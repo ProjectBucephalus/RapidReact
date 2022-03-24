@@ -1,13 +1,16 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequencers;
 
+import frc.robot.autonomous.SequenceStepIf;
+import frc.robot.autonomous.SequenceTransition;
 import frc.robot.subsystems.BackIntake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.BackIntake.BackIntakeStates;
 import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import frc.robot.subsystems.Shooter.ShooterState;
-import frc.sequencer.SequenceStepIf;
-import frc.sequencer.SequenceTransition;
 
+/**
+ * Turns on shooter when the shooter is at it's correct speed
+ */
 public class autoShooter extends SequenceTransition implements SequenceStepIf {
 
     @Override
@@ -20,8 +23,6 @@ public class autoShooter extends SequenceTransition implements SequenceStepIf {
         Shooter.getInstance().setDesiredState(ShooterState.IDLE);
         Shooter.getInstance().setIndexer(0);
         Shooter.getInstance().setFeed(0);
-
-        // TODO Auto-generated method stub
         
     }
 
@@ -64,9 +65,5 @@ public class autoShooter extends SequenceTransition implements SequenceStepIf {
         return Shooter.getInstance().shooterAtSpeed;
     } 
 
-    private double shootSpeed = 0;
-    public void setShootSpeed(double aShootSpeed)
-    {
-        shootSpeed = aShootSpeed;
-    }
+
 }

@@ -4,7 +4,10 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Shooter.ShooterState;
 import frc.sequencer.SequenceStepIf;
 import frc.sequencer.SequenceTransition;
-
+/**
+ * Spins up motor before shooting, as to lower cycle times between robots. No longer necessary due to our robot's framework
+ */
+@Deprecated
 public class autoSpinUp extends SequenceTransition implements SequenceStepIf{
 
     @Override

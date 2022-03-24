@@ -1,9 +1,13 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequencers;
 
+import frc.robot.autonomous.SequenceStepIf;
+import frc.robot.autonomous.SequenceTransition;
 import frc.robot.subsystems.Drive;
-import frc.sequencer.SequenceStepIf;
-import frc.sequencer.SequenceTransition;
 import frc.robot.subsystems.Shooter;
+
+/**
+ * Drives until it reaches it's set distance goal
+ */
 public class autoDrive extends SequenceTransition implements SequenceStepIf{
 
     @Override

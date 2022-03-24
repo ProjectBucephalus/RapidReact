@@ -1,11 +1,13 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.jarryd;
 
+import frc.robot.autonomous.SequenceStepIf;
 import frc.robot.subsystems.BackIntake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.BackIntake.BackIntakeStates;
 import frc.robot.subsystems.Shooter.ShooterState;
-import frc.sequencer.SequenceStepIf;
-
+/**
+ * Enables the intake and feed for 1 step of a sequence, until the next transition is complete.
+ */
 public class autoBackIntake implements SequenceStepIf{
 
     @Override

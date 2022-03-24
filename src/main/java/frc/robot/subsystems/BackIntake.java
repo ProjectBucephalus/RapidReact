@@ -9,7 +9,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.Config;
 import frc.robot.RobotMap;
 
-/** Add your docs here. */
+/** 
+ * The class responsible for running and managing the back intake.
+ */
 public class BackIntake extends Subsystems{
 
     public static enum BackIntakeStates {
@@ -34,7 +36,9 @@ public class BackIntake extends Subsystems{
 
         return m_instance;
     }
-
+    /**
+     * Calling this allows the intake to update every tick
+     */
     @Override
     public void update() {
         switch(currentState) {

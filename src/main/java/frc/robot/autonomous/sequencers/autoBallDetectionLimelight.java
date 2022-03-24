@@ -1,29 +1,27 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.jarryd;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotMap;
-import frc.sequencer.SequenceTransition;
+import frc.robot.autonomous.SequenceTransition;
 import frc.robot.subsystems.Limelight;
 
-
-public class autoBallShooterMain2 extends SequenceTransition{
+/**
+ * Detects balls by checking when they cover the limelight while exiting the shooter
+ * 
+ * <p>Note that this only work if the limelight and shooter are aligned in a way in which the ball fully covers view of the censor for at least 1/22 seconds, and if the robot is properly aligned with the top hub.\
+ * @return returns a complete transition when numballs exceeds the specifed number in setNumBalls
+ */
+public class autoBallDetectionLimelight extends SequenceTransition{
     private boolean assumedBallStatus = false;
     private double numBalls = 0;
     private double maxNumBalls = 0;
-    private double ticks = 0;
-    private double ballsgonefor = 0;
     public void setNumBalls(double aNumBalls) {
         maxNumBalls = aNumBalls;
     }
-    private final static int waitTime = 15;
-    private int waitCounts = waitTime;
 
     @Override
     public void transStart() {
         numBalls = 0;
         assumedBallStatus = false;
-        ticks = 0;
-        ballsgonefor = 0;
         SmartDashboard.putNumber("balls shot", numBalls);
         // TODO Auto-generated method stub
     }
@@ -32,28 +30,6 @@ public class autoBallShooterMain2 extends SequenceTransition{
     @Override
     public boolean transUpdate() {
         boolean sensorStatus = Limelight.getInstance().getTargetAcquired();
-        // if (sensorStatus == true)
-        // {
-        // //ball detected
-        //     if (waitCounts <= 0 && assumedBallStatus == false && waitCounts >-15){
-        //         waitCounts = waitTime;
-        //         assumedBallStatus = true;
-        //         ballDetected();
-        //     }
-        //     else if(waitCounts <= 0 && assumedBallStatus == true && waitCounts >-15){
-        //         waitCounts--;
-        //     }
-        //     else if(assumedBallStatus == true && waitCounts <= -15){
-        //         System.out.println("A ball has been detected in the shooter for too long!!! Assume stuck or code error!");
-        //     }
-        //     else{
-        //         waitCounts --;
-        //     }
-        // }
-        // else if(sensorStatus == false){
-        //     waitCounts = waitTime;
-        //     assumedBallStatus = false;
-        // } 
             if(sensorStatus != true){
                     assumedBallStatus = true;
             }

@@ -1,10 +1,12 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequencers;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.autonomous.SequenceStepIf;
+import frc.robot.autonomous.SequenceTransition;
 import frc.robot.subsystems.Drive;
-import frc.sequencer.SequenceStepIf;
-import frc.sequencer.SequenceTransition;
-
+/**
+ * Makes the robot do a full complete turn for a set distance
+*/
 public class autoCurve extends SequenceTransition implements SequenceStepIf
 {
 

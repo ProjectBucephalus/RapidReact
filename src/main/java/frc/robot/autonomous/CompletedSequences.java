@@ -1,11 +1,13 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
-import frc.sequencer.Sequence;
-public class SequenceTest {
+import frc.robot.autonomous.sequencers.*;
+/**
+ * Implementation for all of our sequences
+ */
+public class CompletedSequences {
     // sequence lib
     public static synchronized List<Sequence> getSequences()
     {
@@ -55,7 +57,7 @@ public class SequenceTest {
         d2.setDist(0.5);
         d2.setSpeed(0.2);
         autoLimelight lime1 = new autoLimelight();
-        autoBallShooter ball1 = new autoBallShooter();
+        autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
         ball1.setNumBalls(10);
         autoShooter shoot1 = new autoShooter();
 
@@ -101,7 +103,7 @@ public class SequenceTest {
         d1.setAccFwdLimit(0.15);
         d1.setAccRevLimit(0.25);
         autoLimelight lime1 = new autoLimelight();
-        autoBallShooterMain2 ball = new autoBallShooterMain2();
+        autoBallDetectionLimelight ball = new autoBallDetectionLimelight();
         ball.setNumBalls(2);
         timedStep T01 = new timedStep();
         T01.setDelay(1.6);
@@ -123,7 +125,7 @@ public class SequenceTest {
         autoLimelight lime2 = new autoLimelight();
         timedStep T1 = new timedStep();
         T1.setDelay(.5);
-        autoBallShooterMain2 ball2 = new autoBallShooterMain2();
+        autoBallDetectionLimelight ball2 = new autoBallDetectionLimelight();
         ball2.setNumBalls(1);
         timedStep T02 = new timedStep();
         T02.setDelay(1.5);
@@ -164,7 +166,7 @@ public class SequenceTest {
         d7.setDistGain(1.5);
         timedStep T3 = new timedStep();
         T3.setDelay(1);
-        autoBallShooterMain2 ball3 = new autoBallShooterMain2();
+        autoBallDetectionLimelight ball3 = new autoBallDetectionLimelight();
         ball3.setNumBalls(5);
         timedStep T4 = new timedStep();
         T4.setDelay(.23);
@@ -248,10 +250,9 @@ public class SequenceTest {
         autoTurn t2 = new autoTurn();
         t2.setAngle(27);
         autoLimelight lime1 = new autoLimelight();
-        autoBallShooter ball1 = new autoBallShooter();
+        autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
         ball1.setNumBalls(2);
         autoShooter shoot1 = new autoShooter();
-        shoot1.setShootSpeed(2200);
         autoTurn t3 = new autoTurn();
         t3.setAngle(133.5);
         autoDrive d2 = new autoDrive();
@@ -266,10 +267,9 @@ public class SequenceTest {
         d3.setSpeed(0.3);
         autoTurn t4 = new autoTurn();
         t4.setAngle(210);
-        autoBallShooter ball2 = new autoBallShooter();
+        autoBallDetectionMotorRPM ball2 = new autoBallDetectionMotorRPM();
         ball2.setNumBalls(5);
         autoShooter shoot2 = new autoShooter();
-        shoot2.setShootSpeed(500);
 
 
         t1.setNextTrans(d1);
@@ -309,7 +309,6 @@ public class SequenceTest {
 
     private static Sequence createPos1Basic()
     {
-        autoSpinUp spin1 = new autoSpinUp();
         autoBackIntake intake = new autoBackIntake();
         autoTurn t1 = new autoTurn();
         t1.setAngle(-86.5);
@@ -318,21 +317,14 @@ public class SequenceTest {
         d1.setDist(-1.2);
         d1.setSpeed(0.3);
         autoLimelight lime1 = new autoLimelight();
-        autoBallShooter ball1 = new autoBallShooter();
+        autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
         ball1.setNumBalls(5);
         autoShooter shoot1 = new autoShooter();
-      /*  try{
-        shoot1.setShootSpeed(VisionTrack.getInstance().returnShooterSpeedLimelight());
-        }
-        catch(Exception e){
-        shoot1.setShootSpeed(2050);
-        }*/
-        shoot1.setShootSpeed(2100);
         t1.setNextTrans(d1);
-        t1.setNextSteps(d1, intake, spin1);
+        t1.setNextSteps(d1, intake);
         d1.setNextTrans(lime1);
-        d1.setNextSteps(lime1, spin1);
-        lime1.setNextTrans(ball1, spin1);
+        d1.setNextSteps(lime1);
+        lime1.setNextTrans(ball1);
         lime1.setNextSteps(shoot1);
 
         Sequence seq = new Sequence("Pos 1 Basic", 1);
@@ -359,10 +351,9 @@ public class SequenceTest {
         d1.setDist(-1.5);
         d1.setSpeed(0.3);
         autoLimelight lime1 = new autoLimelight();
-        autoBallShooter ball1 = new autoBallShooter();
+        autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
         ball1.setNumBalls(5);
         autoShooter shoot1 = new autoShooter();
-        shoot1.setShootSpeed(2200);
 
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake);
@@ -394,11 +385,9 @@ public class SequenceTest {
         timedStep T1 = new timedStep();
         T1.setDelay(5);
         autoLimelight lime1 = new autoLimelight();
-        autoBallShooter ball1 = new autoBallShooter();
+        autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
         ball1.setNumBalls(5);
-        autoShooter shoot1 = new autoShooter();
-        shoot1.setShootSpeed(2100);
-        
+        autoShooter shoot1 = new autoShooter();        
         lime1.setNextTrans(ball1, T1);
         lime1.setNextSteps(shoot1);
         ball1.setNextTrans(d1);

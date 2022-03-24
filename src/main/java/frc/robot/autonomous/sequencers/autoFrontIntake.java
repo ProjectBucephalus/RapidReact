@@ -5,7 +5,9 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.FrontIntake.FrontIntakeStates;
 import frc.robot.subsystems.Shooter.ShooterState;
 import frc.sequencer.SequenceStepIf;
-
+/**
+ * Automatically intakes using the front intake and feed
+*/
 public class autoFrontIntake implements SequenceStepIf{
 
     @Override

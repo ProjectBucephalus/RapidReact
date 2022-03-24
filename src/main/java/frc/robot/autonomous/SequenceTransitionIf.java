@@ -1,5 +1,9 @@
 package frc.sequencer;
 
+
+/**
+ * Framework for a transition in the sequencer
+ */
 public interface SequenceTransitionIf
 {
     /**

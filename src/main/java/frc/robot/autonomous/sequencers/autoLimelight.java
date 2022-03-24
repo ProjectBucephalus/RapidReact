@@ -1,15 +1,16 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequencers;
 
+import frc.robot.autonomous.SequenceStepIf;
+import frc.robot.autonomous.SequenceTransition;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionTrack;
-import frc.robot.subsystems.Shooter.ShooterState;
 import frc.robot.subsystems.VisionTrack.VisionState;
-import frc.sequencer.SequenceStepIf;
-import frc.sequencer.SequenceTransition;
 
-//cannot be used with much sunlight
+/**
+ * Automatically returns a transcomplete when the limelight is angled correctly in relation to it's target
+ */
 public class autoLimelight extends SequenceTransition implements SequenceStepIf {
 
 
