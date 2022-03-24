@@ -8,6 +8,10 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.VisionTrack;
 import frc.robot.subsystems.VisionTrack.VisionState;
 import frc.robot.DriverInterface.MessageType;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -40,6 +44,8 @@ public class Robot extends TimedRobot {
   static Climber m_Climber;
   static VisionTrack vision;
 
+  DoubleLogEntry logShootTop;
+  DoubleLogEntry logShootBottom;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -48,8 +54,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    DataLogManager.start();
+    DataLog log = DataLogManager.getLog();
+    DriverStation.startDataLog(log);
+    logShootTop = new DoubleLogEntry(log, "Shooter Top");
+    logShootBottom = new DoubleLogEntry(log, "Shooter Bottom");
 
-    
     Limelight.getInstance().disableVision();
 
     Drive.getInstance().setBrakes(false);
@@ -97,6 +107,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    logShootTop.append(Shooter.getInstance().getShooterRPM());
+    logShootBottom.append(Shooter.getInstance().getShooterRPM());
     Shuffleboard.update();
   }
 

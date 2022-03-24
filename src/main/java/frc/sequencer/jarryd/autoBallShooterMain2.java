@@ -3,10 +3,10 @@ package frc.sequencer.jarryd;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.sequencer.SequenceTransition;
+import frc.robot.subsystems.Limelight;
 
 
-
-public class autoBallShooterMain extends SequenceTransition{
+public class autoBallShooterMain2 extends SequenceTransition{
     private boolean assumedBallStatus = false;
     private double numBalls = 0;
     private double maxNumBalls = 0;
@@ -31,7 +31,7 @@ public class autoBallShooterMain extends SequenceTransition{
  
     @Override
     public boolean transUpdate() {
-        boolean sensorStatus = RobotMap.ballSense.get();
+        boolean sensorStatus = Limelight.getInstance().getTargetAcquired();
         // if (sensorStatus == true)
         // {
         // //ball detected
@@ -54,7 +54,7 @@ public class autoBallShooterMain extends SequenceTransition{
         //     waitCounts = waitTime;
         //     assumedBallStatus = false;
         // } 
-            if(sensorStatus == true){
+            if(sensorStatus != true){
                     assumedBallStatus = true;
             }
             else{

@@ -113,16 +113,16 @@ public class Climber extends Subsystems {
             break;
             case MANUAL:
                 oldClimberState = ClimberStates.MANUAL;
-                if(climberManualPower > 0 && RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMF)) {
+                //if(climberManualPower > 0 && RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMF)) {
                     RobotMap.getLeftWinch().set(ControlMode.PercentOutput, climberManualPower);
                     RobotMap.getRightWinch().set(ControlMode.PercentOutput, climberManualPower);
-                } else if(climberManualPower < 0 && RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
-                    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, climberManualPower);
-                    RobotMap.getRightWinch().set(ControlMode.PercentOutput, climberManualPower);
-                } else {
-                    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, 0);
-                    RobotMap.getRightWinch().set(ControlMode.PercentOutput, 0);
-                }
+                //} else if(climberManualPower < 0 && RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
+                //    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, climberManualPower);
+                //    RobotMap.getRightWinch().set(ControlMode.PercentOutput, climberManualPower);
+                //} else {
+                //    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, 0);
+                //    RobotMap.getRightWinch().set(ControlMode.PercentOutput, 0);
+                //}
                 currentClimberState = desiredClimberState;
 
             break;

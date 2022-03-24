@@ -3,7 +3,7 @@ package frc.sequencer.jarryd;
 import frc.robot.subsystems.Drive;
 import frc.sequencer.SequenceStepIf;
 import frc.sequencer.SequenceTransition;
-
+import frc.robot.subsystems.Shooter;
 public class autoDrive extends SequenceTransition implements SequenceStepIf{
 
     @Override
@@ -47,6 +47,7 @@ public class autoDrive extends SequenceTransition implements SequenceStepIf{
         }
        
         distCmd = Math.min(mySpeed, Math.max(-mySpeed, distCmd));
+        Shooter.getInstance().setIndexer(-0.1);
 
         Drive.getInstance().autoArcadeDrive(steerCmd, distCmd);
         
