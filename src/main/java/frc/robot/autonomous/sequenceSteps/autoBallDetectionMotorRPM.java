@@ -1,7 +1,7 @@
-package frc.robot.autonomous.jarryd;
+package frc.robot.autonomous.sequenceSteps;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.autonomous.SequenceTransition;
+import frc.robot.autonomous.sequencer.SequenceTransition;
 import frc.robot.subsystems.Shooter;
 /**
  * Detects balls by checking when they cover the limelight while exiting the shooter

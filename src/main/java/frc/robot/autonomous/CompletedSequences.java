@@ -3,7 +3,9 @@ package frc.robot.autonomous;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import frc.robot.autonomous.sequencers.*;
+
+import frc.robot.autonomous.sequenceSteps.*;
+import frc.robot.autonomous.sequencer.Sequence;
 /**
  * Implementation for all of our sequences
  */

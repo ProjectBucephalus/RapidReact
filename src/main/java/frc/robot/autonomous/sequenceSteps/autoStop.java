@@ -1,7 +1,7 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequenceSteps;
 
+import frc.robot.autonomous.sequencer.SequenceStepIf;
 import frc.robot.subsystems.Drive;
-import frc.sequencer.SequenceStepIf;
 /**
  * Just a stop
  */

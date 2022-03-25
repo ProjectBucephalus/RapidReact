@@ -1,16 +1,17 @@
-package frc.robot.autonomous.jarryd;
+package frc.robot.autonomous.sequenceSteps;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.autonomous.SequenceTransition;
-import frc.robot.subsystems.Limelight;
+import frc.robot.RobotMap;
+import frc.robot.autonomous.sequencer.SequenceTransition;
+
 
 /**
- * Detects balls by checking when they cover the limelight while exiting the shooter
+ * This code was found to be dodgy, and was depreceated in lieu of using the limelight as a sensor. It uses the proximity sensor to detect balls running through the shooter
  * 
- * <p>Note that this only work if the limelight and shooter are aligned in a way in which the ball fully covers view of the censor for at least 1/22 seconds, and if the robot is properly aligned with the top hub.\
  * @return returns a complete transition when numballs exceeds the specifed number in setNumBalls
  */
-public class autoBallDetectionLimelight extends SequenceTransition{
+@Deprecated
+public class autoBallDetectionProximitySensor extends SequenceTransition{
     private boolean assumedBallStatus = false;
     private double numBalls = 0;
     private double maxNumBalls = 0;
@@ -29,8 +30,8 @@ public class autoBallDetectionLimelight extends SequenceTransition{
  
     @Override
     public boolean transUpdate() {
-        boolean sensorStatus = Limelight.getInstance().getTargetAcquired();
-            if(sensorStatus != true){
+        boolean sensorStatus = RobotMap.ballSense.get();
+            if(sensorStatus == true){
                     assumedBallStatus = true;
             }
             else{

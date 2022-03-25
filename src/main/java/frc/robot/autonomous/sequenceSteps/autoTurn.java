@@ -1,9 +1,9 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequenceSteps;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.autonomous.sequencer.SequenceStepIf;
+import frc.robot.autonomous.sequencer.SequenceTransition;
 import frc.robot.subsystems.Drive;
-import frc.sequencer.SequenceStepIf;
-import frc.sequencer.SequenceTransition;
 /**
  * I have no idea what this acomplishes and why it isn't intergrated into autodrive, but this needs to happen before autodrive as it keeps it's angle more accurate and 'clean'
  */

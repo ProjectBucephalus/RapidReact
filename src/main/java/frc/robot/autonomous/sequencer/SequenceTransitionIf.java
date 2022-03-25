@@ -1,4 +1,4 @@
-package frc.sequencer;
+package frc.robot.autonomous.sequencer;
 
 
 /**

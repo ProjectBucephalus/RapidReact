@@ -1,6 +1,6 @@
-package frc.robot.autonomous.sequencers;
+package frc.robot.autonomous.sequenceSteps;
 
-import frc.robot.autonomous.SequenceTransition;
+import frc.robot.autonomous.sequencer.SequenceTransition;
 import frc.robot.subsystems.Drive;
 /**
  * Class implemented to stop the robot if a collision is detected in auto
