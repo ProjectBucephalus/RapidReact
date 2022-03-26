@@ -6,8 +6,9 @@ package frc.robot.subsystems;
 
 import frc.robot.Config;
 import frc.robot.RobotMap;
-
-/** Add your docs here. */
+/**
+ * Put docs here // TODO
+ */
 public class Pneumatics extends Subsystems{
 
     boolean compressor = true;

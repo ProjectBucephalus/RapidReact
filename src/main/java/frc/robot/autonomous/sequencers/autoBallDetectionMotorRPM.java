@@ -1,4 +1,4 @@
-package frc.robot.autonomous.jarryd;
+package frc.robot.autonomous.sequencers;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.SequenceTransition;

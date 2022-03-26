@@ -1,4 +1,4 @@
-package frc.robot.autonomous.jarryd;
+package frc.robot.autonomous.sequencers;
 
 import frc.robot.autonomous.SequenceStepIf;
 import frc.robot.subsystems.BackIntake;
@@ -13,8 +13,8 @@ public class autoBackIntake implements SequenceStepIf{
     @Override
     public void stepStart() {
         BackIntake.getInstance().setDesiredState(BackIntakeStates.INTAKING);  
-        Shooter.getInstance().setFeed(1, 1);
-        Shooter.getInstance().setIndexer(-0.35);
+        Shooter.getInstance().setFeed(.8, .8);
+        Shooter.getInstance().setIndexer(-0.55);
     }
 
     @Override
@@ -27,8 +27,8 @@ public class autoBackIntake implements SequenceStepIf{
 
     @Override
     public void stepUpdate() {
-        Shooter.getInstance().setFeed(1, 1);
-        Shooter.getInstance().setIndexer(-0.35);        
+        Shooter.getInstance().setFeed(.8, .8);
+        Shooter.getInstance().setIndexer(-0.55);        
     }
 
     @Override

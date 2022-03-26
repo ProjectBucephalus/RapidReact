@@ -11,11 +11,13 @@ import java.util.Map;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Config;
 import frc.robot.Constants;
 import frc.robot.DriverInterface;
 import frc.robot.RobotMap;
-
-/** Add your docs here. */
+/**
+ * Put docs here // TODO
+ */
 public class Shooter extends Subsystems{
 
     private static Shooter m_instance;
@@ -44,8 +46,8 @@ public class Shooter extends Subsystems{
 
     private static ShooterSpeedSlot speedSlot = ShooterSpeedSlot.IDLE;
 
-    private double shooterIdleSpeed = 1900;
-    private double shooterShootSpeed = 2450;
+    private double shooterIdleSpeed = 1800 * Config.kLimelightShooterSpeedModiferPercentage;
+    private double shooterShootSpeed = 2450 * Config.kLimelightShooterSpeedModiferPercentage;
     private double shooterEjectSpeed = 500;
     private double shooterSpinUpSpeed = shooterShootSpeed;
 
@@ -82,7 +84,7 @@ public class Shooter extends Subsystems{
                 // System.out.println("Current Set Speed " + getShooterSetSpeed());
                 // System.out.println("Current Speed " + getShooterAtSpeed());
                 // System.out.println("Current State " + getCurrentState());
-                System.out.println("Shooter Defaulted to Idle. Sorry :(");
+                //System.out.println("Shooter Defaulted to Idle. Sorry :(");
             }
         }
         catch(Exception e) {

@@ -51,7 +51,7 @@ public class autoDrive extends SequenceTransition implements SequenceStepIf{
         }
        
         distCmd = Math.min(mySpeed, Math.max(-mySpeed, distCmd));
-        Shooter.getInstance().setIndexer(-0.1);
+        Shooter.getInstance().setIndexer(-0.2);
 
         Drive.getInstance().autoArcadeDrive(steerCmd, distCmd);
         

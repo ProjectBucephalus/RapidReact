@@ -156,7 +156,7 @@ public void update(){
         // System.out.println("tx: " + tx);
           double AutoVisionSteering = (tx * Constants.kVisionTurnKp);
           if(tx <4   && tx  >-4){
-            double isn = AutoVisionSteering * 2;
+            double isn = AutoVisionSteering * 2.3;
             // m_drive.arcadeDrive(0.5, -1, 0.0);
             Drive.getInstance().autoArcadeDrive(isn, 0); 
           }
@@ -165,7 +165,7 @@ public void update(){
             Drive.getInstance().autoArcadeDrive(AutoVisionSteering, 0);
           }
           if(tx <1&& tx  >-1){
-            if(timesLooped >= 15){
+            if(timesLooped >= 18){
             desiredState = VisionState.IDLE;
             turnStatus = true;
             }

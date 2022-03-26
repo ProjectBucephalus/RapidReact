@@ -1,4 +1,4 @@
-package frc.robot.autonomous.jarryd;
+package frc.robot.autonomous.sequencers;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.SequenceTransition;
@@ -7,7 +7,10 @@ import frc.robot.subsystems.Limelight;
 /**
  * Detects balls by checking when they cover the limelight while exiting the shooter
  * 
- * <p>Note that this only work if the limelight and shooter are aligned in a way in which the ball fully covers view of the censor for at least 1/22 seconds, and if the robot is properly aligned with the top hub.\
+ * <p>Note that this only work if the limelight and shooter 
+ * are aligned in a way in which the ball fully covers
+ * view of the censor for at least 1/22 seconds, and if the 
+ * robot is properly aligned with the top hub.
  * @return returns a complete transition when numballs exceeds the specifed number in setNumBalls
  */
 public class autoBallDetectionLimelight extends SequenceTransition{

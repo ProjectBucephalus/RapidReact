@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
 
   Drive drivetrain = Drive.getInstance();
   static DriverInterface m_driverInterface = new DriverInterface();
-
+  static boolean runIntoTelop;
   static Pneumatics m_pneumatics;
   static Shooter m_shooter;
   static Drive m_drive;
@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
     DriverStation.startDataLog(log);
     logShootTop = new DoubleLogEntry(log, "Shooter Top");
     logShootBottom = new DoubleLogEntry(log, "Shooter Bottom");
-
+    runIntoTelop = false;
     Limelight.getInstance().disableVision();
 
     Drive.getInstance().setBrakes(false);
@@ -124,20 +124,19 @@ public class Robot extends TimedRobot {
    */
   @Override
     public void autonomousInit() {
+    runIntoTelop = false;
     Drive.getInstance().setBrakes(true);
     Limelight.getInstance().enableVision();       
 
-
     Sequence selectedAuto = seqChooser.getSelected();
     Drive.getInstance().setAngle(getFieldAngle(selectedAuto.getStartPos()));
-
     mySeq = new Sequencer();
     mySeq.setInitialSteps(selectedAuto.getInitialSteps());
     mySeq.setInitialTransitions(selectedAuto.getInitialTransitions());
     mySeq.sequenceStart();
 
 
-    // System.out.println("Auto selected: " + m_autoSelected);
+
 
   }
 
@@ -173,6 +172,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+ 
 
     try {
       System.out.println("Climber " + Climber.getInstance().getClimberCurrentState() + " Vision " + VisionTrack.getInstance().getCurrentState() + " Shooter " + Shooter.getInstance().getCurrentState() + " Intakes " + FrontIntake.getInstance().getCurrentState() + BackIntake.getInstance().getCurrentState());
@@ -215,6 +215,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {
+    Drive.getInstance().setBrakes(false);
+
     //Limelight.getInstance().disableVision();
   }
 
