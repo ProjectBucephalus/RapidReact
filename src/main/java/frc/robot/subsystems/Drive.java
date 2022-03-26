@@ -13,6 +13,7 @@ import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -467,4 +468,15 @@ public class Drive extends Subsystems {
         RobotMap.getRightDriveB().clearStickyFaults();        
         RobotMap.getRightDriveC().clearStickyFaults();
     }
+
+    public void initLogging(DataLog aLog)
+    {
+ 
+    }
+ 
+    public void updateLogging(long aTime)
+    {
+        
+    }
+ 
 }

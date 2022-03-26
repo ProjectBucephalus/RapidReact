@@ -8,6 +8,9 @@ import com.ctre.phoenix.CANifier.GeneralPin;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.util.datalog.BooleanLogEntry;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Config;
 import frc.robot.Constants;
@@ -49,6 +52,11 @@ public class Climber extends Subsystems {
     private double climberManualPower = 0;
 
     private static Climber m_instance;
+
+    // DataLog variables
+    private DoubleLogEntry logLeftClimbPosFB;
+    private DoubleLogEntry logRightClimbPosFB;
+    private BooleanLogEntry logClimbLatch;
 
     public static Climber getInstance() {
         if(m_instance == null) {
@@ -291,8 +299,19 @@ public class Climber extends Subsystems {
       
     }
 
-   
+    public void initLogging(DataLog aLog)
+    {
+        logLeftClimbPosFB = new DoubleLogEntry(aLog, "Climb Left Pos FB");
+        logRightClimbPosFB = new DoubleLogEntry(aLog, "Climb Right Pos FB");
+        logClimbLatch = new BooleanLogEntry(aLog, "Climb Latch");
+    }
 
+    public void updateLogging(long aTime)
+    {
+        logLeftClimbPosFB.append(RobotMap.getLeftWinch().getSelectedSensorPosition(), aTime);
+        logRightClimbPosFB.append(RobotMap.getRightWinch().getSelectedSensorPosition(), aTime);
+        logClimbLatch.append(RobotMap.getClimberSolenoid().get() == Value.kForward, aTime);
+    }
     
 
 }

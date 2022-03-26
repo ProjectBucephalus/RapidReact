@@ -36,7 +36,7 @@ public class CompletedSequences {
             // theSequences.add(create2b());
             // theSequences.add(create3b());
             // theSequences.add(create4b());
-            theSequences.add(createAccTest());
+            //theSequences.add(createAccTest());
             // theSequences.add(createRevAccTest());
 
         }
@@ -100,7 +100,7 @@ public class CompletedSequences {
         t1.setAngle(-87.5);
         autoDrive d1 = new autoDrive();
         d1.setAngle(-87.5);
-        d1.setDist(-1.2);
+        d1.setDist(-1.05);
         d1.setSpeed(0.65);
         d1.setAccFwdLimit(0.15);
         d1.setAccRevLimit(0.17);
@@ -130,22 +130,22 @@ public class CompletedSequences {
         autoBallDetectionLimelight ball2 = new autoBallDetectionLimelight();
         ball2.setNumBalls(1);
         timedStep T02 = new timedStep();
-        T02.setDelay(1.5);
+        T02.setDelay(1.0);
         autoShooter shoot2 = new autoShooter();
         autoTurn t3 = new autoTurn();
         t3.setAngle(0);
         autoDrive d4 = new autoDrive();
         d4.setAngle(0);
-        d4.setDist(-2.11);
-        d4.setSpeed(0.69); //NICE
+        d4.setDist(-1.69);//NICE
+        d4.setSpeed(0.79); 
         d4.setAccFwdLimit(0.15);
         d4.setAccRevLimit(0.22);
         d4.setDistGain(1.5);
         autoTurn t4 = new autoTurn();
-        t4.setAngle(-45);
+        t4.setAngle(-43);
         autoDrive d5 = new autoDrive();
         d5.setAngle(-45);
-        d5.setDist(-1.05);
+        d5.setDist(-1.2);
         d5.setSpeed(0.7);
         d5.setAccFwdLimit(0.15);
         d5.setAccRevLimit(0.12);
@@ -165,7 +165,7 @@ public class CompletedSequences {
         autoDrive d7 = new autoDrive();
         d7.setAngle(-19);
         d7.setDist(2);
-        d7.setSpeed(.6);
+        d7.setSpeed(.39);
         d7.setAccFwdLimit(0.10);
         d7.setAccRevLimit(0.25);
         d7.setDistGain(.7);
@@ -227,7 +227,7 @@ public class CompletedSequences {
         lime3.setNextTrans(T4); 
         T4.setNextTrans(ball3);
         T4.setNextSteps(shoot3);
-        Sequence seq = new Sequence("Pos 1 Complex", 1);
+        Sequence seq = new Sequence("Pos-1 5Ball", 1);
         seq.setInitialTransitions(tick2);
 
         seq.setInitialSteps(tick);
@@ -247,42 +247,42 @@ public class CompletedSequences {
     {
         autoBackIntake intake = new autoBackIntake();
         autoTurn t1 = new autoTurn();
-        t1.setAngle(42);
+        t1.setAngle(41.55);
         autoDrive d1 = new autoDrive();
-        d1.setAngle(42);
+        d1.setAngle(41.5);
         d1.setDist(-1.5);
-        d1.setSpeed(0.3);
+        d1.setSpeed(0.4);
         autoTurn t2 = new autoTurn();
-        t2.setAngle(27);
+        t1.setAngle(45.4);
         autoLimelight lime1 = new autoLimelight();
-        autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
+        autoBallDetectionLimelight ball1 = new autoBallDetectionLimelight();
         ball1.setNumBalls(2);
         autoShooter shoot1 = new autoShooter();
         autoTurn t3 = new autoTurn();
-        t3.setAngle(133.5);
+        t3.setAngle(139.5);
         autoDrive d2 = new autoDrive();
-        d2.setAngle(133.5);
+        d2.setAngle(139.5);
         d2.setDist(-1.7);
         d2.setSpeed(0.3);
         timedStep T1 = new timedStep();
         T1.setDelay(0.3);
         autoDrive d3 = new autoDrive();
-        d3.setAngle(133.5);
+        d3.setAngle(139.5);
         d3.setDist(1.5);
         d3.setSpeed(0.3);
         autoTurn t4 = new autoTurn();
         t4.setAngle(210);
-        autoBallDetectionMotorRPM ball2 = new autoBallDetectionMotorRPM();
+        autoBallDetectionLimelight ball2 = new autoBallDetectionLimelight();
         ball2.setNumBalls(5);
-        autoShooter shoot2 = new autoShooter();
+        autoEjector eject2 = new autoEjector();
 
 
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake);
         d1.setNextTrans(t2);
-        d1.setNextSteps(t2);
+        d1.setNextSteps(t2, intake);
         t2.setNextTrans(lime1);
-        t2.setNextSteps(lime1);
+        t2.setNextSteps(lime1, intake);
         lime1.setNextTrans(ball1);
         lime1.setNextSteps(shoot1);
         ball1.setNextTrans(t3);
@@ -296,9 +296,9 @@ public class CompletedSequences {
         d3.setNextTrans(t4);
         d3.setNextSteps(t4, intake);
         t4.setNextTrans(ball2);
-        t4.setNextSteps(shoot2);
+        t4.setNextSteps(eject2);
 
-        Sequence seq = new Sequence("Pos 4 Normal", 4);
+        Sequence seq = new Sequence("Pos-4 2Ball + Steal", 4);
         seq.setInitialTransitions(t1);
         seq.setInitialSteps(t1, intake);
         return seq;
@@ -314,25 +314,29 @@ public class CompletedSequences {
 
     private static Sequence createPos1Basic()
     {
+
         autoBackIntake intake = new autoBackIntake();
         autoTurn t1 = new autoTurn();
-        t1.setAngle(-86.5);
+        t1.setAngle(-87.5);
         autoDrive d1 = new autoDrive();
-        d1.setAngle(-86.5);
+        d1.setAngle(-87.5);
         d1.setDist(-1.2);
-        d1.setSpeed(0.3);
+        d1.setSpeed(0.58);
+        d1.setAccFwdLimit(0.15);
+        d1.setAccRevLimit(0.17);
         autoLimelight lime1 = new autoLimelight();
-        autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
-        ball1.setNumBalls(5);
+        autoBallDetectionLimelight ball = new autoBallDetectionLimelight();
+        ball.setNumBalls(2);
         autoShooter shoot1 = new autoShooter();
+
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake);
         d1.setNextTrans(lime1);
         d1.setNextSteps(lime1);
-        lime1.setNextTrans(ball1);
+        lime1.setNextTrans(ball);
         lime1.setNextSteps(shoot1);
 
-        Sequence seq = new Sequence("Pos 1 Basic", 1);
+        Sequence seq = new Sequence("Pos1 2Ball", 1);
         seq.setInitialTransitions(t1);
         seq.setInitialSteps(t1, intake);
         return seq;
@@ -354,10 +358,10 @@ public class CompletedSequences {
         autoDrive d1 = new autoDrive();
         d1.setAngle(-21.5);
         d1.setDist(-1.5);
-        d1.setSpeed(0.3);
+        d1.setSpeed(0.4);
         autoLimelight lime1 = new autoLimelight();
         autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
-        ball1.setNumBalls(5);
+        ball1.setNumBalls(3);
         autoShooter shoot1 = new autoShooter();
 
         t1.setNextTrans(d1);
@@ -367,7 +371,7 @@ public class CompletedSequences {
         lime1.setNextTrans(ball1);
         lime1.setNextSteps(shoot1);
 
-        Sequence seq = new Sequence("Pos 2 Basic", 2);
+        Sequence seq = new Sequence("Pos 2 Ball", 2);
         seq.setInitialTransitions(t1);
         seq.setInitialSteps(t1, intake);
         return seq;
@@ -388,36 +392,34 @@ public class CompletedSequences {
         d1.setDist(-2);
         d1.setSpeed(0.3);
         timedStep T1 = new timedStep();
-        T1.setDelay(5);
+        T1.setDelay(3);
         autoLimelight lime1 = new autoLimelight();
         autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
         ball1.setNumBalls(5);
         autoShooter shoot1 = new autoShooter();        
-        lime1.setNextTrans(ball1, T1);
+        d1.setNextTrans(lime1, T1);
+        d1.setNextSteps(lime1);
+        lime1.setNextTrans(ball1);
         lime1.setNextSteps(shoot1);
-        ball1.setNextTrans(d1);
-        ball1.setNextSteps(d1);
-        T1.setNextTrans(d1);
-        T1.setNextSteps(d1);
 
-        Sequence seq = new Sequence("Pos 3 Basic", 3);
-        seq.setInitialTransitions(lime1);
-        seq.setInitialSteps(lime1);
+        Sequence seq = new Sequence("Pos 3 1ball", 3);
+        seq.setInitialTransitions(d1);
+        seq.setInitialSteps(d1);
         return seq;
     }
 
-    private static Sequence createAccTest()
-    {
-        autoDrive drive1 = new autoDrive();
-        drive1.setDist(1.5);
-        drive1.setAngle(0);
-        drive1.setSpeed(0.2);
+    // private static Sequence createAccTest()
+    // {
+    //     autoDrive drive1 = new autoDrive();
+    //     drive1.setDist(1.5);
+    //     drive1.setAngle(0);
+    //     drive1.setSpeed(0.2);
 
-        Sequence seq = new Sequence("Acceleration Test", 0);
-        seq.setInitialTransitions(drive1);
-        seq.setInitialSteps(drive1);
-        return seq;
-    }    
+    //     Sequence seq = new Sequence("Acceleration Test", 0);
+    //     seq.setInitialTransitions(drive1);
+    //     seq.setInitialSteps(drive1);
+    //     return seq;
+    // }    
 
     // private static Sequence createRevAccTest()
     // {

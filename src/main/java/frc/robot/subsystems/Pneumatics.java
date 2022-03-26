@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.util.datalog.DataLog;
 import frc.robot.Config;
 import frc.robot.RobotMap;
 /**
@@ -70,4 +71,14 @@ public class Pneumatics extends Subsystems{
     public void clearFaults() {
     }
 
+    public void initLogging(DataLog aLog)
+    {
+ 
+    }
+ 
+    public void updateLogging(long aTime)
+    {
+        
+    }
+ 
 }

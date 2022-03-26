@@ -15,7 +15,9 @@ import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -44,9 +46,6 @@ public class Robot extends TimedRobot {
   static Climber m_Climber;
   static VisionTrack vision;
 
-  DoubleLogEntry logShootTop;
-  DoubleLogEntry logShootBottom;
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -57,8 +56,6 @@ public class Robot extends TimedRobot {
     DataLogManager.start();
     DataLog log = DataLogManager.getLog();
     DriverStation.startDataLog(log);
-    logShootTop = new DoubleLogEntry(log, "Shooter Top");
-    logShootBottom = new DoubleLogEntry(log, "Shooter Bottom");
     runIntoTelop = false;
     Limelight.getInstance().disableVision();
 
@@ -91,6 +88,13 @@ public class Robot extends TimedRobot {
       }
     }
     Drive.getInstance().initMotorControllers();
+
+    BackIntake.getInstance().initLogging(log);
+    Climber.getInstance().initLogging(log);
+    Drive.getInstance().initLogging(log);
+    FrontIntake.getInstance().initLogging(log);
+    Pneumatics.getInstance().initLogging(log);
+    Shooter.getInstance().initLogging(log);
   }
 
   
@@ -107,9 +111,22 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    logShootTop.append(Shooter.getInstance().getShooterRPM());
-    logShootBottom.append(Shooter.getInstance().getShooterRPM());
+    long logTime = System.currentTimeMillis();
+    BackIntake.getInstance().updateLogging(logTime);
+    Climber.getInstance().updateLogging(logTime);
+    Drive.getInstance().updateLogging(logTime);
+    FrontIntake.getInstance().updateLogging(logTime);
+    Pneumatics.getInstance().updateLogging(logTime);
+    Shooter.getInstance().updateLogging(logTime);
+
     Shuffleboard.update();
+ 
+  }
+
+  private static long currentScanTimestamp = 0;
+  public static long getScanTime()
+  {
+    return currentScanTimestamp;
   }
 
   /**

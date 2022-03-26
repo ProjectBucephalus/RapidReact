@@ -3,6 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+
+import edu.wpi.first.util.datalog.DataLog;
+
 /**
  * Put docs here // TODO
  */
@@ -51,4 +54,15 @@ public abstract class Subsystems {
      */
     public abstract void clearFaults();
 
+    /**
+     * Initialise the logging for this subsystem.
+     * @param aLog The DataLog to use for logging.
+     */
+    public abstract void initLogging(DataLog aLog);
+ 
+    /**
+     * Log variables for this subsystem in the current scan.
+     */
+    public abstract void updateLogging(long aTime);
+ 
 }
