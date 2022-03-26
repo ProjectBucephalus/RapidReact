@@ -1,7 +1,7 @@
-package frc.robot.autonomous.sequencers;
+package frc.robot.autonomous.sequenceSteps;
 
-import frc.robot.autonomous.SequenceStepIf;
-import frc.robot.autonomous.SequenceTransition;
+import frc.robot.autonomous.sequencer.SequenceStepIf;
+import frc.robot.autonomous.sequencer.SequenceTransition;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;

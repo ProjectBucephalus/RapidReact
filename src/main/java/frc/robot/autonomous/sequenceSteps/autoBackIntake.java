@@ -1,6 +1,6 @@
-package frc.robot.autonomous.sequencers;
+package frc.robot.autonomous.sequenceSteps;
 
-import frc.robot.autonomous.SequenceStepIf;
+import frc.robot.autonomous.sequencer.SequenceStepIf;
 import frc.robot.subsystems.BackIntake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.BackIntake.BackIntakeStates;

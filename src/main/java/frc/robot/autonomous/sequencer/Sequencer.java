@@ -1,4 +1,4 @@
-package frc.robot.autonomous;
+package frc.robot.autonomous.sequencer;
 
 import java.util.LinkedList;
 import java.util.List;

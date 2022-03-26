@@ -1,8 +1,8 @@
-package frc.robot.autonomous;
+package frc.robot.autonomous.sequencer;
 /**
- * Framework for creating a step in the sequencer 
+ * Abstract framework for a sequence step
  */
-public abstract class SequenceStep implements SequenceStepIf
+public interface SequenceStepIf
 {
     /**
      * Called when the step is started.
@@ -10,17 +10,23 @@ public abstract class SequenceStep implements SequenceStepIf
      * is used (eg, a step to move 2 metres will need to remember where we started
      * from in order to calculate how far we have moved).
      */
-    public abstract void stepStart();
-
+    public void stepStart();
     /**
      * Called when the step is ended.
      * This can be used to stop the motion of this step (eg, turn motors off, etc)
      */
-    public abstract void stepEnd();
+    public void stepEnd();
 
     /**
      * Called every scan of the sequencer. This allows the step class to monitor
      * values over time.
      */
-    public abstract void stepUpdate();
+    public void stepUpdate();
+
+    /**
+     * Returns the name of this step.
+     * 
+     * @return the name.
+     */
+    public String stepName();
 }

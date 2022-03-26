@@ -1,8 +1,8 @@
-package frc.robot.autonomous.sequencers;
+package frc.robot.autonomous.sequenceSteps;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.autonomous.SequenceStepIf;
-import frc.robot.autonomous.SequenceTransition;
+import frc.robot.autonomous.sequencer.SequenceStepIf;
+import frc.robot.autonomous.sequencer.SequenceTransition;
 /**
  * Basic Timed Step
  */
