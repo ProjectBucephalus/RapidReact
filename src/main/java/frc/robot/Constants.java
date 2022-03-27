@@ -54,6 +54,7 @@ public class Constants {
 
 	public static final double kShooterP = 0.23;
 	public static final double kShooterI = 0.00014;
+	public static final double kShooterD = 10.0;
 
 	public static final double kClimberWinchP = 0.029;
 

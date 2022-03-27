@@ -8,12 +8,17 @@ import com.ctre.phoenix.CANifier.GeneralPin;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.util.datalog.BooleanLogEntry;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Config;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 
-/** Add your docs here. */
+/**
+ * Put docs here // TODO
+ */
 public class Climber extends Subsystems {
 
     public enum ClimberStates {
@@ -47,6 +52,11 @@ public class Climber extends Subsystems {
     private double climberManualPower = 0;
 
     private static Climber m_instance;
+
+    // DataLog variables
+    private DoubleLogEntry logLeftClimbPosFB;
+    private DoubleLogEntry logRightClimbPosFB;
+    private BooleanLogEntry logClimbLatch;
 
     public static Climber getInstance() {
         if(m_instance == null) {
@@ -113,16 +123,16 @@ public class Climber extends Subsystems {
             break;
             case MANUAL:
                 oldClimberState = ClimberStates.MANUAL;
-                if(climberManualPower > 0 && RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMF)) {
+                //if(climberManualPower > 0 && RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMF)) {
                     RobotMap.getLeftWinch().set(ControlMode.PercentOutput, climberManualPower);
                     RobotMap.getRightWinch().set(ControlMode.PercentOutput, climberManualPower);
-                } else if(climberManualPower < 0 && RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
-                    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, climberManualPower);
-                    RobotMap.getRightWinch().set(ControlMode.PercentOutput, climberManualPower);
-                } else {
-                    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, 0);
-                    RobotMap.getRightWinch().set(ControlMode.PercentOutput, 0);
-                }
+                //} else if(climberManualPower < 0 && RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
+                //    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, climberManualPower);
+                //    RobotMap.getRightWinch().set(ControlMode.PercentOutput, climberManualPower);
+                //} else {
+                //    RobotMap.getLeftWinch().set(ControlMode.PercentOutput, 0);
+                //    RobotMap.getRightWinch().set(ControlMode.PercentOutput, 0);
+                //}
                 currentClimberState = desiredClimberState;
 
             break;
@@ -289,8 +299,19 @@ public class Climber extends Subsystems {
       
     }
 
-   
+    public void initLogging(DataLog aLog)
+    {
+        logLeftClimbPosFB = new DoubleLogEntry(aLog, "Climb Left Pos FB");
+        logRightClimbPosFB = new DoubleLogEntry(aLog, "Climb Right Pos FB");
+        logClimbLatch = new BooleanLogEntry(aLog, "Climb Latch");
+    }
 
+    public void updateLogging(long aTime)
+    {
+        logLeftClimbPosFB.append(RobotMap.getLeftWinch().getSelectedSensorPosition(), aTime);
+        logRightClimbPosFB.append(RobotMap.getRightWinch().getSelectedSensorPosition(), aTime);
+        logClimbLatch.append(RobotMap.getClimberSolenoid().get() == Value.kForward, aTime);
+    }
     
 
 }

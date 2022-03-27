@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Subsystems.diagnosticState;
-
-/** Add your docs here. */
+/**
+ * Put docs here // TODO
+ */
 public class DriverInterface {
 
     private static DriverInterface m_instance;

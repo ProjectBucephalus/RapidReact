@@ -8,16 +8,22 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.VisionTrack;
 import frc.robot.subsystems.VisionTrack.VisionState;
 import frc.robot.DriverInterface.MessageType;
+import frc.robot.autonomous.CompletedSequences;
+import frc.robot.autonomous.sequencer.Sequence;
+import frc.robot.autonomous.sequencer.Sequencer;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.LinkedList;
 import frc.robot.subsystems.*;
-import frc.sequencer.Sequence;
-import frc.sequencer.Sequencer;
-import frc.sequencer.jarryd.SequenceTest;
-
+// TODO comment this lol
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -31,7 +37,7 @@ public class Robot extends TimedRobot {
 
   Drive drivetrain = Drive.getInstance();
   static DriverInterface m_driverInterface = new DriverInterface();
-
+  static boolean runIntoTelop;
   static Pneumatics m_pneumatics;
   static Shooter m_shooter;
   static Drive m_drive;
@@ -40,7 +46,6 @@ public class Robot extends TimedRobot {
   static Climber m_Climber;
   static VisionTrack vision;
 
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -48,8 +53,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-
-    
+    DataLogManager.start();
+    DataLog log = DataLogManager.getLog();
+    DriverStation.startDataLog(log);
+    runIntoTelop = false;
     Limelight.getInstance().disableVision();
 
     Drive.getInstance().setBrakes(false);
@@ -63,7 +70,7 @@ public class Robot extends TimedRobot {
 
     //Sequencer
     LinkedList<Sequence> seqList = new LinkedList<Sequence>();
-    seqList.addAll(SequenceTest.getSequences());
+    seqList.addAll(CompletedSequences.getSequences());
     seqChooser = new SendableChooser<Sequence>();
     SmartDashboard.putData("Auto choices", seqChooser);
     boolean first = true;
@@ -81,6 +88,13 @@ public class Robot extends TimedRobot {
       }
     }
     Drive.getInstance().initMotorControllers();
+
+    BackIntake.getInstance().initLogging(log);
+    Climber.getInstance().initLogging(log);
+    Drive.getInstance().initLogging(log);
+    FrontIntake.getInstance().initLogging(log);
+    Pneumatics.getInstance().initLogging(log);
+    Shooter.getInstance().initLogging(log);
   }
 
   
@@ -97,7 +111,22 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    long logTime = System.currentTimeMillis();
+    BackIntake.getInstance().updateLogging(logTime);
+    Climber.getInstance().updateLogging(logTime);
+    Drive.getInstance().updateLogging(logTime);
+    FrontIntake.getInstance().updateLogging(logTime);
+    Pneumatics.getInstance().updateLogging(logTime);
+    Shooter.getInstance().updateLogging(logTime);
+
     Shuffleboard.update();
+ 
+  }
+
+  private static long currentScanTimestamp = 0;
+  public static long getScanTime()
+  {
+    return currentScanTimestamp;
   }
 
   /**
@@ -112,20 +141,19 @@ public class Robot extends TimedRobot {
    */
   @Override
     public void autonomousInit() {
+    runIntoTelop = false;
     Drive.getInstance().setBrakes(true);
     Limelight.getInstance().enableVision();       
 
-
     Sequence selectedAuto = seqChooser.getSelected();
     Drive.getInstance().setAngle(getFieldAngle(selectedAuto.getStartPos()));
-
     mySeq = new Sequencer();
     mySeq.setInitialSteps(selectedAuto.getInitialSteps());
     mySeq.setInitialTransitions(selectedAuto.getInitialTransitions());
     mySeq.sequenceStart();
 
 
-    // System.out.println("Auto selected: " + m_autoSelected);
+
 
   }
 
@@ -161,6 +189,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+ 
 
     try {
       System.out.println("Climber " + Climber.getInstance().getClimberCurrentState() + " Vision " + VisionTrack.getInstance().getCurrentState() + " Shooter " + Shooter.getInstance().getCurrentState() + " Intakes " + FrontIntake.getInstance().getCurrentState() + BackIntake.getInstance().getCurrentState());
@@ -203,6 +232,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {
+    Drive.getInstance().setBrakes(false);
+
     //Limelight.getInstance().disableVision();
   }
 

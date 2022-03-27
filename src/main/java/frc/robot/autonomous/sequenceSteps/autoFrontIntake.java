@@ -1,11 +1,13 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequenceSteps;
 
+import frc.robot.autonomous.sequencer.SequenceStepIf;
 import frc.robot.subsystems.FrontIntake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.FrontIntake.FrontIntakeStates;
 import frc.robot.subsystems.Shooter.ShooterState;
-import frc.sequencer.SequenceStepIf;
-
+/**
+ * Automatically intakes using the front intake and feed
+*/
 public class autoFrontIntake implements SequenceStepIf{
 
     @Override

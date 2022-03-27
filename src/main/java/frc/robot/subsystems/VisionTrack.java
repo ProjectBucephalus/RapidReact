@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.DriverStation;
+/**
+ * Put docs here // TODO
+ */
 public class VisionTrack {
     private static VisionTrack mInstance;
     private static Limelight m_lime;
@@ -161,8 +164,8 @@ public void update(){
             // m_drive.arcadeDrive(0.5, -0.9, 0.0); 
             Drive.getInstance().autoArcadeDrive(AutoVisionSteering, 0);
           }
-          if(tx <1&& tx  >-1){
-            if(timesLooped >= 15){
+          if(tx <2&& tx  >-2){
+            if(timesLooped >= 18){
             desiredState = VisionState.IDLE;
             turnStatus = true;
             }

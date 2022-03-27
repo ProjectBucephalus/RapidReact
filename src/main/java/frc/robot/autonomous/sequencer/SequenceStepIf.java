@@ -1,5 +1,7 @@
-package frc.sequencer;
-
+package frc.robot.autonomous.sequencer;
+/**
+ * Abstract framework for a sequence step
+ */
 public interface SequenceStepIf
 {
     /**

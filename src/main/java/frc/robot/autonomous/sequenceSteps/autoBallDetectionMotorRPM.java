@@ -1,10 +1,15 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequenceSteps;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.autonomous.sequencer.SequenceTransition;
 import frc.robot.subsystems.Shooter;
-import frc.sequencer.SequenceTransition;
-
-public class autoBallShooter extends SequenceTransition{
+/**
+ * Detects balls by checking when they cover the limelight while exiting the shooter
+ * 
+ * <p>Note that this needs tuning on a robot to robot basis
+ *  @return returns a complete transition when numballs exceeds the specifed number in setNumBalls
+ */
+public class autoBallDetectionMotorRPM extends SequenceTransition{
 
     @Override
     public void transStart() {

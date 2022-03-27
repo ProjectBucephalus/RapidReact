@@ -10,17 +10,26 @@ import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Config;
 import frc.robot.Constants;
 import frc.robot.DriverInterface;
 import frc.robot.RobotMap;
-
-/** Add your docs here. */
+/**
+ * Put docs here // TODO
+ */
 public class Shooter extends Subsystems{
 
     private static Shooter m_instance;
     public boolean shooterAtSpeed = false;
     Map<Double, Double> speedTable = new HashMap<>();
+
+    // DataLog variables
+    private DoubleLogEntry logShootTop;
+    private DoubleLogEntry logShootBottom;
+  
 
     public enum ShooterSpeedSlot {
         IDLE, //Shooter in idle state
@@ -44,8 +53,8 @@ public class Shooter extends Subsystems{
 
     private static ShooterSpeedSlot speedSlot = ShooterSpeedSlot.IDLE;
 
-    private double shooterIdleSpeed = 1900;
-    private double shooterShootSpeed = 2450;
+    public static double shooterIdleSpeed = 1800 * Config.kLimelightShooterSpeedModiferPercentage;
+    private double shooterShootSpeed = 2450 * Config.kLimelightShooterSpeedModiferPercentage;
     private double shooterEjectSpeed = 500;
     private double shooterSpinUpSpeed = shooterShootSpeed;
 
@@ -82,7 +91,7 @@ public class Shooter extends Subsystems{
                 // System.out.println("Current Set Speed " + getShooterSetSpeed());
                 // System.out.println("Current Speed " + getShooterAtSpeed());
                 // System.out.println("Current State " + getCurrentState());
-                System.out.println("Shooter Defaulted to Idle. Sorry :(");
+                //System.out.println("Shooter Defaulted to Idle. Sorry :(");
             }
         }
         catch(Exception e) {
@@ -183,6 +192,9 @@ public class Shooter extends Subsystems{
 
         RobotMap.getShooterBottom().config_kI(0, Constants.kShooterI);       
         RobotMap.getShooterTop().config_kI(0, Constants.kShooterI);     
+
+        RobotMap.getShooterBottom().config_kD(0, Constants.kShooterD);       
+        RobotMap.getShooterTop().config_kD(0, Constants.kShooterD);     
 
         RobotMap.getShooterBottom().setInverted(true);
         RobotMap.getShooterTop().setInverted(true);
@@ -293,7 +305,15 @@ public class Shooter extends Subsystems{
     }
 
     public double getShooterRPM() {
+        return getShooterTopRPM();
+    }
+
+    public double getShooterTopRPM() {
         return RobotMap.getShooterTop().getSelectedSensorVelocity() * 600 / 2048;
+    }
+
+    public double getShooterBottomRPM() {
+        return RobotMap.getShooterBottom().getSelectedSensorVelocity() * 600 / 2048;
     }
 
     public double getShooterTargetSpeed() {
@@ -358,10 +378,22 @@ public class Shooter extends Subsystems{
         } else {
             return false;
         }
-}
+    }
 
     public void setFeed(double speed) {
         setFeed(speed, speed);
     }
    
+    public void initLogging(DataLog aLog)
+    {
+        logShootTop = new DoubleLogEntry(aLog, "Shooter Top");
+        logShootBottom = new DoubleLogEntry(aLog, "Shooter Bottom");
+    }
+ 
+    public void updateLogging(long aTime)
+    {
+        logShootTop.append(getShooterTopRPM(), aTime);
+        logShootBottom.append(getShooterBottomRPM(), aTime);
+    }
+ 
 }

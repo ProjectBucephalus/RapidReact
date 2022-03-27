@@ -1,5 +1,7 @@
-package frc.sequencer;
-
+package frc.robot.autonomous.sequencer;
+/**
+ * Framework for creating a step in the sequencer 
+ */
 public abstract class SequenceStep implements SequenceStepIf
 {
     /**
