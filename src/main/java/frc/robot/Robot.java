@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    long logTime = System.currentTimeMillis();
+    long logTime = (long)(Timer.getFPGATimestamp() * 1000000);
     BackIntake.getInstance().updateLogging(logTime);
     Climber.getInstance().updateLogging(logTime);
     Drive.getInstance().updateLogging(logTime);
@@ -146,6 +146,7 @@ public class Robot extends TimedRobot {
     Limelight.getInstance().enableVision();       
 
     Sequence selectedAuto = seqChooser.getSelected();
+    DataLogManager.log("Running selected auto - " + selectedAuto.getName());
     Drive.getInstance().setAngle(getFieldAngle(selectedAuto.getStartPos()));
     mySeq = new Sequencer();
     mySeq.setInitialSteps(selectedAuto.getInitialSteps());

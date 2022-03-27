@@ -378,11 +378,13 @@ public class DriverInterface {
 
     public boolean getClimbUpCommand() {
         // System.out.println(xbox1.getPOV());
-        return (xbox1.getPOV() == 0 && SmartDashboard.getBoolean("Climb enabled", true));
+        // return (xbox1.getPOV() == 0 && SmartDashboard.getBoolean("Climb enabled", true));
+        return false;
     }
 
     public boolean getClimbDownCommand() {
-        return (xbox1.getPOV() == 180 && SmartDashboard.getBoolean("Climb enabled", true));
+        // return (xbox1.getPOV() == 180 && SmartDashboard.getBoolean("Climb enabled", true));
+        return false;
     }
 
     public boolean getClimbFinishedCommand() {

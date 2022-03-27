@@ -27,8 +27,10 @@ public class Shooter extends Subsystems{
     Map<Double, Double> speedTable = new HashMap<>();
 
     // DataLog variables
-    private DoubleLogEntry logShootTop;
-    private DoubleLogEntry logShootBottom;
+    private DoubleLogEntry logShootTopFB;
+    private DoubleLogEntry logShootBottomFB;
+    private DoubleLogEntry logShootTopRef;
+    private DoubleLogEntry logShootBottomRef;
   
 
     public enum ShooterSpeedSlot {
@@ -55,7 +57,7 @@ public class Shooter extends Subsystems{
 
     public static double shooterIdleSpeed = 1800 * Config.kLimelightShooterSpeedModiferPercentage;
     private double shooterShootSpeed = 2450 * Config.kLimelightShooterSpeedModiferPercentage;
-    private double shooterEjectSpeed = 500;
+    private double shooterEjectSpeed = 800;
     private double shooterSpinUpSpeed = shooterShootSpeed;
 
    
@@ -133,8 +135,9 @@ public class Shooter extends Subsystems{
 
         switch(currentState) {
             default: //catches 'IDLE'
-                stopShooter();
-                currentState = desiredState;
+            setShooterSpeedSlot(ShooterSpeedSlot.IDLE);
+            shooterPID();
+            currentState = desiredState;
             break;
             case SHOOTING:
                 setShooterSpeedSlot(ShooterSpeedSlot.SHOOTING);
@@ -295,13 +298,14 @@ public class Shooter extends Subsystems{
         }
     }
 
-    private void shooterPID() {
-        
-            RobotMap.getShooterBottom().set(ControlMode.Velocity, (getShooterSetSpeed(speedSlot) / 1200 * 2048));
-            RobotMap.getShooterTop().set(ControlMode.Velocity, (getShooterSetSpeed(speedSlot) * ratio * wheelRatio / 1200 * 2048));
-        
+    private double topOutput;
+    private double botOutput;
 
-        
+    private void shooterPID() {
+        topOutput = (getShooterSetSpeed(speedSlot) * ratio * wheelRatio / 1200 * 2048);
+        botOutput = (getShooterSetSpeed(speedSlot) / 1200 * 2048);
+        RobotMap.getShooterBottom().set(ControlMode.Velocity, botOutput);
+        RobotMap.getShooterTop().set(ControlMode.Velocity, topOutput);
     }
 
     public double getShooterRPM() {
@@ -386,14 +390,18 @@ public class Shooter extends Subsystems{
    
     public void initLogging(DataLog aLog)
     {
-        logShootTop = new DoubleLogEntry(aLog, "Shooter Top");
-        logShootBottom = new DoubleLogEntry(aLog, "Shooter Bottom");
+        logShootTopFB = new DoubleLogEntry(aLog, "Shooter Top Fb");
+        logShootBottomFB = new DoubleLogEntry(aLog, "Shooter Bottom Fb");
+        logShootTopRef = new DoubleLogEntry(aLog, "Shooter Top Ref");
+        logShootBottomRef = new DoubleLogEntry(aLog, "Shooter Bottom Ref");
     }
  
     public void updateLogging(long aTime)
     {
-        logShootTop.append(getShooterTopRPM(), aTime);
-        logShootBottom.append(getShooterBottomRPM(), aTime);
+        logShootTopFB.append(getShooterTopRPM(), aTime);
+        logShootBottomFB.append(getShooterBottomRPM(), aTime);
+        logShootTopRef.append(topOutput * 600 / 2048, aTime);
+        logShootBottomRef.append(botOutput * 600 / 2048, aTime);
     }
  
 }
