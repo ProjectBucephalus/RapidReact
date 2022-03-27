@@ -103,7 +103,7 @@ public void update(){
           else{
             m_drive.arcadeDrive(1, visionSteering, 0.0); 
           }
-          if(tx  + driverTuning <4 && tx  + driverTuning >-4){
+          if(tx  + driverTuning <2.25 && tx  + driverTuning >-2.25){
             if(timesLooped >= 15){
             desiredState = VisionState.IDLE;//VisionState.FINDINGSPEED;
             }
@@ -161,7 +161,7 @@ public void update(){
         // System.out.println("tx: " + tx);
           double AutoVisionSteering = (tx * Constants.kVisionTurnKp);
           if(tx <2.5   && tx  >-2.5){
-            double isn = AutoVisionSteering * 3.5;
+            double isn = AutoVisionSteering * 4.15;
             // m_drive.arcadeDrive(0.5, -1, 0.0);
             Drive.getInstance().autoArcadeDrive(isn, 0); 
           }

@@ -112,12 +112,12 @@ public class CompletedSequences {
         autoShooter shoot = new autoShooter();
         autoDrive d2 = new autoDrive();
         d2.setAngle(-75);
-        d2.setDist(0.2);
+        d2.setDist(0.15);
         d2.setSpeed(0.72);
         autoTurn t2 = new autoTurn();
-        t2.setAngle(14);
+        t2.setAngle(14.2);
         autoDrive d3 = new autoDrive();
-        d3.setAngle(13.5);
+        d3.setAngle(13.7);
         d3.setDist(-2.35);
         d3.setSpeed(0.692);
         d3.setAccFwdLimit(0.18);
@@ -167,8 +167,8 @@ public class CompletedSequences {
         d7.setDist(2);
         d7.setSpeed(.64);
         d7.setAccFwdLimit(0.02);
-        d7.setAccRevLimit(0.05);
-        d7.setDistGain(.63);
+        d7.setAccRevLimit(0.045);
+        d7.setDistGain(.57);
         timedStep T3 = new timedStep();
         T3.setDelay(.94);
         autoBallDetectionLimelight ball3 = new autoBallDetectionLimelight();
@@ -247,13 +247,13 @@ public class CompletedSequences {
     {
         autoBackIntake intake = new autoBackIntake();
         autoTurn t1 = new autoTurn();
-        t1.setAngle(41.55);
+        t1.setAngle(41);
         autoDrive d1 = new autoDrive();
-        d1.setAngle(41.5);
+        d1.setAngle(41);
         d1.setDist(-1.5);
         d1.setSpeed(0.4);
         autoTurn t2 = new autoTurn();
-        t1.setAngle(45.4);
+        t1.setAngle(58);
         autoLimelight lime1 = new autoLimelight();
         autoBallDetectionLimelight ball1 = new autoBallDetectionLimelight();
         ball1.setNumBalls(2);
@@ -371,7 +371,7 @@ public class CompletedSequences {
         lime1.setNextTrans(ball1);
         lime1.setNextSteps(shoot1);
 
-        Sequence seq = new Sequence("Pos 2 Ball", 2);
+        Sequence seq = new Sequence("Pos 2 2Ball", 2);
         seq.setInitialTransitions(t1);
         seq.setInitialSteps(t1, intake);
         return seq;

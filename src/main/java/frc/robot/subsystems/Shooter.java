@@ -55,7 +55,7 @@ public class Shooter extends Subsystems{
 
     private static ShooterSpeedSlot speedSlot = ShooterSpeedSlot.IDLE;
 
-    public static double shooterIdleSpeed = 1800 * Config.kLimelightShooterSpeedModiferPercentage;
+    public static double shooterIdleSpeed = 2050 * Config.kLimelightShooterSpeedModiferPercentage;
     private double shooterShootSpeed = 2450 * Config.kLimelightShooterSpeedModiferPercentage;
     private double shooterEjectSpeed = 800;
     private double shooterSpinUpSpeed = shooterShootSpeed;
