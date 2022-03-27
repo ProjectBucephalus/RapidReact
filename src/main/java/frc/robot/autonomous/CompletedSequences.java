@@ -166,9 +166,9 @@ public class CompletedSequences {
         d7.setAngle(-19);
         d7.setDist(2);
         d7.setSpeed(.64);
-        d7.setAccFwdLimit(0.03);
-        d7.setAccRevLimit(0.09);
-        d7.setDistGain(.7);
+        d7.setAccFwdLimit(0.02);
+        d7.setAccRevLimit(0.05);
+        d7.setDistGain(.63);
         timedStep T3 = new timedStep();
         T3.setDelay(.94);
         autoBallDetectionLimelight ball3 = new autoBallDetectionLimelight();
