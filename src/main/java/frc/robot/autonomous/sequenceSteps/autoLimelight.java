@@ -4,7 +4,6 @@ import frc.robot.autonomous.sequencer.SequenceStepIf;
 import frc.robot.autonomous.sequencer.SequenceTransition;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionTrack;
 import frc.robot.subsystems.VisionTrack.VisionState;
 
@@ -48,8 +47,8 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
 
     @Override
     public boolean isTransComplete() {
-        if (Math.abs(Limelight.getInstance().getAngleToTarget())<=1.3){
-                return true;
+        if (Math.abs(Limelight.getInstance().getAngleToTarget())<=1.7){
+            return true;
             }
         return false;
     }

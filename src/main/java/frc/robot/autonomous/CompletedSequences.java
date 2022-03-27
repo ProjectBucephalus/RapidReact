@@ -100,7 +100,7 @@ public class CompletedSequences {
         t1.setAngle(-87.5);
         autoDrive d1 = new autoDrive();
         d1.setAngle(-87.5);
-        d1.setDist(-.95);
+        d1.setDist(-.9);
         d1.setSpeed(0.65);
         d1.setAccFwdLimit(0.15);
         d1.setAccRevLimit(0.17);
@@ -115,9 +115,9 @@ public class CompletedSequences {
         d2.setDist(0.2);
         d2.setSpeed(0.72);
         autoTurn t2 = new autoTurn();
-        t2.setAngle(14.75);
+        t2.setAngle(14.25);
         autoDrive d3 = new autoDrive();
-        d3.setAngle(15);
+        d3.setAngle(14.5);
         d3.setDist(-2.35);
         d3.setSpeed(0.692);
         d3.setAccFwdLimit(0.18);
@@ -136,7 +136,7 @@ public class CompletedSequences {
         t3.setAngle(0);
         autoDrive d4 = new autoDrive();
         d4.setAngle(0);
-        d4.setDist(-1.69);//NICE
+        d4.setDist(-1.77);//NICE
         d4.setSpeed(0.79); 
         d4.setAccFwdLimit(0.15);
         d4.setAccRevLimit(0.22);

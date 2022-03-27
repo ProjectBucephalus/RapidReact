@@ -230,8 +230,12 @@ public class DriverInterface {
         return xbox1.getRightTriggerAxis() >= 0.5;
     }
 
+    /**
+     * @deprecated
+     * @return if eject button pusheds
+     */
     public boolean getShooterEjectCommand() {
-        return xbox1.getRightBumper();
+        return false;//xbox1.getRightBumper();
     }
 
     public boolean getVisionAbort() {

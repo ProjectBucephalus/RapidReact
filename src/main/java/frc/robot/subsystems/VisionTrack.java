@@ -61,13 +61,13 @@ public void update(){
       currentState = desiredState;
       break;
       case TURNING:
-        if (Math.abs(DriverInterface.getInstance().getX()) > 0.5)
+        if (Math.abs(DriverInterface.getInstance().getX()) > 0.35)
         {
           setDesiredState(VisionState.IDLE);
           currentState = desiredState;
           break;
         }
-        if (Math.abs(DriverInterface.getInstance().getY()) > 0.5)
+        if (Math.abs(DriverInterface.getInstance().getY()) > 0.35)
         {
           setDesiredState(VisionState.IDLE);
           currentState = desiredState;
@@ -91,8 +91,13 @@ public void update(){
           // System.out.println("tx: " + tx);
           double visionSteering = (tx * Constants.kVisionTurnKp);
           double driverTuning = DriverInterface.getInstance().getVisionAngleOffset();
-          if(tx + driverTuning <4 && tx  + driverTuning>-4){
-            double isn = visionSteering * 2;
+          if(tx + driverTuning <2.5 && tx  + driverTuning>-2.5){
+            double isn = visionSteering * 3.5;
+            // m_drive.arcadeDrive(0.5, -1, 0.0);
+            Drive.getInstance().autoArcadeDrive(isn, 0); 
+          }
+          else if(tx + driverTuning <4 && tx  + driverTuning>-4){
+            double isn = visionSteering * 1.7;
             m_drive.arcadeDrive(1, isn, 0.0); 
           }
           else{
@@ -155,8 +160,13 @@ public void update(){
       tx = m_lime.getAngleToTarget();
         // System.out.println("tx: " + tx);
           double AutoVisionSteering = (tx * Constants.kVisionTurnKp);
-          if(tx <4   && tx  >-4){
-            double isn = AutoVisionSteering * 2;
+          if(tx <2.5   && tx  >-2.5){
+            double isn = AutoVisionSteering * 3.5;
+            // m_drive.arcadeDrive(0.5, -1, 0.0);
+            Drive.getInstance().autoArcadeDrive(isn, 0); 
+          }
+          else if(tx <4   && tx  >-4){
+            double isn = AutoVisionSteering * 2.3;
             // m_drive.arcadeDrive(0.5, -1, 0.0);
             Drive.getInstance().autoArcadeDrive(isn, 0); 
           }
