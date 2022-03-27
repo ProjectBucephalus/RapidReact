@@ -11,12 +11,13 @@ import frc.robot.subsystems.*;
 import frc.robot.subsystems.BackIntake.BackIntakeStates;
 import frc.robot.subsystems.Climber.ClimberStates;
 import frc.robot.subsystems.FrontIntake.FrontIntakeStates;
-import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import frc.robot.subsystems.Shooter.ShooterState;
 import frc.robot.subsystems.VisionTrack.VisionState;
 
-/** Add your docs here. */
-public class TeleopController {
+/**
+ * Put docs here // TODO
+ */
+ public class TeleopController {
 
     private static Drive m_drive;
     private static FrontIntake m_frontIntake;
@@ -141,6 +142,12 @@ public class TeleopController {
         } else {
             m_shooter.setFeed(0);
             m_shooter.setIndexer(0);
+        } 
+
+        if(m_driverInterface.getClimbSolenoidForward()) {
+            m_climber.setClimberHooks(true);
+        } else if(m_driverInterface.getClimbSolenoidReverse()) {
+            m_climber.setClimberHooks(false);
         } 
 
         callDrive();

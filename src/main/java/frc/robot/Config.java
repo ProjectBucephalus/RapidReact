@@ -90,7 +90,6 @@ public class Config {
 
     //Climber 'Hooked' position
     public static final double kClimberHookedPos = -5000; //in encoder units (2048 EPR)
-
     //Climber 'Finished' position
     public static final double kClimberFinishedPos = 100000; //in encoder units (2048 EPR)
 
@@ -98,7 +97,12 @@ public class Config {
     public static final double kClimberHysteresis = 1000;
 
     public static final double kLimelightOffsetAmmmount = 50; 
-
+    /**
+     * Shooter Modifer for the (limelight)
+     * 
+     * This value should be set to 1 at a comp. This is for linear tuning, which can easily be done by anyone. For illinear tuning (i.e its off by different amounts at different points go to Adam, don't mess with the equation.)
+     * */
+    public static final double kLimelightShooterSpeedModiferPercentage = 1.0;
 
         
 }

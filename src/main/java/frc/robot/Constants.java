@@ -28,6 +28,9 @@ public class Constants {
 	public static int kFrontIntakeSolenoidAChannel = 0;
 	public static int kFrontIntakeSolenoidBChannel = 1;
 
+	public static int kClimberSolenoidAChannel = 2;
+	public static int kClimberSolenoidBChannel = 3;
+
 
 	public static final int kIndexerACanID = 15;
 	public static final int kFeedBCanID = 13;
@@ -42,7 +45,8 @@ public class Constants {
     public static int kLimelightHeightInches = 50;
 	public static final int kBackIntakeEscCanID = 12;
     
-	public static final double kVisionTurnKp = 0.015;//was 0.024; // 0.012 for 2 centre nitrile
+	public static final double kVisionTurnKp = 0.012
+	;//was 0.024; // 0.012 for 2 centre nitrile
 	public static final double kDriveTurnStictionConstant = 0.0; // FIXME
 	public static final double kGyroTurnKp = 0.007; // 0.004 for 2 centre nitrile
 	public static final double kGyroDriveTurnKp = 0.012;  // FIXME
@@ -51,6 +55,7 @@ public class Constants {
 
 	public static final double kShooterP = 0.23;
 	public static final double kShooterI = 0.00014;
+	public static final double kShooterD = 10.0;
 
 	public static final double kClimberWinchP = 0.029;
 

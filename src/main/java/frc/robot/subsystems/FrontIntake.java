@@ -6,11 +6,15 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.util.datalog.BooleanLogEntry;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Config;
 import frc.robot.RobotMap;
-
-/** Add your docs here. */
+/**
+ * Put docs here // TODO
+ */
 public class FrontIntake extends Subsystems{
 
     public static enum FrontIntakeStates {
@@ -22,9 +26,8 @@ public class FrontIntake extends Subsystems{
     private FrontIntakeStates currentState = FrontIntakeStates.STOWED;
     private FrontIntakeStates desiredState = FrontIntakeStates.STOWED;
     
-    public FrontIntake() {
-
-    }
+    private DoubleLogEntry logFrontSpeed;
+    private BooleanLogEntry logFrontExtend;
 
     private static FrontIntake m_instance;
 
@@ -114,4 +117,16 @@ public class FrontIntake extends Subsystems{
         RobotMap.getFrontIntakeESC().clearStickyFaults();
     }
 
+    public void initLogging(DataLog aLog)
+    {
+        logFrontSpeed = new DoubleLogEntry(aLog, "Front Intake Speed");
+        logFrontExtend = new BooleanLogEntry(aLog, "Front Intake Extend");
+    }
+ 
+    public void updateLogging(long aTime)
+    {
+        logFrontSpeed.append(RobotMap.getFrontIntakeESC().getSelectedSensorVelocity(), aTime);
+        logFrontExtend.append(RobotMap.getFrontIntakeSolenoid().get() == Value.kForward, aTime);
+    }
+ 
 }

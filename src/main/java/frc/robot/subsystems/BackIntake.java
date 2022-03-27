@@ -6,10 +6,14 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
 import frc.robot.Config;
 import frc.robot.RobotMap;
 
-/** Add your docs here. */
+/** 
+ * The class responsible for running and managing the back intake.
+ */
 public class BackIntake extends Subsystems{
 
     public static enum BackIntakeStates {
@@ -20,6 +24,10 @@ public class BackIntake extends Subsystems{
 
     private BackIntakeStates currentState = BackIntakeStates.IDLE;
     private BackIntakeStates desiredState = BackIntakeStates.IDLE;
+    
+    // DataLog variables
+    private DoubleLogEntry logRearInSpeed;
+    private DoubleLogEntry logRearInStatorCurrent;
     
     public BackIntake() {
 
@@ -34,7 +42,9 @@ public class BackIntake extends Subsystems{
 
         return m_instance;
     }
-
+    /**
+     * Calling this allows the intake to update every tick
+     */
     @Override
     public void update() {
         switch(currentState) {
@@ -110,4 +120,31 @@ public class BackIntake extends Subsystems{
         RobotMap.getBackIntakeESC().clearStickyFaults();        
     }
 
+    public double getSpeed()
+    {
+        return RobotMap.getBackIntakeESC().getSelectedSensorVelocity();
+    }
+
+    public double getSupplyCurrent()
+    {
+        return RobotMap.getBackIntakeESC().getSupplyCurrent();
+    }
+
+    public double getStatorCurrent()
+    {
+        return RobotMap.getBackIntakeESC().getStatorCurrent();
+    }
+
+    public void initLogging(DataLog aLog)
+    {
+        logRearInSpeed = new DoubleLogEntry(aLog, "Rear Intake Speed");
+        logRearInStatorCurrent = new DoubleLogEntry(aLog, "Rear Intake Stator Current");
+    }
+ 
+    public void updateLogging(long aTime)
+    {
+        logRearInSpeed.append(BackIntake.getInstance().getSpeed(), aTime);
+        logRearInStatorCurrent.append(BackIntake.getInstance().getStatorCurrent(), aTime);
+    }
+ 
 }

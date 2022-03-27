@@ -1,9 +1,13 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequenceSteps;
 
+import frc.robot.autonomous.sequencer.SequenceStepIf;
+import frc.robot.autonomous.sequencer.SequenceTransition;
 import frc.robot.subsystems.Drive;
-import frc.sequencer.SequenceStepIf;
-import frc.sequencer.SequenceTransition;
+import frc.robot.subsystems.Shooter;
 
+/**
+ * Drives until it reaches it's set distance goal
+ */
 public class autoDrive extends SequenceTransition implements SequenceStepIf{
 
     @Override
@@ -47,6 +51,7 @@ public class autoDrive extends SequenceTransition implements SequenceStepIf{
         }
        
         distCmd = Math.min(mySpeed, Math.max(-mySpeed, distCmd));
+        Shooter.getInstance().setIndexer(-0.2);
 
         Drive.getInstance().autoArcadeDrive(steerCmd, distCmd);
         

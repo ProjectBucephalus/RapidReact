@@ -1,5 +1,7 @@
-package frc.sequencer;
-
+package frc.robot.autonomous.sequencer;
+/**
+ * Abstract framework for a sequence step
+ */
 public interface SequenceStepIf
 {
     /**
@@ -9,7 +11,6 @@ public interface SequenceStepIf
      * from in order to calculate how far we have moved).
      */
     public void stepStart();
-
     /**
      * Called when the step is ended.
      * This can be used to stop the motion of this step (eg, turn motors off, etc)

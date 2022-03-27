@@ -4,10 +4,12 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.util.datalog.DataLog;
 import frc.robot.Config;
 import frc.robot.RobotMap;
-
-/** Add your docs here. */
+/**
+ * Put docs here // TODO
+ */
 public class Pneumatics extends Subsystems{
 
     boolean compressor = true;
@@ -69,4 +71,14 @@ public class Pneumatics extends Subsystems{
     public void clearFaults() {
     }
 
+    public void initLogging(DataLog aLog)
+    {
+ 
+    }
+ 
+    public void updateLogging(long aTime)
+    {
+        
+    }
+ 
 }

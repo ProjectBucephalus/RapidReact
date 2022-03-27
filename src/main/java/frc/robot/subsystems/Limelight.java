@@ -2,7 +2,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.Constants;
-
+/**
+ * Put docs here // TODO
+ */
 public class Limelight {
     private static Limelight mInstance;
 
@@ -25,8 +27,15 @@ public class Limelight {
 
     public boolean getTargetAcquired() {
       //setPipeline(0);
-      boolean targetAcquired = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getBoolean(false);
-      return targetAcquired;
+      double targetAcquired = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0.0);
+      boolean yesorno;
+      if(targetAcquired == 1.0){
+        yesorno = true;
+      }
+      else{
+        yesorno = false;
+      }
+      return yesorno; 
     }
 
     public double getAngleToTarget() {

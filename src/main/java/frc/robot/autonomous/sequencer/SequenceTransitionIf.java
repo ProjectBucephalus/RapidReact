@@ -1,5 +1,9 @@
-package frc.sequencer;
+package frc.robot.autonomous.sequencer;
 
+
+/**
+ * Framework for a transition in the sequencer
+ */
 public interface SequenceTransitionIf
 {
     /**

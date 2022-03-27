@@ -1,19 +1,20 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequenceSteps;
 
+import frc.robot.autonomous.sequencer.SequenceStepIf;
 import frc.robot.subsystems.BackIntake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.BackIntake.BackIntakeStates;
 import frc.robot.subsystems.Shooter.ShooterState;
-import frc.sequencer.SequenceStepIf;
-
+/**
+ * Enables the intake and feed for 1 step of a sequence, until the next transition is complete.
+ */
 public class autoBackIntake implements SequenceStepIf{
 
     @Override
     public void stepStart() {
         BackIntake.getInstance().setDesiredState(BackIntakeStates.INTAKING);  
-        Shooter.getInstance().setFeed(0.7);
-        Shooter.getInstance().setIndexer(-0.5);
-        Shooter.getInstance().setDesiredState(ShooterState.IDLE);
+        Shooter.getInstance().setFeed(.68, .68);
+        Shooter.getInstance().setIndexer(-0.75);
     }
 
     @Override
@@ -21,11 +22,13 @@ public class autoBackIntake implements SequenceStepIf{
         BackIntake.getInstance().setDesiredState(BackIntakeStates.IDLE);        
         Shooter.getInstance().setFeed(0);
         Shooter.getInstance().setIndexer(0);
-        Shooter.getInstance().setDesiredState(ShooterState.SPINUP);
+        Shooter.getInstance().setDesiredState(ShooterState.IDLE);
     }
 
     @Override
-    public void stepUpdate() {        
+    public void stepUpdate() {
+        Shooter.getInstance().setFeed(.68, .68);
+        Shooter.getInstance().setIndexer(-0.75);        
     }
 
     @Override

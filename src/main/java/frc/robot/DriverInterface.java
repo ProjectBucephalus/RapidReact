@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Subsystems.diagnosticState;
-
-/** Add your docs here. */
+/**
+ * Put docs here // TODO
+ */
 public class DriverInterface {
 
     private static DriverInterface m_instance;
@@ -199,7 +199,7 @@ public class DriverInterface {
         if(joystick1.getRawButtonPressed(2)) {
             if(robotFowardDirection == RobotFowardDirection.FRONT) {
                 if(oldButtonState == false) {
-                    robotFowardDirection = RobotFowardDirection.BACK;
+                    robotFowardDirection = RobotFowardDirection.FRONT;
                     oldButtonState = true;
                 }
             } else {
@@ -230,8 +230,12 @@ public class DriverInterface {
         return xbox1.getRightTriggerAxis() >= 0.5;
     }
 
+    /**
+     * @deprecated
+     * @return if eject button pusheds
+     */
     public boolean getShooterEjectCommand() {
-        return xbox1.getRightBumper();
+        return false;//xbox1.getRightBumper();
     }
 
     public boolean getVisionAbort() {
@@ -275,6 +279,13 @@ public class DriverInterface {
     public boolean getClimbResetCommand() {
         return xbox1.getXButton();
 
+    }
+
+    public boolean getClimbSolenoidForward() {
+        return joystick1.getRawButton(5);
+    }
+    public boolean getClimbSolenoidReverse() {
+        return joystick1.getRawButton(6);
     }
 
     public boolean getFrontIntakeReverse() {
@@ -371,11 +382,13 @@ public class DriverInterface {
 
     public boolean getClimbUpCommand() {
         // System.out.println(xbox1.getPOV());
-        return (xbox1.getPOV() == 0 && SmartDashboard.getBoolean("Climb enabled", true));
+        // return (xbox1.getPOV() == 0 && SmartDashboard.getBoolean("Climb enabled", true));
+        return false;
     }
 
     public boolean getClimbDownCommand() {
-        return (xbox1.getPOV() == 180 && SmartDashboard.getBoolean("Climb enabled", true));
+        // return (xbox1.getPOV() == 180 && SmartDashboard.getBoolean("Climb enabled", true));
+        return false;
     }
 
     public boolean getClimbFinishedCommand() {

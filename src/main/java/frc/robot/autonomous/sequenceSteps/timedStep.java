@@ -1,8 +1,12 @@
-package frc.sequencer;
+package frc.robot.autonomous.sequenceSteps;
 
 import edu.wpi.first.wpilibj.Timer;
-
-public class TimedStep extends SequenceTransition implements SequenceStepIf
+import frc.robot.autonomous.sequencer.SequenceStepIf;
+import frc.robot.autonomous.sequencer.SequenceTransition;
+/**
+ * Basic Timed Step
+ */
+public class timedStep extends SequenceTransition implements SequenceStepIf
 {
     double myEndTime;
     double myDelay;

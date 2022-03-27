@@ -1,15 +1,15 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequenceSteps;
 
+import frc.robot.autonomous.sequencer.SequenceStepIf;
+import frc.robot.autonomous.sequencer.SequenceTransition;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionTrack;
-import frc.robot.subsystems.Shooter.ShooterState;
 import frc.robot.subsystems.VisionTrack.VisionState;
-import frc.sequencer.SequenceStepIf;
-import frc.sequencer.SequenceTransition;
 
-//cannot be used with much sunlight
+/**
+ * Automatically returns a transcomplete when the limelight is angled correctly in relation to it's target
+ */
 public class autoLimelight extends SequenceTransition implements SequenceStepIf {
 
 
@@ -27,11 +27,7 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
     @Override
     public void stepUpdate() {
         VisionTrack.getInstance().setDesiredState(VisionState.AUTOTURN);
-        if (Limelight.getInstance().getAngleToTarget()<4)
-        {
-                Shooter.getInstance().setDesiredState(ShooterState.SHOOTING);
-                Shooter.getInstance().setFeed(1);
-        }
+
     }
 
     @Override
@@ -51,10 +47,9 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
 
     @Override
     public boolean isTransComplete() {
-    if (Math.abs(Limelight.getInstance().getAngleToTarget())<3)
-    {
-        return true;
-    }
+        if (Math.abs(Limelight.getInstance().getAngleToTarget())<=1.7){
+            return true;
+            }
         return false;
     }
 }

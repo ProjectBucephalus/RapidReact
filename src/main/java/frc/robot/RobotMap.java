@@ -6,11 +6,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
-
+/**
+ * Put docs here // TODO
+ */
 public class RobotMap {
 
 	static TalonFX leftDriveA = new TalonFX(Constants.kLeftDriveACanID);
@@ -83,6 +86,8 @@ public class RobotMap {
 	static TalonFX rightWinch = new TalonFX(Constants.kRightWinchCanID);
 	static CANifier climberSensors = new CANifier(Constants.kClimberCanifierCanID);
 
+	static DoubleSolenoid climberSolenoid = new DoubleSolenoid(Constants.kPCMCanID, PneumaticsModuleType.REVPH, Constants.kClimberSolenoidAChannel, Constants.kClimberSolenoidBChannel);
+
 	public static TalonFX getLeftWinch() {
 		return leftWinch;
 	}
@@ -93,6 +98,10 @@ public class RobotMap {
 
 	public static CANifier getClimberSensors() {
 		return climberSensors;
+	}
+
+	public static DoubleSolenoid getClimberSolenoid() {
+		return climberSolenoid;
 	}
 
 	static PowerDistribution pdh = new PowerDistribution(Constants.kPDHCanID, ModuleType.kRev);
@@ -115,5 +124,5 @@ public class RobotMap {
 		return indexerA;
 	}
 
-
+	public static DigitalInput ballSense = new DigitalInput(0);
 }

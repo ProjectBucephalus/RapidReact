@@ -1,10 +1,15 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequenceSteps;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.autonomous.sequencer.SequenceTransition;
 import frc.robot.subsystems.Shooter;
-import frc.sequencer.SequenceTransition;
-
-public class autoBallShooter extends SequenceTransition{
+/**
+ * Detects balls by checking when they cover the limelight while exiting the shooter
+ * 
+ * <p>Note that this needs tuning on a robot to robot basis
+ *  @return returns a complete transition when numballs exceeds the specifed number in setNumBalls
+ */
+public class autoBallDetectionMotorRPM extends SequenceTransition{
 
     @Override
     public void transStart() {
@@ -23,24 +28,21 @@ public class autoBallShooter extends SequenceTransition{
             waitCounts --;
         }
         double currRPM = Shooter.getInstance().getShooterRPM();    
-        System.out.println((currRPM / pastRPM[0]) + " - detect, wait " + waitCounts);
         // compare currRPM with pastRPM[pastLength]
-        if ( (currRPM / pastRPM[0]) < 0.965)
+        if ( (currRPM / pastRPM[0]) < 0.87)
         {
-                    //ball detected
+        //ball detected
             if (waitCounts == 0)
             {
                 waitCounts = waitTime;
                 ballDetected();
             }
         }
-        System.out.println();
         for ( int ii = 0 ; ii < pastLength - 1 ; ii++)
         {
             pastRPM[ii] = pastRPM[ii+1];
         }
         pastRPM[pastLength-1] = currRPM;
-        // System.out.println("shoot rpm, " + Shooter.getInstance().getShooterRPM() + ", " + numBalls);
         return isTransComplete();
     }
 
@@ -51,11 +53,11 @@ public class autoBallShooter extends SequenceTransition{
     }
 
     private double numBalls = 0;
-    private double maxNumBalls = 2;
+    private double maxNumBalls = 0;
     public void setNumBalls(double aNumBalls) {
         maxNumBalls = aNumBalls;
     }
-    private final static int waitTime = 15;
+    private final static int waitTime = 13;
     private int waitCounts = waitTime;
 
 

@@ -1,11 +1,16 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
+import frc.robot.Config;
 import frc.robot.DriverInterface;
 import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.wpilibj.DriverStation;
+/**
+ * Put docs here // TODO
+ */
 public class VisionTrack {
     private static VisionTrack mInstance;
     private static Limelight m_lime;
@@ -56,13 +61,13 @@ public void update(){
       currentState = desiredState;
       break;
       case TURNING:
-        if (Math.abs(DriverInterface.getInstance().getX()) > 0.5)
+        if (Math.abs(DriverInterface.getInstance().getX()) > 0.35)
         {
           setDesiredState(VisionState.IDLE);
           currentState = desiredState;
           break;
         }
-        if (Math.abs(DriverInterface.getInstance().getY()) > 0.5)
+        if (Math.abs(DriverInterface.getInstance().getY()) > 0.35)
         {
           setDesiredState(VisionState.IDLE);
           currentState = desiredState;
@@ -86,8 +91,13 @@ public void update(){
           // System.out.println("tx: " + tx);
           double visionSteering = (tx * Constants.kVisionTurnKp);
           double driverTuning = DriverInterface.getInstance().getVisionAngleOffset();
-          if(tx + driverTuning <4 && tx  + driverTuning>-4){
-            double isn = visionSteering * 2;
+          if(tx + driverTuning <2.5 && tx  + driverTuning>-2.5){
+            double isn = visionSteering * 3.5;
+            // m_drive.arcadeDrive(0.5, -1, 0.0);
+            Drive.getInstance().autoArcadeDrive(isn, 0); 
+          }
+          else if(tx + driverTuning <4 && tx  + driverTuning>-4){
+            double isn = visionSteering * 1.7;
             m_drive.arcadeDrive(1, isn, 0.0); 
           }
           else{
@@ -150,8 +160,13 @@ public void update(){
       tx = m_lime.getAngleToTarget();
         // System.out.println("tx: " + tx);
           double AutoVisionSteering = (tx * Constants.kVisionTurnKp);
-          if(tx <4   && tx  >-4){
-            double isn = AutoVisionSteering * 2;
+          if(tx <2.5   && tx  >-2.5){
+            double isn = AutoVisionSteering * 3.5;
+            // m_drive.arcadeDrive(0.5, -1, 0.0);
+            Drive.getInstance().autoArcadeDrive(isn, 0); 
+          }
+          else if(tx <4   && tx  >-4){
+            double isn = AutoVisionSteering * 2.3;
             // m_drive.arcadeDrive(0.5, -1, 0.0);
             Drive.getInstance().autoArcadeDrive(isn, 0); 
           }
@@ -159,8 +174,8 @@ public void update(){
             // m_drive.arcadeDrive(0.5, -0.9, 0.0); 
             Drive.getInstance().autoArcadeDrive(AutoVisionSteering, 0);
           }
-          if(tx <1&& tx  >-1){
-            if(timesLooped >= 15){
+          if(tx <2&& tx  >-2){
+            if(timesLooped >= 18){
             desiredState = VisionState.IDLE;
             turnStatus = true;
             }
@@ -226,21 +241,28 @@ public void update(){
     //NEW
     //y = 2759.394 + (1874.137 - 2759.394)/(1 + (x/52.33355)^6.507768)
     speed = 2759.394 + (1874.137 - 2759.394)/(1 + Math.pow((distance/52.33355), 6.507768));
-
+    speed = speed * Config.kLimelightShooterSpeedModiferPercentage;
     //OLD !!!!
     //y = 2744.632 + (1878.076 - 2744.632)/(1 + (x/52.17749)^6.838287)
     //speed = 2744.632 + (1878.076 - 2744.632)/(1 + Math.pow((distance/52.17749), 6.838287));
     if(true) {
       m_Shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, speed);
+      if(Limelight.getInstance().getTargetAcquired()){
+      m_Shooter.setShooterSpeed(ShooterSpeedSlot.IDLE, speed);
+      System.out.println("Idle was impacted by limelight speed :)");
+      }
     }
+    
 }
 public double returnShooterSpeedLimelight(){
   try{
   double distance = Limelight.getInstance().getDistanceToTarget();
   double aspeed = 2759.394 + (1874.137 - 2759.394)/(1 + Math.pow((distance/52.33355), 6.507768));
+  aspeed = aspeed * Config.kLimelightShooterSpeedModiferPercentage;
   return aspeed;
   }
   catch(Exception e){
+    System.out.println("Shooter speed was impacted by a crital hecking error");
     return 2050;
   }
 }

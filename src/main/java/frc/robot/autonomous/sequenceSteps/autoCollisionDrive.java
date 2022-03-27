@@ -1,8 +1,10 @@
-package frc.sequencer.jarryd;
+package frc.robot.autonomous.sequenceSteps;
 
+import frc.robot.autonomous.sequencer.SequenceTransition;
 import frc.robot.subsystems.Drive;
-import frc.sequencer.SequenceTransition;
-
+/**
+ * Class implemented to stop the robot if a collision is detected in auto
+ *  */
 public class autoCollisionDrive extends SequenceTransition{
 
     @Override
