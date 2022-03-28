@@ -282,10 +282,10 @@ public class DriverInterface {
     }
 
     public boolean getClimbSolenoidForward() {
-        return joystick1.getRawButton(5);
+        return xbox1.getPOV() == 0;
     }
     public boolean getClimbSolenoidReverse() {
-        return joystick1.getRawButton(6);
+        return xbox1.getPOV() == 180;
     }
 
     public boolean getFrontIntakeReverse() {
