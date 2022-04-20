@@ -58,7 +58,7 @@ public class Limelight {
      */
     public double getDistanceToTarget() {
       targetOffsetVertical = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
-    double angleToGoalDegrees = Constants.kA1 + targetOffsetVertical;
+      double angleToGoalDegrees = Constants.kA1 + targetOffsetVertical;
       angleToGoalDegrees = Constants.kA1 + targetOffsetVertical;
       angleToGoalRadians = angleToGoalDegrees * (Math.PI / 180.0);
       //setPipeline(0);
