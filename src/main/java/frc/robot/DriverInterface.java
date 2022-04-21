@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Subsystems.diagnosticState;
 /**
@@ -338,6 +339,12 @@ public class DriverInterface {
     public void update() {
         SmartDashboard.putBoolean("Climb enabled", climbEnabled);
         SmartDashboard.putBoolean("Foward direction", getRobotFowardDirection() == RobotFowardDirection.FRONT);
+        try {
+            SmartDashboard.putNumber("Pressure", Pneumatics.getInstance().getPressure());
+        } catch (Exception e) {
+            consoleOutput(MessageType.CRITICAL, "PNEUMATICS FAULT");
+        }
+
 
         Shuffleboard.update();
         SmartDashboard.updateValues();
@@ -598,7 +605,11 @@ public class DriverInterface {
         SmartDashboard.putBoolean("Foward direction", getRobotFowardDirection() == RobotFowardDirection.FRONT);
         SmartDashboard.putNumber("Shooter target", 2000);
         SmartDashboard.putNumber("Vision TUNING", 5);
-
+        try {
+            SmartDashboard.putNumber("Pressure", Pneumatics.getInstance().getPressure());
+        } catch (Exception e) {
+            consoleOutput(MessageType.CRITICAL, "PNEUMATICS FAULT");
+        }
     }
 
     public double getVisionAngleOffset() {

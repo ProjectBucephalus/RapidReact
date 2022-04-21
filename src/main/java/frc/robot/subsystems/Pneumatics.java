@@ -80,5 +80,9 @@ public class Pneumatics extends Subsystems{
     {
         
     }
+
+    public double getPressure() {
+        return RobotMap.getCompressor().getPressure();
+    }
  
 }
