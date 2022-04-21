@@ -103,7 +103,7 @@ public void update(){
           else{
             m_drive.arcadeDrive(1, visionSteering, 0.0); 
           }
-          if(tx  + driverTuning <2.25 && tx  + driverTuning >-2.25){
+          if(tx  + driverTuning <1.65 && tx  + driverTuning >-1.65){
             if(timesLooped >= 15){
             desiredState = VisionState.IDLE;//VisionState.FINDINGSPEED;
             }
@@ -174,7 +174,7 @@ public void update(){
             // m_drive.arcadeDrive(0.5, -0.9, 0.0); 
             Drive.getInstance().autoArcadeDrive(AutoVisionSteering, 0);
           }
-          if(tx <2&& tx  >-2){
+          if(tx <1.5&& tx  >-1.5){
             if(timesLooped >= 18){
             desiredState = VisionState.IDLE;
             turnStatus = true;
@@ -245,7 +245,12 @@ public void update(){
     // y = 2770.681 + (1884.225 - 2770.681)/(1 + (x/53.64364)^6.918515).
     //y = 2808.138 + (1917.8 - 2808.138)/(1 + (x/53.34703)^9.267454)
     //y = 2979.306 + (1888.511 - 2979.306)/(1 + (x/54.77293)^6.861607)
-    speed = 2979.306 + (1888.511 - 2979.306)/(1 + Math.pow((distance/54.77293), 6.861607));
+    //y = 3018.697 + (1869.989 - 3018.697)/(1 + (x/54.96491)^5.909357)
+    //y = 2864.219 + (1912.245 - 2864.219)/(1 + (x/52.9066)^7.685986)
+    //y = 2955.321 + (1897.034 - 2955.321)/(1 + (x/53.46672)^7.484881)
+    //y = 2962.245 + (1895.911 - 2962.245)/(1 + (x/53.51383)^7.309899)
+    speed = 2962.245 + (1895.911 - 2962.245)/(1 + Math.pow((distance/53.51383), 7.309899));
+    
     speed = speed * Config.kLimelightShooterSpeedModiferPercentage;
     //OLD !!!!
     //y = 2744.632 + (1878.076 - 2744.632)/(1 + (x/52.17749)^6.838287)

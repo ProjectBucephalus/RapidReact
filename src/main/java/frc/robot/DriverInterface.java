@@ -602,7 +602,7 @@ public class DriverInterface {
     }
 
     public double getVisionAngleOffset() {
-        return SmartDashboard.getNumber("Vision TUNING", 8.5);
+        return SmartDashboard.getNumber("Vision TUNING", 10.5);
     }
 
     public double getShooterSpeedField() {
