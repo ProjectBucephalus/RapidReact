@@ -97,10 +97,10 @@ public class CompletedSequences {
         // autoSpinUp spin2 = new autoSpinUp();
         // autoSpinUp spin3 = new autoSpinUp();
         autoTurn t1 = new autoTurn();
-        t1.setAngle(-87.5);
+        t1.setAngle(-83.75);
         autoDrive d1 = new autoDrive();
-        d1.setAngle(-87.5);
-        d1.setDist(-.9);
+        d1.setAngle(-83.75);
+        d1.setDist(-.8);
         d1.setSpeed(0.62);
         d1.setAccFwdLimit(0.15);
         d1.setAccRevLimit(0.17);
