@@ -91,8 +91,18 @@ public void update(){
           // System.out.println("tx: " + tx);
           double visionSteering = (tx * Constants.kVisionTurnKp);
           double driverTuning = DriverInterface.getInstance().getVisionAngleOffset();
-          if(tx + driverTuning <2.5 && tx  + driverTuning>-2.5){
-            double isn = visionSteering * 2.7;
+          if(tx + driverTuning <.75 && tx  + driverTuning> -.75){
+            double isn = visionSteering * 5.0;
+            // m_drive.arcadeDrive(0.5, -1, 0.0);
+            Drive.getInstance().autoArcadeDrive(isn, 0); 
+          }
+          else if(tx + driverTuning <1.5 && tx  + driverTuning>-1.5){
+            double isn = visionSteering * 4.0;
+            // m_drive.arcadeDrive(0.5, -1, 0.0);
+            Drive.getInstance().autoArcadeDrive(isn, 0); 
+          }
+          else if(tx + driverTuning <2.5 && tx  + driverTuning>-2.5){
+            double isn = visionSteering * 3.5;
             // m_drive.arcadeDrive(0.5, -1, 0.0);
             Drive.getInstance().autoArcadeDrive(isn, 0); 
           }
@@ -103,8 +113,8 @@ public void update(){
           else{
             m_drive.arcadeDrive(1, visionSteering, 0.0); 
           }
-          if(tx  + driverTuning <1.35 && tx  + driverTuning >-1.35){
-            if(timesLooped >= 15){
+          if(tx  + driverTuning <.95 && tx  + driverTuning >-.95){
+            if(timesLooped >= 25){
             desiredState = VisionState.IDLE;//VisionState.FINDINGSPEED;
             }
             else{
@@ -112,14 +122,14 @@ public void update(){
             }
             }
           if(tx == 0.00000){
-            if(timesLooped >= 10){
+            if(timesLooped >= 15){
               desiredState = VisionState.IDLE;
             }
             else{
               timesLooped++;
             }
           }
-      currentState = desiredState;
+     currentState = desiredState;
       break;
       case FINDINGSPEED:
       //currentState = VisionState.IDLE;
@@ -160,8 +170,13 @@ public void update(){
       tx = m_lime.getAngleToTarget();
         // System.out.println("tx: " + tx);
           double AutoVisionSteering = (tx * Constants.kVisionTurnKp);
-          if(tx <2.5   && tx  >-2.5){
-            double isn = AutoVisionSteering * 3.25;
+          if(tx <1.25   && tx  >-1.25){
+            double isn = AutoVisionSteering * 5.25;
+            // m_drive.arcadeDrive(0.5, -1, 0.0);
+            Drive.getInstance().autoArcadeDrive(isn, 0); 
+          }
+          else if(tx <2.5   && tx  >-2.5){
+            double isn = AutoVisionSteering * 3.5;
             // m_drive.arcadeDrive(0.5, -1, 0.0);
             Drive.getInstance().autoArcadeDrive(isn, 0); 
           }
@@ -251,8 +266,9 @@ public void update(){
     //y = 2962.245 + (1895.911 - 2962.245)/(1 + (x/53.51383)^7.309899)4
     //y = 2984.966 + (1893.633 - 2984.966)/(1 + (x/54.00045)^6.883124)
     //y = 2958.363 + (1871.747 - 2958.363)/(1 + (x/53.81824)^6.75047)
-    
-    speed = 2958.363 + (1871.747 - 2958.363)/(1 + Math.pow((distance/53.81824), 6.75047));
+    //y = 3055.062 + (1864.213 - 3055.062)/(1 + (x/55.14509)^7.380735)
+    //y = 3062.855 + (1860.415 - 3062.855)/(1 + (x/55.00983)^8.451337)
+    speed = 3062.855 + (1860.415 - 3062.855)/(1 + Math.pow((distance/55.00983), 8.451337));
     
     speed = speed * Config.kLimelightShooterSpeedModiferPercentage;
     //OLD !!!!
@@ -270,7 +286,7 @@ public void update(){
 public double returnShooterSpeedLimelight(){
   try{      
   double distance = Limelight.getInstance().getDistanceToTarget();
-  double aspeed = 2759.394 + (1874.137 - 2759.394)/(1 + Math.pow((distance/52.33355), 6.507768));
+  double aspeed = 3062.855 + (1860.415 - 3062.855)/(1 + Math.pow((distance/55.00983), 8.451337));
   aspeed = aspeed * Config.kLimelightShooterSpeedModiferPercentage;
   return aspeed;
   }
