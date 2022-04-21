@@ -92,12 +92,12 @@ public void update(){
           double visionSteering = (tx * Constants.kVisionTurnKp);
           double driverTuning = DriverInterface.getInstance().getVisionAngleOffset();
           if(tx + driverTuning <2.5 && tx  + driverTuning>-2.5){
-            double isn = visionSteering * 3.0;
+            double isn = visionSteering * 2.7;
             // m_drive.arcadeDrive(0.5, -1, 0.0);
             Drive.getInstance().autoArcadeDrive(isn, 0); 
           }
           else if(tx + driverTuning <4 && tx  + driverTuning>-4){
-            double isn = visionSteering * 1.6;
+            double isn = visionSteering * 1.4;
             m_drive.arcadeDrive(1, isn, 0.0); 
           }
           else{
@@ -161,12 +161,12 @@ public void update(){
         // System.out.println("tx: " + tx);
           double AutoVisionSteering = (tx * Constants.kVisionTurnKp);
           if(tx <2.5   && tx  >-2.5){
-            double isn = AutoVisionSteering * 3.75;
+            double isn = AutoVisionSteering * 3.25;
             // m_drive.arcadeDrive(0.5, -1, 0.0);
             Drive.getInstance().autoArcadeDrive(isn, 0); 
           }
           else if(tx <4   && tx  >-4){
-            double isn = AutoVisionSteering * 2.25;
+            double isn = AutoVisionSteering * 2.125;
             // m_drive.arcadeDrive(0.5, -1, 0.0);
             Drive.getInstance().autoArcadeDrive(isn, 0); 
           }
@@ -248,8 +248,9 @@ public void update(){
     //y = 3018.697 + (1869.989 - 3018.697)/(1 + (x/54.96491)^5.909357)
     //y = 2864.219 + (1912.245 - 2864.219)/(1 + (x/52.9066)^7.685986)
     //y = 2955.321 + (1897.034 - 2955.321)/(1 + (x/53.46672)^7.484881)
-    //y = 2962.245 + (1895.911 - 2962.245)/(1 + (x/53.51383)^7.309899)
-    speed = 2962.245 + (1895.911 - 2962.245)/(1 + Math.pow((distance/53.51383), 7.309899));
+    //y = 2962.245 + (1895.911 - 2962.245)/(1 + (x/53.51383)^7.309899)4
+    //y = 2984.966 + (1893.633 - 2984.966)/(1 + (x/54.00045)^6.883124)
+    speed = 2984.966 + (1893.633 - 2984.966)/(1 + Math.pow((distance/54.00045), 6.883124));
     
     speed = speed * Config.kLimelightShooterSpeedModiferPercentage;
     //OLD !!!!
