@@ -40,7 +40,7 @@ public class autoBallDetectionLimelight extends SequenceTransition{
                     numLoops++;
             }
             else{
-                if(assumedBallStatus == true && numLoops >= 5){
+                if(assumedBallStatus == true && numLoops >= 3){
                     ballDetected();
                     assumedBallStatus = false;
                     numLoops = 0;

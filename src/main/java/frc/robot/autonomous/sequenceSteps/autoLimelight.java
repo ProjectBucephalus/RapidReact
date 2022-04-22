@@ -1,11 +1,14 @@
 package frc.robot.autonomous.sequenceSteps;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.sequencer.SequenceStepIf;
 import frc.robot.autonomous.sequencer.SequenceTransition;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.VisionTrack;
 import frc.robot.subsystems.VisionTrack.VisionState;
+import edu.wpi.first.networktables.NetworkTableInstance;
+
 
 /**
  * Automatically returns a transcomplete when the limelight is angled correctly in relation to it's target
@@ -17,6 +20,7 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
     @Override
     public void stepStart() {
         VisionTrack.getInstance().setDesiredState(VisionState.AUTOTURN);
+        timesLooped = 0;
     }
 
     @Override
@@ -49,18 +53,19 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
 
     @Override
     public boolean isTransComplete() {
-        if (Math.abs(Limelight.getInstance().getAngleToTarget() - .15)<=1.25){
-            timesLooped++;
+        double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0.0);
+        if (Math.abs(tx - .15)<=1.5){
+        timesLooped++;
+        if(timesLooped >= 14){
+            return true;
+        }
+        else{
             
-            if(timesLooped >= 15){
-                return true;                                   
-            }
-            else{
-                return false;
-            }
+            return false;
+        }
         } 
         else{
-            timesLooped = 0;
+            SmartDashboard.putNumber("god help us",Math.abs(tx - .15) );
             return false;
         }
     }
