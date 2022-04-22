@@ -81,6 +81,9 @@ public void update(){
         if(timesLooped >=50){
           timesLooped = 0;
           setDesiredState(VisionState.IDLE);
+        } 
+        else{
+          timesLooped = 0;
         }
       }
       if(newState == true){
@@ -167,7 +170,7 @@ public void update(){
         turnStatus = false;
         timesLooped = 0;
       }
-      tx = m_lime.getAngleToTarget();
+      tx = -m_lime.getAngleToTarget();
         // System.out.println("tx: " + tx);
           double AutoVisionSteering = (tx * Constants.kVisionTurnKp);
           if(tx <1.25   && tx  >-1.25){
