@@ -97,10 +97,10 @@ public class CompletedSequences {
         // autoSpinUp spin2 = new autoSpinUp();
         // autoSpinUp spin3 = new autoSpinUp();
         autoTurn t1 = new autoTurn();
-        t1.setAngle(-83.75);
+        t1.setAngle(-86.75);
         autoDrive d1 = new autoDrive();
-        d1.setAngle(-83.75);
-        d1.setDist(-.8);
+        d1.setAngle(-86.75);
+        d1.setDist(-.78);
         d1.setSpeed(0.62);
         d1.setAccFwdLimit(0.15);
         d1.setAccRevLimit(0.17);
@@ -112,13 +112,13 @@ public class CompletedSequences {
         autoShooter shoot = new autoShooter();
         autoDrive d2 = new autoDrive();
         d2.setAngle(-75);
-        d2.setDist(0.15);
+        d2.setDist(0.16);
         d2.setSpeed(0.72);
         autoTurn t2 = new autoTurn();
         t2.setAngle(16.3);
         autoDrive d3 = new autoDrive();
         d3.setAngle(16.3);
-        d3.setDist(-2.35);
+        d3.setDist(-2.356);
         d3.setSpeed(0.692);
         d3.setAccFwdLimit(0.18);
         d3.setAccRevLimit(0.25);
@@ -136,7 +136,7 @@ public class CompletedSequences {
         t3.setAngle(0);
         autoDrive d4 = new autoDrive();
         d4.setAngle(0);
-        d4.setDist(-1.6969);//NICE
+        d4.setDist(-1.775);//NICE
         d4.setSpeed(0.79); 
         d4.setAccFwdLimit(0.15);
         d4.setAccRevLimit(0.22);
@@ -145,7 +145,7 @@ public class CompletedSequences {
         t4.setAngle(-43);
         autoDrive d5 = new autoDrive();
         d5.setAngle(-45);
-        d5.setDist(-1.275);
+        d5.setDist(-1.275125);
         d5.setSpeed(0.7);
         d5.setAccFwdLimit(0.15);
         d5.setAccRevLimit(0.12);
@@ -176,13 +176,15 @@ public class CompletedSequences {
         timedStep T4 = new timedStep();
         T4.setDelay(.01);
         autoShooter shoot3 = new autoShooter();
+        timedStep ELimit = new timedStep();
+        ELimit.setDelay(1.35);
         //Please note, the desync between the prespin and the actual shooting of the last shot cycle is an intentional descision to the ball isn't affected by any drop off acceleration and nicely lands in the circle.
         tick2.setNextTrans(t1);
         tick2.setNextSteps(t1, shoot, intake);
         t1.setNextTrans(t1);
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake);
-        d1.setNextTrans(lime1);
+        d1.setNextTrans(lime1, ELimit);
         d1.setNextSteps(lime1, intake);
         lime1.setNextTrans(shoot);
         lime1.setNextSteps(shoot,intake);
@@ -198,7 +200,7 @@ public class CompletedSequences {
         t2.setNextSteps(d3, intake);
         d3.setNextTrans(t02);
         d3.setNextSteps(t02, intake);
-        t02.setNextTrans(lime2);
+        t02.setNextTrans(lime2, ELimit);
         t02.setNextSteps(lime2, intake);
         lime2.setNextTrans(T1);
         lime2.setNextSteps(intake,shoot2);
@@ -222,7 +224,7 @@ public class CompletedSequences {
         d6.setNextSteps(t5);
         t5.setNextTrans(d7);
         t5.setNextSteps(d7,intake);
-        d7.setNextTrans(lime3);
+        d7.setNextTrans(lime3, ELimit);
         d7.setNextSteps(lime3);
         lime3.setNextTrans(T4); 
         T4.setNextTrans(ball3);
@@ -247,13 +249,13 @@ public class CompletedSequences {
     {
         autoBackIntake intake = new autoBackIntake();
         autoTurn t1 = new autoTurn();
-        t1.setAngle(41);
+        t1.setAngle(40);
         autoDrive d1 = new autoDrive();
-        d1.setAngle(41);
+        d1.setAngle(40);
         d1.setDist(-1.5);
         d1.setSpeed(0.4);
-        autoTurn t2 = new autoTurn();
-        t1.setAngle(58);
+        timedStep t2 = new timedStep();
+        t2.setDelay(0.5);
         autoLimelight lime1 = new autoLimelight();
         autoBallDetectionLimelight ball1 = new autoBallDetectionLimelight();
         ball1.setNumBalls(2);
@@ -388,23 +390,27 @@ public class CompletedSequences {
     private static Sequence createPos3Basic()
     {
         autoDrive d1 = new autoDrive();
-        d1.setAngle(0);
+        d1.setAngle(3);
         d1.setDist(-2);
         d1.setSpeed(0.3);
+        autoTurn a1 = new autoTurn();
+        a1.setAngle(3);
         timedStep T1 = new timedStep();
         T1.setDelay(3);
         autoLimelight lime1 = new autoLimelight();
         autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
         ball1.setNumBalls(5);
-        autoShooter shoot1 = new autoShooter();        
+        autoShooter shoot1 = new autoShooter(); 
+        a1.setNextTrans(d1);
+        a1.setNextSteps(d1);
         d1.setNextTrans(lime1, T1);
         d1.setNextSteps(lime1);
         lime1.setNextTrans(ball1);
         lime1.setNextSteps(shoot1);
 
         Sequence seq = new Sequence("Pos 3 1ball", 3);
-        seq.setInitialTransitions(d1);
-        seq.setInitialSteps(d1);
+        seq.setInitialTransitions(a1);
+        seq.setInitialSteps(a1);
         return seq;
     }
 

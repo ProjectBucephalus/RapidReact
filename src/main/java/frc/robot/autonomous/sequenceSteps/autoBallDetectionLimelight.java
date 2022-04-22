@@ -17,6 +17,7 @@ public class autoBallDetectionLimelight extends SequenceTransition{
     private boolean assumedBallStatus = false;
     private double numBalls = 0;
     private double maxNumBalls = 0;
+    private int numLoops = 0;
     public void setNumBalls(double aNumBalls) {
         maxNumBalls = aNumBalls;
     }
@@ -24,6 +25,7 @@ public class autoBallDetectionLimelight extends SequenceTransition{
     @Override
     public void transStart() {
         numBalls = 0;
+        numLoops = 0;
         assumedBallStatus = false;
         SmartDashboard.putNumber("balls shot", numBalls);
         // TODO Auto-generated method stub
@@ -35,11 +37,20 @@ public class autoBallDetectionLimelight extends SequenceTransition{
         boolean sensorStatus = Limelight.getInstance().getTargetAcquired();
             if(sensorStatus != true){
                     assumedBallStatus = true;
+                    numLoops++;
             }
             else{
-                if(assumedBallStatus == true){
+                if(assumedBallStatus == true && numLoops >= 5){
                     ballDetected();
                     assumedBallStatus = false;
+                    numLoops = 0;
+                }
+                else if(assumedBallStatus == true || sensorStatus != true){
+                    numLoops++;
+                }
+                else{
+                    numLoops++;
+                    System.out.println("Something just went wronng . if you are seeing this just throw your joystick or controller away god has left, science is no more and computers are dead.a");
                 }
             }
 

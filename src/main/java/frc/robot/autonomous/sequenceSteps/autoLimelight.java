@@ -12,16 +12,15 @@ import frc.robot.subsystems.VisionTrack.VisionState;
  */
 public class autoLimelight extends SequenceTransition implements SequenceStepIf {
 
+    int timesLooped = 0;
 
     @Override
     public void stepStart() {
         VisionTrack.getInstance().setDesiredState(VisionState.AUTOTURN);
-    
     }
 
     @Override
     public void stepEnd() {
-        Drive.getInstance().autoArcadeDrive(0, 0);
     }
 
     @Override
@@ -32,6 +31,9 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
 
     @Override
     public String stepName() {
+
+
+         
         return "Limelight";
     }
 
@@ -47,9 +49,19 @@ public class autoLimelight extends SequenceTransition implements SequenceStepIf 
 
     @Override
     public boolean isTransComplete() {
-        if (Math.abs(Limelight.getInstance().getAngleToTarget())<=1.7){
-            return true;
+        if (Math.abs(Limelight.getInstance().getAngleToTarget() - .15)<=1.25){
+            timesLooped++;
+            
+            if(timesLooped >= 15){
+                return true;                                   
             }
-        return false;
+            else{
+                return false;
+            }
+        } 
+        else{
+            timesLooped = 0;
+            return false;
+        }
     }
 }
