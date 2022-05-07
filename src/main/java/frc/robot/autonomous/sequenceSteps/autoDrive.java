@@ -35,7 +35,7 @@ public class autoDrive extends SequenceTransition implements SequenceStepIf{
 
     @Override
     public void stepUpdate() {
-        double angleErr = (myAngle - Drive.getInstance().getYaw()) % 360;
+        double angleErr = 0;
         if (angleErr > 180)
         {
             angleErr = angleErr - 360;

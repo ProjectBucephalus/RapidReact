@@ -2,9 +2,7 @@ package frc.robot.autonomous.sequenceSteps;
 
 import frc.robot.autonomous.sequencer.SequenceStepIf;
 import frc.robot.autonomous.sequencer.SequenceTransition;
-import frc.robot.subsystems.BackIntake;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.BackIntake.BackIntakeStates;
 import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import frc.robot.subsystems.Shooter.ShooterState;
 
@@ -32,7 +30,6 @@ public class autoShooter extends SequenceTransition implements SequenceStepIf {
         {
             Shooter.getInstance().setIndexer(.55);
             Shooter.getInstance().setFeed(1);
-            BackIntake.getInstance().setDesiredState(BackIntakeStates.INTAKING);
         }
         else {
             Shooter.getInstance().setIndexer(0);

@@ -5,9 +5,6 @@
 package frc.robot;
 
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.VisionTrack;
-import frc.robot.subsystems.VisionTrack.VisionState;
-import frc.robot.DriverInterface.MessageType;
 import frc.robot.autonomous.CompletedSequences;
 import frc.robot.autonomous.sequencer.Sequence;
 import frc.robot.autonomous.sequencer.Sequencer;
@@ -41,8 +38,6 @@ public class Robot extends TimedRobot {
   static Drive m_drive;
   static FrontIntake m_frontIntake;
   static TeleopController m_teleopController;
-  static Climber m_Climber;
-  static VisionTrack vision;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -55,7 +50,6 @@ public class Robot extends TimedRobot {
     DataLog log = DataLogManager.getLog();
     DriverStation.startDataLog(log);
     runIntoTelop = false;
-    Limelight.getInstance().disableVision();
 
     Drive.getInstance().setBrakes(false);
 
@@ -63,8 +57,6 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     Shooter.getInstance().initMotorControllers();
-    VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
-    Climber.getInstance().initMotorControllers();
 
     //Sequencer
     LinkedList<Sequence> seqList = new LinkedList<Sequence>();
@@ -87,8 +79,6 @@ public class Robot extends TimedRobot {
     }
     Drive.getInstance().initMotorControllers();
 
-    BackIntake.getInstance().initLogging(log);
-    Climber.getInstance().initLogging(log);
     Drive.getInstance().initLogging(log);
     FrontIntake.getInstance().initLogging(log);
     Pneumatics.getInstance().initLogging(log);
@@ -110,8 +100,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     long logTime = (long)(Timer.getFPGATimestamp() * 1000000);
-    BackIntake.getInstance().updateLogging(logTime);
-    Climber.getInstance().updateLogging(logTime);
     Drive.getInstance().updateLogging(logTime);
     FrontIntake.getInstance().updateLogging(logTime);
     Pneumatics.getInstance().updateLogging(logTime);
@@ -141,11 +129,9 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
     runIntoTelop = false;
     Drive.getInstance().setBrakes(true);
-    Limelight.getInstance().enableVision();       
-
+ 
     Sequence selectedAuto = seqChooser.getSelected();
     DataLogManager.log("Running selected auto - " + selectedAuto.getName());
-    Drive.getInstance().setAngle(getFieldAngle(selectedAuto.getStartPos()));
     mySeq = new Sequencer();
     mySeq.setInitialSteps(selectedAuto.getInitialSteps());
     mySeq.setInitialTransitions(selectedAuto.getInitialTransitions());
@@ -159,13 +145,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    VisionTrack.getInstance().updateShooterSpeedLimelight();
     SmartDashboard.putString("Auto Step", mySeq.getStepName());
     mySeq.update();
     Drive.getInstance().autoUpdate();
     Shooter.getInstance().update();
-    BackIntake.getInstance().update();    
-    VisionTrack.getInstance().update();
     
   }
 
@@ -176,10 +159,6 @@ public class Robot extends TimedRobot {
 
     Pneumatics.getInstance().setCompressorStatus(true);
 
-    Climber.getInstance().initMotorControllers();
-    Limelight.getInstance().enableVision();
-    VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
-    Climber.getInstance().resetSensors();
     DriverInterface.getInstance().printVersionNumber(Config.versionType, Config.version);
     Drive.getInstance().setBrakes(true);
 
@@ -188,44 +167,19 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
- 
-
-    try {
-      System.out.println("Climber " + Climber.getInstance().getClimberCurrentState() + " Vision " + VisionTrack.getInstance().getCurrentState() + " Shooter " + Shooter.getInstance().getCurrentState() + " Intakes " + FrontIntake.getInstance().getCurrentState() + BackIntake.getInstance().getCurrentState());
-
-      DriverInterface.getInstance().displayDiagnosticState();
+    DriverInterface.getInstance().displayDiagnosticState();
     DriverInterface.getInstance().update();
     Shooter.getInstance().update();
     Pneumatics.getInstance().update();
     
     TeleopController.getInstance().callTeleopController();
     FrontIntake.getInstance().update();
-    BackIntake.getInstance().update();
-    Climber.getInstance().update();
-    try {
-      if(VisionTrack.getInstance().getCurrentState() == VisionState.IDLE){
-        Drive.getInstance().update();
-        }
-      VisionTrack.getInstance().updateShooterSpeedLimelight();
-      VisionTrack.getInstance().update();
-    } catch(Exception e) {
-      DriverInterface.getInstance().consoleOutput(MessageType.CRITICAL, "VISION CRASH " + e);
-    }
-    } catch (Exception e){
-      DriverInterface.getInstance().consoleOutput(MessageType.CRITICAL, "Something went really really wrong " + e + " :) " + "It's not adam's fault though " + "Or Josh's " + "you can blame jarryd though");
-    }
-    
-
-
   }
 
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
-    Limelight.getInstance().disableVision();
     Drive.getInstance().setBrakes(false);
-
-    VisionTrack.getInstance().setDesiredState(VisionState.IDLE);
   }
 
   /** This function is called periodically when disabled. */
@@ -241,9 +195,7 @@ public class Robot extends TimedRobot {
   public void testInit() {
     Drive.getInstance().setBrakes(true);
 
-    BackIntake.getInstance().clearFaults();
     FrontIntake.getInstance().clearFaults();
-    Climber.getInstance().clearFaults();
     Drive.getInstance().clearFaults();
     Pneumatics.getInstance().clearFaults();
     Shooter.getInstance().clearFaults();
@@ -255,24 +207,4 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
-  private static double getFieldAngle(int aPosition)
-  {
-    if (aPosition == 1)
-    {
-      return -91.5;
-    }
-      if (aPosition == 2)
-    {
-      return -46.5;
-    }
-    if (aPosition == 3)
-    {
-      return -1.5;
-    }
-    if (aPosition == 4)
-    {
-      return 43.5;
-    }
-    return 0.0;
-  }
 }

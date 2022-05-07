@@ -4,10 +4,6 @@
 
 package frc.robot.subsystems;
 
-
-import java.util.HashMap;
-import java.util.Map;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.util.datalog.DataLog;
@@ -24,7 +20,6 @@ public class Shooter extends Subsystems{
 
     private static Shooter m_instance;
     public boolean shooterAtSpeed = false;
-    Map<Double, Double> speedTable = new HashMap<>();
 
     // DataLog variables
     private DoubleLogEntry logShootTopFB;
@@ -37,7 +32,6 @@ public class Shooter extends Subsystems{
         IDLE, //Shooter in idle state
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
-        VISION,
         SPINUP, //to be constantly run during auto
     }
 
@@ -45,10 +39,8 @@ public class Shooter extends Subsystems{
         IDLE, //Shooter in idle state
         SHOOTING, //shooter shooting ball
         EJECT, //shooter ejecting wrong ball colour
-        VISION,
         SPINUP, //to be constantly run during auto
     }
-
 
     private static ShooterState currentState = ShooterState.IDLE;
     private static ShooterState desiredState = ShooterState.IDLE;
@@ -60,11 +52,8 @@ public class Shooter extends Subsystems{
     private double shooterEjectSpeed = 800;
     private double shooterSpinUpSpeed = shooterShootSpeed;
 
-   
-
     private double ratio = 1;
     private double wheelRatio = 2;
-
 
     private void ballDetected()
     {
@@ -81,28 +70,7 @@ public class Shooter extends Subsystems{
 
     @Override
     public void update() {
-        try{
-            if(Limelight.getInstance().getTargetAcquired() == true){
-                setShooterSpeed(ShooterSpeedSlot.IDLE, VisionTrack.getInstance().returnShooterSpeedLimelight());
-                // System.out.println("Current Set Speed " + getShooterSetSpeed());
-                // System.out.println("Current Speed " + getShooterAtSpeed());
-                // System.out.println("Current State " + getCurrentState());
-            }
-            else{
-                setShooterSpeed(ShooterSpeedSlot.IDLE, shooterIdleSpeed);
-                // System.out.println("Current Set Speed " + getShooterSetSpeed());
-                // System.out.println("Current Speed " + getShooterAtSpeed());
-                // System.out.println("Current State " + getCurrentState());
-                //System.out.println("Shooter Defaulted to Idle. Sorry :(");
-            }
-        }
-        catch(Exception e) {
-        System.out.println("CRITICAL ERROR,,, ERROR CHECKING JUST STOPPED A MAJOR CRASH!!!!!! PLEASE COME TO ADAM OR JOSH WITH THIS");
-        }
-        if (waitCounts > 0)
-        { 
-            waitCounts --;
-        }
+        setShooterSpeed(ShooterSpeedSlot.IDLE, shooterIdleSpeed);
         double currRPM = Shooter.getInstance().getShooterRPM();    
         // compare currRPM with pastRPM[pastLength]
         if ( (currRPM / pastRPM[0]) < 0.95)
@@ -120,16 +88,12 @@ public class Shooter extends Subsystems{
         }
         pastRPM[pastLength-1] = currRPM;
 
-
-
         if(DriverInterface.getInstance().getManualShootCommand()) {
             shooterAtSpeed = false;
         }
         if((RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200) >= getShooterSetSpeed() - getShooterSetSpeed()*0.05985) {
             shooterAtSpeed = true;
         }
-
-        // VisionTrack.getInstance().updateShooterSpeedLimelight();
 
         DriverInterface.getInstance().outputShooterRPMField(RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200);
 
@@ -159,26 +123,20 @@ public class Shooter extends Subsystems{
 
     @Override
     public void resetSensors() {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public boolean initMechanism() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public diagnosticState getDiagnosticState() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void initMotorControllers() {
-        
-
         RobotMap.getShooterBottom().configFactoryDefault();
         RobotMap.getShooterTop ().configFactoryDefault();
 
@@ -204,10 +162,6 @@ public class Shooter extends Subsystems{
 
         RobotMap.getShooterBottom().configPeakOutputReverse(0);
         RobotMap.getShooterTop().configPeakOutputReverse(0);
-
-
-
-
     }
 
     public void setShooterSpeed(ShooterSpeedSlot speedSlot, double rpm) {
@@ -220,8 +174,6 @@ public class Shooter extends Subsystems{
             break;
             case EJECT:
                 shooterEjectSpeed = rpm;
-            break;
-            case VISION:
             break;
             case SPINUP:
                 shooterSpinUpSpeed = rpm;
@@ -288,9 +240,6 @@ public class Shooter extends Subsystems{
             break;
             case EJECT:
                 speedSlot = ShooterSpeedSlot.EJECT;
-            break;
-            case VISION:
-            
             break;
             case SPINUP:
                 speedSlot = ShooterSpeedSlot.SPINUP;
