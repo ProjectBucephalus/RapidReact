@@ -5,7 +5,6 @@
 package frc.robot;
 
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.DriverInterface.JoystickAxisType;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.FrontIntake.FrontIntakeStates;
@@ -41,8 +40,6 @@ import frc.robot.subsystems.Shooter.ShooterState;
         if(m_driverInterface.getManualShootCommand()) {
             m_shooter.setDesiredState(ShooterState.SHOOTING); {
             };
-        } else if(m_driverInterface.getShooterEjectCommand()) {
-            m_shooter.setDesiredState(ShooterState.EJECT);
         } else {
             m_shooter.setDesiredState(ShooterState.IDLE);
         }
@@ -62,39 +59,27 @@ import frc.robot.subsystems.Shooter.ShooterState;
                 m_shooter.setIndexer(-1);
             }
 
-        } else if(m_shooter.getCurrentState() == ShooterState.EJECT || m_shooter.getCurrentState() == ShooterState.EJECT) {
+        } else if(m_shooter.getCurrentState() == ShooterState.EJECT) {
             m_shooter.setIndexer(1);
-
         } else if(m_frontIntake.getCurrentState() == FrontIntakeStates.INTAKING) {
             m_shooter.setIndexer(-0.5);
-
         } else if(m_frontIntake.getCurrentState() == FrontIntakeStates.UNINTAKING) {
             m_shooter.setIndexer(-0.5);
         } else if(m_driverInterface.getIndexerManualOverride()) {
             if(m_driverInterface.getIndexerManual() < 0) {
                 m_shooter.setIndexer(-m_driverInterface.getIndexerManual());
-
             } else {
                 m_shooter.setIndexer(-m_driverInterface.getIndexerManual());
-
             }
-        } else if(m_frontIntake.getCurrentState() == FrontIntakeStates.UNINTAKING) {
-            m_shooter.setIndexer(-0.5);
         } else {
             m_shooter.setIndexer(0);
         } 
 
         callDrive();
-        m_driverInterface.updateLimelightSpeedOffset();
         m_pneumatics.setCompressorStatus(true);
-
-        //Update shooter values
-        //m_shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, m_driverInterface.getShooterSpeedField());
-
     }
 
     public void callDrive() {
-        m_driverInterface.getRobotFowardDirection();
-            m_drive.arcadeDrive(m_driverInterface.getJoystickAxis(JoystickAxisType.THROTTLE), -m_driverInterface.getX(), m_driverInterface.getY());
+        m_drive.arcadeDrive(m_driverInterface.getJoystickAxis(JoystickAxisType.THROTTLE), -m_driverInterface.getX(), m_driverInterface.getY());
     }
 }

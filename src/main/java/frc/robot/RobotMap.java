@@ -1,16 +1,12 @@
 package frc.robot;
 
 
-import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 /**
  * Put docs here // TODO
  */
@@ -49,28 +45,24 @@ public class RobotMap {
 		return shooterTop;
 	}
 
-	static Compressor compressor = new Compressor(Constants.kPCMCanID, PneumaticsModuleType.REVPH);
+	static Compressor compressor = new Compressor(Constants.kPCMCanID, PneumaticsModuleType.CTREPCM);
 
 	public static Compressor getCompressor() {
 		return compressor;
 	}
 
 	static TalonFX frontIntakeMotor = new TalonFX(Constants.kFrontIntakeEscCanID);
-	static DoubleSolenoid frontIntakeSolenoid = new DoubleSolenoid(Constants.kPCMCanID, PneumaticsModuleType.REVPH, Constants.kFrontIntakeSolenoidAChannel, Constants.kFrontIntakeSolenoidBChannel);
-	
+	// static DoubleSolenoid frontIntakeSolenoid = new DoubleSolenoid(Constants.kPCMCanID, PneumaticsModuleType.CTREPCM, Constants.kFrontIntakeSolenoidAChannel, Constants.kFrontIntakeSolenoidBChannel);
+	static Solenoid frontIntakeSolenoid = new Solenoid(Constants.kPCMCanID, PneumaticsModuleType.CTREPCM, Constants.kFrontIntakeSolenoidAChannel);
+
 	public static TalonFX getFrontIntakeESC() {
 		return frontIntakeMotor;
 	}
 
-	public static DoubleSolenoid getFrontIntakeSolenoid() {
+	public static Solenoid getFrontIntakeSolenoid() {
 		return frontIntakeSolenoid;
 	}
 
-	static PowerDistribution pdh = new PowerDistribution(Constants.kPDHCanID, ModuleType.kRev);
-
-	public static PowerDistribution getPDH() {
-		return pdh;
-	}
 	static VictorSPX indexerA = new VictorSPX(Constants.kIndexerACanID);
 
 	public static VictorSPX getIndexerA() {

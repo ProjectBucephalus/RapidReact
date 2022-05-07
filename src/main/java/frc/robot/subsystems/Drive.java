@@ -12,7 +12,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Config;
 import frc.robot.Constants;
 import frc.robot.RobotMap;

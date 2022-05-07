@@ -9,7 +9,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.util.datalog.BooleanLogEntry;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Config;
 import frc.robot.RobotMap;
 /**
@@ -46,21 +45,24 @@ public class FrontIntake extends Subsystems{
             default:
 
                 RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, 0);
-                RobotMap.getFrontIntakeSolenoid().set(Value.kReverse);
+                // RobotMap.getFrontIntakeSolenoid().set(Value.kReverse);
+                RobotMap.getFrontIntakeSolenoid().set(false);
                 currentState = desiredState;
 
             break;
             case INTAKING: 
 
                 RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed);
-                RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
+                // RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
+                RobotMap.getFrontIntakeSolenoid().set(true);
                 currentState = desiredState;
 
             break;
             case UNINTAKING: 
 
                 RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed * -1);
-                RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
+                // RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
+                RobotMap.getFrontIntakeSolenoid().set(true);
                 currentState = desiredState;
 
             break;
@@ -126,7 +128,8 @@ public class FrontIntake extends Subsystems{
     public void updateLogging(long aTime)
     {
         logFrontSpeed.append(RobotMap.getFrontIntakeESC().getSelectedSensorVelocity(), aTime);
-        logFrontExtend.append(RobotMap.getFrontIntakeSolenoid().get() == Value.kForward, aTime);
+        // logFrontExtend.append(RobotMap.getFrontIntakeSolenoid().get() == Value.kForward, aTime);
+        logFrontExtend.append(RobotMap.getFrontIntakeSolenoid().get(), aTime);
     }
  
 }

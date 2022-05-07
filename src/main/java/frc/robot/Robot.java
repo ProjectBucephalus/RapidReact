@@ -49,7 +49,6 @@ public class Robot extends TimedRobot {
     DataLogManager.start();
     DataLog log = DataLogManager.getLog();
     DriverStation.startDataLog(log);
-    runIntoTelop = false;
 
     Drive.getInstance().setBrakes(false);
 
@@ -84,7 +83,6 @@ public class Robot extends TimedRobot {
     Pneumatics.getInstance().initLogging(log);
     Shooter.getInstance().initLogging(log);
   }
-
   
   SendableChooser<Sequence> seqChooser;
   Sequence myDefault = null;
@@ -106,13 +104,6 @@ public class Robot extends TimedRobot {
     Shooter.getInstance().updateLogging(logTime);
 
     Shuffleboard.update();
- 
-  }
-
-  private static long currentScanTimestamp = 0;
-  public static long getScanTime()
-  {
-    return currentScanTimestamp;
   }
 
   /**
@@ -126,8 +117,8 @@ public class Robot extends TimedRobot {
    * chooser code above as well.
    */
   @Override
-    public void autonomousInit() {
-    runIntoTelop = false;
+  public void autonomousInit() {
+    Pneumatics.getInstance().setCompressorStatus(true);
     Drive.getInstance().setBrakes(true);
  
     Sequence selectedAuto = seqChooser.getSelected();
@@ -136,10 +127,6 @@ public class Robot extends TimedRobot {
     mySeq.setInitialSteps(selectedAuto.getInitialSteps());
     mySeq.setInitialTransitions(selectedAuto.getInitialTransitions());
     mySeq.sequenceStart();
-
-
-
-
   }
 
   /** This function is called periodically during autonomous. */
@@ -149,19 +136,16 @@ public class Robot extends TimedRobot {
     mySeq.update();
     Drive.getInstance().autoUpdate();
     Shooter.getInstance().update();
-    
   }
 
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
     SmartDashboard.putNumber("Shooter target", 2000);
-
     Pneumatics.getInstance().setCompressorStatus(true);
 
     DriverInterface.getInstance().printVersionNumber(Config.versionType, Config.version);
     Drive.getInstance().setBrakes(true);
-
   }
 
   /** This function is called periodically during operator control. */
@@ -199,8 +183,6 @@ public class Robot extends TimedRobot {
     Drive.getInstance().clearFaults();
     Pneumatics.getInstance().clearFaults();
     Shooter.getInstance().clearFaults();
-    DriverInterface.getInstance().clearPDHFaults();
-
   }
 
   

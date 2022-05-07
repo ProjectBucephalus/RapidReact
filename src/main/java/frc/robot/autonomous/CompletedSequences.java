@@ -25,32 +25,25 @@ public class CompletedSequences {
 
     private static Sequence createDefault()
     {
-        autoDrive t1 = new autoDrive();
-        t1.setAngle(4);
-        autoDrive d1 = new autoDrive();
-        d1.setAngle(5);
-        d1.setDist(-1.5);
-        d1.setSpeed(0.2);
-        autoDrive d2 = new autoDrive();
-        d2.setAngle(5);
-        d2.setDist(0.5);
-        d2.setSpeed(0.2);
-        autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
-        ball1.setNumBalls(10);
+        timedStep t1 = new timedStep();
+        t1.setDelay(2);
+        autoDrive s1 = new autoDrive();
+        s1.setSpeed(0.5);
+        s1.setDist(3);;
+        timedStep t2 = new timedStep();
+        t2.setDelay(5);
         autoShooter shoot1 = new autoShooter();
+        autoDrive t3 = new autoDrive();
+        t3.setDist(-3);
 
-        t1.setNextTrans(d1);
-        // t1.setNextSteps(d1, intake);
-        d1.setNextTrans(d2);
-        d1.setNextSteps(d2);
-        // d2.setNextTrans(lime1);
-        // d2.setNextSteps(lime1);
-        // lime1.setNextTrans(ball1);
-        // lime1.setNextSteps(shoot1);
+        t1.setNextTrans(t2);
+        t1.setNextSteps(shoot1);
+        t2.setNextTrans(t3);
+        t2.setNextSteps(t3);
         
-        Sequence seq = new Sequence("Forgotten select", 0);
+        Sequence seq = new Sequence("Basic auto", 0);
         seq.setInitialTransitions(t1);
-        // seq.setInitialSteps(t1, intake);
+        seq.setInitialSteps(s1);
         return seq;
     }
 
