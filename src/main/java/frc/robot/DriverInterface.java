@@ -152,10 +152,6 @@ public class DriverInterface {
         return deadZone(getJoystickAxis(JoystickAxisType.Y));
     }
 
-    public boolean getAutoShootCommand() {
-        return joystick1.getTrigger();
-    }
-
     public boolean getManualShootCommand() {
         return xbox1.getRightTriggerAxis() >= 0.5;
     }
