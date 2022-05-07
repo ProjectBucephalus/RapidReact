@@ -20,7 +20,7 @@ public class autoShooter extends SequenceTransition implements SequenceStepIf {
     public void stepEnd() {
         Shooter.getInstance().setDesiredState(ShooterState.IDLE);
         Shooter.getInstance().setIndexer(0);
-        Shooter.getInstance().setFeed(0);
+      
         
     }
 
@@ -29,11 +29,9 @@ public class autoShooter extends SequenceTransition implements SequenceStepIf {
         if (Shooter.getInstance().getShooterRPM() >= (Shooter.getInstance().getShooterSetSpeed(ShooterSpeedSlot.SHOOTING) - 110))
         {
             Shooter.getInstance().setIndexer(.55);
-            Shooter.getInstance().setFeed(1);
         }
         else {
             Shooter.getInstance().setIndexer(0);
-            Shooter.getInstance().setFeed(0.4);
         }
         Shooter.getInstance().update();
     }

@@ -18,12 +18,9 @@ public class RobotMap {
 
 	static TalonFX leftDriveA = new TalonFX(Constants.kLeftDriveACanID);
 	static TalonFX leftDriveB = new TalonFX(Constants.kLeftDriveBCanID);
-	static TalonFX leftDriveC = new TalonFX(Constants.kLeftDriveCCanID);
-
 
 	static TalonFX rightDriveA = new TalonFX(Constants.kRightDriveACanID);
 	static TalonFX rightDriveB = new TalonFX(Constants.kRightDriveBCanID);
-	static TalonFX rightDriveC = new TalonFX(Constants.kRightDriveCCanID);
 
 	public static TalonFX getLeftDriveA() {
 		return leftDriveA;
@@ -39,14 +36,6 @@ public class RobotMap {
 
 	public static TalonFX getRightDriveB() {
 		return rightDriveB;
-	}
-
-	public static TalonFX getLeftDriveC() {
-		return leftDriveC;
-	}
-
-	public static TalonFX getRightDriveC() {
-		return rightDriveC;
 	}
 
 	static TalonFX shooterBottom = new TalonFX(Constants.kShooterBottomCanID);
@@ -68,11 +57,6 @@ public class RobotMap {
 
 	static TalonFX frontIntakeMotor = new TalonFX(Constants.kFrontIntakeEscCanID);
 	static DoubleSolenoid frontIntakeSolenoid = new DoubleSolenoid(Constants.kPCMCanID, PneumaticsModuleType.REVPH, Constants.kFrontIntakeSolenoidAChannel, Constants.kFrontIntakeSolenoidBChannel);
-
-	static TalonFX backIntakeMotor = new TalonFX(Constants.kBackIntakeEscCanID);
-	public static TalonFX getBackIntakeESC() {
-		return backIntakeMotor;
-	}
 	
 	public static TalonFX getFrontIntakeESC() {
 		return frontIntakeMotor;
@@ -82,47 +66,14 @@ public class RobotMap {
 		return frontIntakeSolenoid;
 	}
 
-	static TalonFX leftWinch = new TalonFX(Constants.kLeftWinchCanID);
-	static TalonFX rightWinch = new TalonFX(Constants.kRightWinchCanID);
-	static CANifier climberSensors = new CANifier(Constants.kClimberCanifierCanID);
-
-	static DoubleSolenoid climberSolenoid = new DoubleSolenoid(Constants.kPCMCanID, PneumaticsModuleType.REVPH, Constants.kClimberSolenoidAChannel, Constants.kClimberSolenoidBChannel);
-
-	public static TalonFX getLeftWinch() {
-		return leftWinch;
-	}
-
-	public static TalonFX getRightWinch() {
-		return rightWinch;
-	}
-
-	public static CANifier getClimberSensors() {
-		return climberSensors;
-	}
-
-	public static DoubleSolenoid getClimberSolenoid() {
-		return climberSolenoid;
-	}
-
 	static PowerDistribution pdh = new PowerDistribution(Constants.kPDHCanID, ModuleType.kRev);
 
 	public static PowerDistribution getPDH() {
 		return pdh;
 	}
-
-	static VictorSPX feedA = new VictorSPX(Constants.kFeedBCanID);
-	static VictorSPX feedB = new VictorSPX(Constants.kFeedACanID);
 	static VictorSPX indexerA = new VictorSPX(Constants.kIndexerACanID);
 
-	public static VictorSPX getFeedA() {
-		return feedA;
-	}
-	public static VictorSPX getFeedB() {
-		return feedB;
-	}
 	public static VictorSPX getIndexerA() {
 		return indexerA;
 	}
-
-	public static DigitalInput ballSense = new DigitalInput(0);
 }

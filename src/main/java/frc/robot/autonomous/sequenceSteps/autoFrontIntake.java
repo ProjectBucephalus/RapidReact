@@ -13,15 +13,13 @@ public class autoFrontIntake implements SequenceStepIf{
     @Override
     public void stepStart() {
         FrontIntake.getInstance().setDesiredState(FrontIntakeStates.INTAKING);   
-        Shooter.getInstance().setFeed(1);
         Shooter.getInstance().setDesiredState(ShooterState.IDLE);
      
     }
 
     @Override
     public void stepEnd() {
-        FrontIntake.getInstance().setDesiredState(FrontIntakeStates.STOWED);        
-        Shooter.getInstance().setFeed(0);
+       FrontIntake.getInstance().setDesiredState(FrontIntakeStates.STOWED);        
         Shooter.getInstance().setDesiredState(ShooterState.IDLE);
     }
 

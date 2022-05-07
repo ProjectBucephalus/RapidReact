@@ -141,13 +141,9 @@ public class Shooter extends Subsystems{
         RobotMap.getShooterTop ().configFactoryDefault();
 
         RobotMap.getIndexerA().configFactoryDefault();
-        RobotMap.getFeedA().configFactoryDefault();
-        RobotMap.getFeedB().configFactoryDefault();
 
         RobotMap.getIndexerA().setInverted(true);;
-        RobotMap.getFeedA().setInverted(true);
-        RobotMap.getFeedB().setInverted(true);
-
+      
         RobotMap.getShooterBottom().config_kP(0, Constants.kShooterP);       
         RobotMap.getShooterTop().config_kP(0, Constants.kShooterP);       
 
@@ -303,19 +299,11 @@ public class Shooter extends Subsystems{
         
     }
 
-    public void setFeed(double aSpeed, double bSpeed) {
-        RobotMap.getFeedA().set(ControlMode.PercentOutput, aSpeed);
-        RobotMap.getFeedB().set(ControlMode.PercentOutput, bSpeed);
-
-    }
-
     @Override
     public void clearFaults() {
         RobotMap.getShooterBottom().clearStickyFaults();
         RobotMap.getShooterTop().clearStickyFaults();
 
-        RobotMap.getFeedA().clearStickyFaults();
-        RobotMap.getFeedB().clearStickyFaults();
         RobotMap.getIndexerA().clearStickyFaults();
 
     }
@@ -331,10 +319,6 @@ public class Shooter extends Subsystems{
         } else {
             return false;
         }
-    }
-
-    public void setFeed(double speed) {
-        setFeed(speed, speed);
     }
    
     public void initLogging(DataLog aLog)
