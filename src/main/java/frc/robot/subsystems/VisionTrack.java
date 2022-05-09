@@ -221,11 +221,11 @@ public void update(){
 
     }
     public enum VisionState {
-      IDLE,
-      TURNING,
-      FINDINGSPEED,
-      SHOOTING,
-      AUTOTURN,
+        IDLE,
+        TURNING,
+        FINDINGSPEED,
+        SHOOTING,
+        AUTOTURN,
   }
 
   public void setDesiredState(VisionState state) {

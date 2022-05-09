@@ -100,8 +100,8 @@ public class CompletedSequences {
         t1.setAngle(-84.75);
         autoDrive d1 = new autoDrive();
         d1.setAngle(-84.75);
-        d1.setDist(-.825);
-        d1.setSpeed(0.75);
+        d1.setDist(-.82);
+        d1.setSpeed(0.85);
         d1.setAccFwdLimit(0.15);
         d1.setAccRevLimit(0.17);
         autoLimelight lime1 = new autoLimelight();
@@ -113,13 +113,13 @@ public class CompletedSequences {
         autoDrive d2 = new autoDrive();
         d2.setAngle(-75);
         d2.setDist(0.16);
-        d2.setSpeed(0.78);
+        d2.setSpeed(0.87);
         autoTurn t2 = new autoTurn();
         t2.setAngle(17.3);
         autoDrive d3 = new autoDrive();
         d3.setAngle(17.3);
         d3.setDist(-2.496);
-        d3.setSpeed(0.692);
+        d3.setSpeed(0.892);
         d3.setAccFwdLimit(0.18);
         d3.setAccRevLimit(0.25);
         autoTurn t02 = new autoTurn();
@@ -137,16 +137,16 @@ public class CompletedSequences {
         autoDrive d4 = new autoDrive();
         d4.setAngle(0);
         d4.setDist(-1.8875);//NICE
-        d4.setSpeed(0.83); 
+        d4.setSpeed(0.9); 
         d4.setAccFwdLimit(0.15);
         d4.setAccRevLimit(0.22);
-        d4.setDistGain(1.5);
+        d4.setDistGain(1.9);
         autoTurn t4 = new autoTurn();
         t4.setAngle(-43);
         autoDrive d5 = new autoDrive();
         d5.setAngle(-45);
         d5.setDist(-1.375125);
-        d5.setSpeed(0.7);
+        d5.setSpeed(0.76);
         d5.setAccFwdLimit(0.15);
         d5.setAccRevLimit(0.12);
         d5.setDistGain(1);
@@ -168,7 +168,7 @@ public class CompletedSequences {
         d7.setSpeed(.71);
         d7.setAccFwdLimit(0.02);
         d7.setAccRevLimit(0.045);
-        d7.setDistGain(.57);
+        d7.setDistGain(.53);
         timedStep T3 = new timedStep();
         T3.setDelay(1.0);
         autoBallDetectionLimelight ball3 = new autoBallDetectionLimelight();
