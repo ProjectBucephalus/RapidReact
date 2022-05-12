@@ -50,7 +50,7 @@ public class autoBallDetectionLimelight extends SequenceTransition{
                 }
                 else{
                     numLoops++;
-                    System.out.println("Something just went wronng . if you are seeing this just throw your joystick or controller away god has left, science is no more and computers are dead.a");
+                    System.out.println("Something just went wrong . if you are seeing this just throw your joystick or controller away god has left, science is no more and computers are dead.a");
                 }
             }
 
