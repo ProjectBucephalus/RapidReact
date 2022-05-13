@@ -51,5 +51,97 @@ public class CompletedSequences {
         return seq;
     }
 
+
+    private static Sequence createPos1()
+    {
+        timedStep t1 = new timedStep();
+        t1.setDelay(0.2);
+        autoFrontIntake intake = new autoFrontIntake();
+        autoDrive d1 = new autoDrive();
+        d1.setAngle(-87.5);
+        d1.setDist(-1.2);
+        d1.setSpeed(0.58);
+        d1.setAccFwdLimit(0.15);
+        d1.setAccRevLimit(0.17);
+        autoShooter shoot1 = new autoShooter();
+        shoot1.setRPM(2400);
+
+        t1.setNextTrans(d1);
+        t1.setNextSteps(d1, intake);
+        d1.setNextTrans(shoot1);
+        d1.setNextSteps(shoot1);
+        shoot1.setNextSteps(shoot1);
+
+        Sequence seq = new Sequence("Pos1 2Ball", 1);
+        seq.setInitialTransitions(t1);
+        seq.setInitialSteps(t1, intake);
+        return seq;
+    }
+
+
+
+
+
+
+
+
+   
+    private static Sequence createPos2()
+    {
+        timedStep t1 = new timedStep();
+        t1.setDelay(0.2);
+        autoFrontIntake intake = new autoFrontIntake();
+        autoDrive d1 = new autoDrive();
+        d1.setAngle(-22.5);
+        d1.setDist(-1.5);
+        d1.setSpeed(0.58);
+        d1.setAccFwdLimit(0.15);
+        d1.setAccRevLimit(0.17);
+        autoShooter shoot1 = new autoShooter();
+        shoot1.setRPM(2400);
+
+        t1.setNextTrans(d1);
+        t1.setNextSteps(d1, intake);
+        d1.setNextTrans(shoot1);
+        d1.setNextSteps(shoot1);
+        shoot1.setNextSteps(shoot1);
+
+        Sequence seq = new Sequence("Pos2 2Ball", 1);
+        seq.setInitialTransitions(t1);
+        seq.setInitialSteps(t1, intake);
+        return seq;
+    }
+
+
+
+
+
+
+
+
+
+    private static Sequence createPos3()
+    {
+        timedStep t1 = new timedStep();
+        t1.setDelay(0.2);
+        autoFrontIntake intake = new autoFrontIntake();
+        autoDrive d1 = new autoDrive();
+        d1.setAngle(3);
+        d1.setDist(-2);
+        d1.setSpeed(0.4);
+        autoShooter shoot1 = new autoShooter();
+        shoot1.setRPM(2400);
+
+        t1.setNextTrans(d1);
+        t1.setNextSteps(d1, intake);
+        d1.setNextTrans(shoot1);
+        d1.setNextSteps(shoot1);
+        shoot1.setNextSteps(shoot1);
+
+        Sequence seq = new Sequence("Pos3 2Ball", 1);
+        seq.setInitialTransitions(t1);
+        seq.setInitialSteps(t1, intake);
+        return seq;
+    }
     static LinkedList<Sequence> theSequences = null;
 }
