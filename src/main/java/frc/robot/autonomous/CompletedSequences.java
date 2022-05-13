@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.wpi.first.wpilibj.TimesliceRobot;
 import frc.robot.autonomous.sequenceSteps.*;
 import frc.robot.autonomous.sequencer.Sequence;
 /**
@@ -143,5 +144,62 @@ public class CompletedSequences {
         seq.setInitialSteps(t1, intake);
         return seq;
     }
+
+    private static Sequence createPos4(){
+        timedStep subsst = new timedStep();
+        subsst.setDelay(0.05);
+        autoFrontIntake intake = new autoFrontIntake();
+        autoDrive d1 = new autoDrive();
+        d1.setAngle(40);
+        d1.setDist(-1.5);
+        d1.setSpeed(0.4);
+        timedStep t2 = new timedStep();
+        t2.setDelay(0.5);
+        autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
+        ball1.setNumBalls(2);
+        autoShooter shoot1 = new autoShooter();
+        autoDrive d2 = new autoDrive();
+        d2.setAngle(139.5);
+        d2.setDist(-1.7);
+        d2.setSpeed(0.3);
+        timedStep T1 = new timedStep();
+        T1.setDelay(0.3);
+        autoDrive d3 = new autoDrive();
+        d3.setAngle(139.5);
+        d3.setDist(1.5);
+        d3.setSpeed(0.3);
+        autoBallDetectionMotorRPM ball2 = new autoBallDetectionMotorRPM();
+        ball2.setNumBalls(5);
+        autoShooter eject2 = new autoShooter();
+        eject2.setRPM(800);
+
+
+        subsst.setNextTrans(d1);
+        subsst.setNextSteps(d1, intake);
+        d1.setNextTrans(t2);
+        d1.setNextSteps(t2, intake);
+        t2.setNextTrans(subsst);
+        t2.setNextSteps(intake);
+        subsst.setNextTrans(ball1);
+        subsst.setNextSteps(shoot1);
+        ball1.setNextTrans(subsst);
+        ball1.setNextSteps(subsst);
+        subsst.setNextTrans(d2);
+        subsst.setNextSteps(d2, intake);
+        d2.setNextTrans(T1);
+        d2.setNextSteps(intake);
+        T1.setNextTrans(d3);
+        T1.setNextSteps(d3, intake);
+        d3.setNextTrans(subsst);
+        d3.setNextSteps(subsst, intake);
+        subsst.setNextTrans(ball2);
+        subsst.setNextSteps(eject2);
+
+        Sequence seq = new Sequence("Pos-4 2Ball + Steal", 4);
+        seq.setInitialTransitions(subsst);
+        seq.setInitialSteps(subsst, intake);
+        return seq;
+    }
+
     static LinkedList<Sequence> theSequences = null;
 }
