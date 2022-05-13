@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.util.datalog.BooleanLogEntry;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Config;
 import frc.robot.RobotMap;
 /**
@@ -44,27 +45,28 @@ public class FrontIntake extends Subsystems{
         switch(currentState) {
             default:
 
-                RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, 0);
-                // RobotMap.getFrontIntakeSolenoid().set(Value.kReverse);
-                RobotMap.getFrontIntakeSolenoid().set(false);
+               ///////////////// RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, 0);
+                RobotMap.getFrontIntakeSolenoid().set(Value.kReverse);
                 currentState = desiredState;
 
             break;
             case INTAKING: 
-
-                RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed);
-                // RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
-                RobotMap.getFrontIntakeSolenoid().set(true);
+              ////////////  RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed);
+                RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
                 currentState = desiredState;
 
             break;
             case UNINTAKING: 
 
-                RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed * -1);
-                // RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
-                RobotMap.getFrontIntakeSolenoid().set(true);
+                ///////////RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed * -1);
+                RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
                 currentState = desiredState;
 
+            break;
+            case STOWED:
+                ///////RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, 0);
+                RobotMap.getFrontIntakeSolenoid().set(Value.kReverse);
+                currentState = desiredState;
             break;
         }
 
@@ -116,7 +118,7 @@ public class FrontIntake extends Subsystems{
 
     @Override
     public void clearFaults() {
-        RobotMap.getFrontIntakeESC().clearStickyFaults();
+   ///// RobotMap.getFrontIntakeESC().clearStickyFaults();
     }
 
     public void initLogging(DataLog aLog)
@@ -127,9 +129,8 @@ public class FrontIntake extends Subsystems{
  
     public void updateLogging(long aTime)
     {
-        logFrontSpeed.append(RobotMap.getFrontIntakeESC().getSelectedSensorVelocity(), aTime);
-        // logFrontExtend.append(RobotMap.getFrontIntakeSolenoid().get() == Value.kForward, aTime);
-        logFrontExtend.append(RobotMap.getFrontIntakeSolenoid().get(), aTime);
-    }
+      //////////  logFrontSpeed.append(RobotMap.getFrontIntakeESC().getSelectedSensorVelocity(), aTime);
+        logFrontExtend.append(RobotMap.getFrontIntakeSolenoid().get() == Value.kForward , aTime);
+        }
  
 }

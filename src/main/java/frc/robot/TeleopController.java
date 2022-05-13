@@ -54,17 +54,17 @@ import frc.robot.subsystems.Shooter.ShooterState;
 
         if(m_shooter.getCurrentState() == ShooterState.SHOOTING) {
             if(m_shooter.getShooterAtSpeed()) {
-                m_shooter.setIndexer(1);
+                m_shooter.setIndexer(.33);
             } else {
-                m_shooter.setIndexer(-1);
+                m_shooter.setIndexer(-.26);
             }
 
         } else if(m_shooter.getCurrentState() == ShooterState.EJECT) {
-            m_shooter.setIndexer(1);
+            m_shooter.setIndexer(.28);
         } else if(m_frontIntake.getCurrentState() == FrontIntakeStates.INTAKING) {
-            m_shooter.setIndexer(-0.5);
+            m_shooter.setIndexer(-0.22);
         } else if(m_frontIntake.getCurrentState() == FrontIntakeStates.UNINTAKING) {
-            m_shooter.setIndexer(-0.5);
+            m_shooter.setIndexer(-0.22);
         } else if(m_driverInterface.getIndexerManualOverride()) {
             if(m_driverInterface.getIndexerManual() < 0) {
                 m_shooter.setIndexer(-m_driverInterface.getIndexerManual());
@@ -72,7 +72,7 @@ import frc.robot.subsystems.Shooter.ShooterState;
                 m_shooter.setIndexer(-m_driverInterface.getIndexerManual());
             }
         } else {
-            m_shooter.setIndexer(0);
+            m_shooter.setIndexer(-.1);
         } 
 
         callDrive();

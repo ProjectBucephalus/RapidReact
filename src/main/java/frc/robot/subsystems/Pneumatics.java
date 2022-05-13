@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.util.datalog.DataLog;
-import frc.robot.Config;
 import frc.robot.RobotMap;
 /**
  * Put docs here // TODO
@@ -19,7 +18,7 @@ public class Pneumatics extends Subsystems{
     public void update() {
 
         if(compressor) {
-            RobotMap.getCompressor().enableAnalog(Config.kCompressorMin, Config.kCompressorMax);
+            RobotMap.getCompressor().enableDigital();
         } else {
             RobotMap.getCompressor().disable();
         }

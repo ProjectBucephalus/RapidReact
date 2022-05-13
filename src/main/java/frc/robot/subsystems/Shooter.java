@@ -5,9 +5,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Config;
 import frc.robot.Constants;
@@ -20,13 +20,14 @@ public class Shooter extends Subsystems{
 
     private static Shooter m_instance;
     public boolean shooterAtSpeed = false;
-
+    public static double shooterModifer = 1.0;
     // DataLog variables
     private DoubleLogEntry logShootTopFB;
     private DoubleLogEntry logShootBottomFB;
     private DoubleLogEntry logShootTopRef;
     private DoubleLogEntry logShootBottomRef;
-  
+    private boolean clickedStatus;
+
 
     public enum ShooterSpeedSlot {
         IDLE, //Shooter in idle state
@@ -44,14 +45,13 @@ public class Shooter extends Subsystems{
 
     private static ShooterState currentState = ShooterState.IDLE;
     private static ShooterState desiredState = ShooterState.IDLE;
-
     private static ShooterSpeedSlot speedSlot = ShooterSpeedSlot.IDLE;
 
-    public static double shooterIdleSpeed = 2050 * Config.kLimelightShooterSpeedModiferPercentage;
-    private double shooterShootSpeed = 2450 * Config.kLimelightShooterSpeedModiferPercentage;
+    public static double shooterIdleSpeed = 2300 * Config.kLimelightShooterSpeedModiferPercentage * shooterModifer;
+    private double shooterShootSpeed = 2300 * Config.kLimelightShooterSpeedModiferPercentage * shooterModifer;
     private double shooterEjectSpeed = 800;
     private double shooterSpinUpSpeed = shooterShootSpeed;
-
+    private double timeSinceLast = 0;
     private double ratio = 1;
     private double wheelRatio = 2;
 
@@ -70,7 +70,31 @@ public class Shooter extends Subsystems{
 
     @Override
     public void update() {
+         if(DriverInterface.getInstance().shooterModifer() == 0 && clickedStatus == false){
+        
+             
+             shooterIdleSpeed = shooterIdleSpeed + 35;
+             shooterShootSpeed = shooterShootSpeed + 35;
+             clickedStatus = true;
+         }
+         else if(DriverInterface.getInstance().shooterModifer() == 180 && clickedStatus == false){
+             clickedStatus = true;
+             shooterIdleSpeed = shooterIdleSpeed - 35;
+             shooterShootSpeed = shooterShootSpeed - 35;
+         }     
+         else if(DriverInterface.getInstance().zeroShooterModifer()){
+            shooterIdleSpeed = 2300;
+            shooterShootSpeed = 2300;
+        }
+         else if(DriverInterface.getInstance().shooterModifer() == -1){
+            clickedStatus = false;
+
+         }
+
+
+         SmartDashboard.putNumber("mr limelighto", shooterIdleSpeed);
         setShooterSpeed(ShooterSpeedSlot.IDLE, shooterIdleSpeed);
+        setShooterSpeed(ShooterSpeedSlot.SHOOTING, shooterShootSpeed);
         double currRPM = Shooter.getInstance().getShooterRPM();    
         // compare currRPM with pastRPM[pastLength]
         if ( (currRPM / pastRPM[0]) < 0.95)
@@ -95,7 +119,7 @@ public class Shooter extends Subsystems{
             shooterAtSpeed = true;
         }
 
-        DriverInterface.getInstance().outputShooterRPMField(RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200);
+        //DriverInterface.getInstance().outputShooterRPMField(RobotMap.getShooterBottom().getSelectedSensorVelocity() / 2048 * 1200);
 
         switch(currentState) {
             default: //catches 'IDLE'
@@ -140,9 +164,9 @@ public class Shooter extends Subsystems{
         RobotMap.getShooterBottom().configFactoryDefault();
         RobotMap.getShooterTop ().configFactoryDefault();
 
-        RobotMap.getIndexerA().configFactoryDefault();
+          //////////////   RobotMap.getIndexerA().configFactoryDefault();
 
-        RobotMap.getIndexerA().setInverted(true);;
+          /////////////   RobotMap.getIndexerA().setInverted(true);;
       
         RobotMap.getShooterBottom().config_kP(0, Constants.kShooterP);       
         RobotMap.getShooterTop().config_kP(0, Constants.kShooterP);       
@@ -153,8 +177,8 @@ public class Shooter extends Subsystems{
         RobotMap.getShooterBottom().config_kD(0, Constants.kShooterD);       
         RobotMap.getShooterTop().config_kD(0, Constants.kShooterD);     
 
-        RobotMap.getShooterBottom().setInverted(true);
-        RobotMap.getShooterTop().setInverted(true);
+        RobotMap.getShooterBottom().setInverted(false);
+        RobotMap.getShooterTop().setInverted(false);
 
         RobotMap.getShooterBottom().configPeakOutputReverse(0);
         RobotMap.getShooterTop().configPeakOutputReverse(0);
@@ -223,6 +247,8 @@ public class Shooter extends Subsystems{
      * @return shooter set speed in RPM
      */
     public double getShooterSetSpeed() {
+    //
+
         return getShooterSetSpeed(ShooterSpeedSlot.SHOOTING);
     }
 
@@ -247,10 +273,10 @@ public class Shooter extends Subsystems{
     private double botOutput;
 
     private void shooterPID() {
-        topOutput = (getShooterSetSpeed(speedSlot) * ratio * wheelRatio / 1200 * 2048);
-        botOutput = (getShooterSetSpeed(speedSlot) / 1200 * 2048);
-        RobotMap.getShooterBottom().set(ControlMode.Velocity, botOutput);
-        RobotMap.getShooterTop().set(ControlMode.Velocity, topOutput);
+        topOutput = (getShooterSetSpeed(speedSlot) * ratio * wheelRatio / 1200 * 2048 /4096);
+        botOutput = (getShooterSetSpeed(speedSlot) / 1200 * 2048 /4096);
+        RobotMap.getShooterBottom().set(ControlMode.PercentOutput, botOutput/2);
+        RobotMap.getShooterTop().set(ControlMode.PercentOutput, topOutput/2);
     }
 
     public double getShooterRPM() {
@@ -295,7 +321,7 @@ public class Shooter extends Subsystems{
     }
 
     public void setIndexer(double speed) {
-        RobotMap.getIndexerA().set(ControlMode.PercentOutput, -speed);
+    /////////    RobotMap.getIndexerA().set(ControlMode.PercentOutput, -speed);
         
     }
 
@@ -304,7 +330,7 @@ public class Shooter extends Subsystems{
         RobotMap.getShooterBottom().clearStickyFaults();
         RobotMap.getShooterTop().clearStickyFaults();
 
-        RobotMap.getIndexerA().clearStickyFaults();
+      //////////  RobotMap.getIndexerA().clearStickyFaults();
 
     }
 

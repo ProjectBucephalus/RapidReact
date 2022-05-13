@@ -155,6 +155,10 @@ public class DriverInterface {
     public boolean getManualShootCommand() {
         return xbox1.getRightTriggerAxis() >= 0.5;
     }
+    public double shooterModifer(){
+        return xbox1.getPOV();
+    }
+
 
     public boolean getFrontIntakeCommand() {
         if(joystick1.getTrigger() || xbox1.getLeftTriggerAxis() >= 0.25) {
@@ -177,7 +181,10 @@ public class DriverInterface {
     }
 
     public double getIndexerManual() {
-        return -xbox1.getRightY();
+        return -xbox1.getRightY() / 2;
+    }
+    public boolean zeroShooterModifer(){
+        return xbox1.getLeftStickButton();
     }
 
     public void update() {
@@ -223,9 +230,6 @@ public class DriverInterface {
         return SmartDashboard.getNumber("Shooter target", Shooter.getInstance().getShooterSetSpeed());
     }
 
-    public void outputShooterRPMField(double rpm) {
-        SmartDashboard.putNumber("Shooter RPM", rpm);
-    }
 
     public double getShooterRatioNumeratorField() {
         return SmartDashboard.getNumber("Shooter Ratio Numerator", 1);

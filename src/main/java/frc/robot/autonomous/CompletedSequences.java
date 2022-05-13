@@ -18,6 +18,10 @@ public class CompletedSequences {
             theSequences = new LinkedList<Sequence>();
             // READY FOR COMP TUNING
             theSequences.add(createDefault());
+            theSequences.add(createPos1());
+            theSequences.add(createPos2());
+            theSequences.add(createPos3());
+            theSequences.add(createPos4());
         }
         return Collections.unmodifiableList(theSequences);
     }
@@ -31,7 +35,7 @@ public class CompletedSequences {
         s1.setSpeed(0.5);
         s1.setDist(3);;
         timedStep t2 = new timedStep();
-        t2.setDelay(5);
+        t2.setDelay(2);
         autoShooter shoot1 = new autoShooter();
         autoDrive t3 = new autoDrive();
         t3.setDist(-3);

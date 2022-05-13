@@ -29,7 +29,7 @@ public class autoBallDetectionMotorRPM extends SequenceTransition{
         }
         double currRPM = Shooter.getInstance().getShooterRPM();    
         // compare currRPM with pastRPM[pastLength]
-        if ( (currRPM / pastRPM[0]) < 0.87)
+        if ( (currRPM / pastRPM[0]) < 0.92  )
         {
         //ball detected
             if (waitCounts == 0)
