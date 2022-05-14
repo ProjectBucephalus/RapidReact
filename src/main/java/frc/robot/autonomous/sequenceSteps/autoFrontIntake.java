@@ -24,7 +24,9 @@ public class autoFrontIntake implements SequenceStepIf{
     }
 
     @Override
-    public void stepUpdate() {        
+    public void stepUpdate() {   
+        FrontIntake.getInstance().setDesiredState(FrontIntakeStates.INTAKING);   
+     
     }
 
     @Override

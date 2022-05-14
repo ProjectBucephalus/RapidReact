@@ -70,7 +70,7 @@ public class DriverInterface {
     public double getJoystickAxis(JoystickAxisType axisType) {
         switch (axisType) {
             case X:
-                joystickAxisReturn = deadZone(joystick1.getX()) * 0.7;
+                joystickAxisReturn = deadZone(joystick1.getX()) * 0.55;
             break;
             case Y:
                 joystickAxisReturn = deadZone(joystick1.getY());

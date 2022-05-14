@@ -81,8 +81,8 @@ public class Shooter extends Subsystems{
              shooterShootSpeed = shooterShootSpeed - 50;
          }     
          else if(DriverInterface.getInstance().zeroShooterModifer()){
-            shooterIdleSpeed = 1950;
-            shooterShootSpeed = 1950;
+            shooterIdleSpeed = 1450;
+            shooterShootSpeed = 1450;
         }
         else if(DriverInterface.getInstance().reallyZeroShooterModifer()){
             shooterIdleSpeed = 0;
@@ -316,7 +316,13 @@ public class Shooter extends Subsystems{
     }
 
     public ShooterState getCurrentState() {
-        return currentState;
+        if(currentState == null){
+            return ShooterState.IDLE;
+        }
+        else{
+            return currentState;
+        }
+        
     }
 
     public void stopShooter() {

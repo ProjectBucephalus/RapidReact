@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
     DriverInterface.getInstance().initSmartDashboard();
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
-    Shooter.getInstance().initMotorControllers();
+  //  Shooter.getInstance().initMotorControllers();
 
     //Sequencer
     LinkedList<Sequence> seqList = new LinkedList<Sequence>();
@@ -80,9 +80,9 @@ public class Robot extends TimedRobot {
     Drive.getInstance().initMotorControllers();
 
     Drive.getInstance().initLogging(log);
-    FrontIntake.getInstance().initLogging(log);
-    Pneumatics.getInstance().initLogging(log);
-    Shooter.getInstance().initLogging(log);
+  //  FrontIntake.getInstance().initLogging(log);
+   // Pneumatics.getInstance().initLogging(log);
+    ////Shooter.getInstance().initLogging(log);
   }
   
   SendableChooser<Sequence> seqChooser;
@@ -98,13 +98,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    long logTime = (long)(Timer.getFPGATimestamp() * 1000000);
-    Drive.getInstance().updateLogging(logTime);
-    FrontIntake.getInstance().updateLogging(logTime);
-    Pneumatics.getInstance().updateLogging(logTime);
-    Shooter.getInstance().updateLogging(logTime);
+   // long logTime = (long)(Timer.getFPGATimestamp() * 1000000);
+    //Drive.getInstance().updateLogging(logTime);
+   // FrontIntake.getInstance().updateLogging(logTime);
+   // Pneumatics.getInstance().updateLogging(logTime);
+   /// Shooter.getInstance().updateLogging(logTime);
 
-    Shuffleboard.update();
+   Shuffleboard.update();
   }
 
   /**
@@ -119,9 +119,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    Pneumatics.getInstance().setCompressorStatus(true);
+   // Pneumatics.getInstance().setCompressorStatus(true);
     Drive.getInstance().setBrakes(true);
- 
+    //Shooter.getInstance().setDesiredState(ShooterState.IDLE);
+
     Sequence selectedAuto = seqChooser.getSelected();
     DataLogManager.log("Running selected auto - " + selectedAuto.getName());
     mySeq = new Sequencer();
@@ -133,28 +134,22 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    Pneumatics.getInstance().update();
+   // Pneumatics.getInstance().update();
 
-    SmartDashboard.putString("Auto Step", mySeq.getStepName());
+   // SmartDashboard.putString("Auto Step", mySeq.getStepName());
     mySeq.update();
     Drive.getInstance().autoUpdate();
-    Shooter.getInstance().update();
-    if(m_shooter.getCurrentState() == ShooterState.SHOOTING) {
-      if(m_shooter.getShooterAtSpeed()) {
-          m_shooter.setIndexer(.55);
-      } else {
-          m_shooter.setIndexer(-.26);
-      }
-    }
+  //  Shooter.getInstance().update();
+  //  FrontIntake.getInstance().update();
   }
 
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    SmartDashboard.putNumber("Shooter target", 2000);
-    Pneumatics.getInstance().setCompressorStatus(true);
+  //  SmartDashboard.putNumber("Shooter target", 2000);
+   // Pneumatics.getInstance().setCompressorStatus(true);
 
-    DriverInterface.getInstance().printVersionNumber(Config.versionType, Config.version);
+ //   DriverInterface.getInstance().printVersionNumber(Config.versionType, Config.version);
     Drive.getInstance().setBrakes(true);
   }
 
@@ -163,11 +158,11 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     DriverInterface.getInstance().displayDiagnosticState();
     DriverInterface.getInstance().update();
-    Shooter.getInstance().update();
-    Pneumatics.getInstance().update();
+  //  Shooter.getInstance().update();
+   // Pneumatics.getInstance().update();
     
     TeleopController.getInstance().callTeleopController();
-    FrontIntake.getInstance().update();
+   // FrontIntake.getInstance().update();
   }
 
   /** This function is called once when the robot is disabled. */
