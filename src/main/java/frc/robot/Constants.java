@@ -22,9 +22,9 @@ public class Constants {
 
 	public static final int kIndexerACanID = 18;
 
-	public static double kDriveMaxSpeed = 4.53;
-	public static double kDriveMaxAccel = 4.5;
-	public static double kDriveMaxTurnSpeed = 12.12;
+	public static double kDriveMaxSpeed = 6.53;
+	public static double kDriveMaxAccel = 5.3;
+	public static double kDriveMaxTurnSpeed = 11.12;
 	public static double kDriveMaxTurnAccel = 24.24;
 	public static int kGoalHeightInches = 100;
     public static int kLimelightHeightInches = 50;

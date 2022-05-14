@@ -31,22 +31,32 @@ public class CompletedSequences {
     private static Sequence createDefault()
     {
         timedStep t1 = new timedStep();
-        t1.setDelay(200);
+        t1.setDelay(2);
+        timedStep t3 = new timedStep();
+        t3.setDelay(10);
         autoDrive s1 = new autoDrive();
         s1.setSpeed(0.9);
-        s1.setDist(3.0);
+        s1.setDist(-3.0);
+        autoDrive s2 = new autoDrive();
+        s1.setSpeed(0.9);
+        s1.setDist(-2.5);
         autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
-        ball1.setNumBalls(2);
+        ball1.setNumBalls(32);
         timedStep t2 = new timedStep();
-        t2.setDelay(5);
+        t2.setDelay(50);
         autoShooter shoot1 = new autoShooter();
-        shoot1.setRPM(2065);
+        shoot1.setRPM(1450);
+        autoShooter shoot2 = new autoShooter();
+        shoot2.setRPM(2100);
 
 
-        s1.setNextTrans(t2,ball1);
-        s1.setNextSteps(shoot1);
-        ball1.setNextTrans(t2,ball1);
-        ball1.setNextSteps(shoot1);
+        //s1.setNextTrans(t2,ball1);
+        //s1.setNextSteps(shoot1);
+        //ball1.setNextTrans(s2);
+        //ball1.setNextSteps(s2);
+        //s2.setNextTrans(t3);
+        //s2.setNextSteps(shoot2);
+
         Sequence seq = new Sequence("Basic auto", 0);
         seq.setInitialTransitions(s1);
         seq.setInitialSteps(s1);

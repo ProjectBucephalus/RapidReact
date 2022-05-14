@@ -81,8 +81,8 @@ public class Shooter extends Subsystems{
              shooterShootSpeed = shooterShootSpeed - 35;
          }     
          else if(DriverInterface.getInstance().zeroShooterModifer()){
-            shooterIdleSpeed = 2150;
-            shooterShootSpeed = 2150;
+            shooterIdleSpeed = 1450;
+            shooterShootSpeed = 1450;
         }
         else if(DriverInterface.getInstance().reallyZeroShooterModifer()){
             shooterIdleSpeed = 0;

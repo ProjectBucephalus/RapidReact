@@ -25,9 +25,9 @@ import frc.robot.subsystems.Shooter.ShooterState;
     private TeleopController() {
         m_driverInterface = new DriverInterface();
         m_drive = Drive.getInstance();
-        m_pneumatics = Pneumatics.getInstance();
-        m_shooter = Shooter.getInstance();
-        m_frontIntake = FrontIntake.getInstance();
+      //  m_pneumatics = Pneumatics.getInstance();
+      //  m_shooter = Shooter.getInstance();
+      //  m_frontIntake = FrontIntake.getInstance();
     }
 
     public static TeleopController getInstance() {
@@ -37,13 +37,15 @@ import frc.robot.subsystems.Shooter.ShooterState;
         return m_instance;
     }
     public void callTeleopController() {
-        if(m_driverInterface.getManualShootCommand()) {
-            m_shooter.setDesiredState(ShooterState.SHOOTING); {
-            };
-        } else {
-            m_shooter.setDesiredState(ShooterState.IDLE);
-        }
+        callDrive();
 
+       // if(m_driverInterface.getManualShootCommand()) {
+           /// m_shooter.setDesiredState(ShooterState.SHOOTING); {
+            //};
+      //  } else {
+           /// m_shooter.setDesiredState(ShooterState.IDLE);
+       // }
+/** 
         if(m_driverInterface.getFrontIntakeCommand()) {
             m_frontIntake.setDesiredState(FrontIntakeStates.INTAKING);
         } else if(m_driverInterface.getFrontIntakeReverse()) {
@@ -74,9 +76,7 @@ import frc.robot.subsystems.Shooter.ShooterState;
         } else {
             m_shooter.setIndexer(-.075);
         } 
-
-        callDrive();
-        m_pneumatics.setCompressorStatus(true);
+*/
     }
 
     public void callDrive() {
