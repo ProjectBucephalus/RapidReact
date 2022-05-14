@@ -31,21 +31,22 @@ public class CompletedSequences {
     private static Sequence createDefault()
     {
         timedStep t1 = new timedStep();
-        t1.setDelay(2);
+        t1.setDelay(20);
         autoDrive s1 = new autoDrive();
-        s1.setSpeed(0.6);
-        s1.setDist(1.3);
+        s1.setSpeed(0.9);
+        s1.setDist(3.0);
         timedStep t2 = new timedStep();
-        t2.setDelay(18);
+        t2.setDelay(5);
         autoShooter shoot1 = new autoShooter();
-        shoot1.setRPM(2180);
+        shoot1.setRPM(2000);
 
 
-        t1.setNextTrans(t2);
-        t1.setNextSteps(shoot1);
-        
+        s1.setNextTrans(t2);
+        s1.setNextSteps(shoot1);
+        t2.setNextTrans(t2);
+        t2.setNextSteps(shoot1);
         Sequence seq = new Sequence("Basic auto", 0);
-        seq.setInitialTransitions(t1);
+        seq.setInitialTransitions(s1);
         seq.setInitialSteps(s1);
         return seq;
     }
@@ -63,7 +64,7 @@ public class CompletedSequences {
         d1.setAccFwdLimit(0.15);
         d1.setAccRevLimit(0.17);
         autoShooter shoot1 = new autoShooter();
-        shoot1.setRPM(2400);
+        shoot1.setRPM(2000);
 
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake);
@@ -97,7 +98,7 @@ public class CompletedSequences {
         d1.setAccFwdLimit(0.15);
         d1.setAccRevLimit(0.17);
         autoShooter shoot1 = new autoShooter();
-        shoot1.setRPM(2400);
+        shoot1.setRPM(2000);
 
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake);
@@ -105,7 +106,7 @@ public class CompletedSequences {
         d1.setNextSteps(shoot1);
         shoot1.setNextSteps(shoot1);
 
-        Sequence seq = new Sequence("Pos2 2Ball", 1);
+        Sequence seq = new Sequence("Pos2 2Ball", 2);
         seq.setInitialTransitions(t1);
         seq.setInitialSteps(t1, intake);
         return seq;
@@ -129,7 +130,7 @@ public class CompletedSequences {
         d1.setDist(-2);
         d1.setSpeed(0.4);
         autoShooter shoot1 = new autoShooter();
-        shoot1.setRPM(2400);
+        shoot1.setRPM(2000);
 
         t1.setNextTrans(d1);
         t1.setNextSteps(d1, intake);
@@ -137,7 +138,7 @@ public class CompletedSequences {
         d1.setNextSteps(shoot1);
         shoot1.setNextSteps(shoot1);
 
-        Sequence seq = new Sequence("Pos3 2Ball", 1);
+        Sequence seq = new Sequence("Pos3 2Ball", 3);
         seq.setInitialTransitions(t1);
         seq.setInitialSteps(t1, intake);
         return seq;
@@ -156,6 +157,7 @@ public class CompletedSequences {
         autoBallDetectionMotorRPM ball1 = new autoBallDetectionMotorRPM();
         ball1.setNumBalls(2);
         autoShooter shoot1 = new autoShooter();
+        shoot1.setRPM(2000);
         autoDrive d2 = new autoDrive();
         d2.setAngle(139.5);
         d2.setDist(-1.7);

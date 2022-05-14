@@ -80,7 +80,7 @@ public class Config {
     public static final double kCompressorMax = 120;
 
     //Intake speed
-    public static final double kIntakeSpeed = -1;
+    public static final double kIntakeSpeed = -.65;
 
     //Climber stowed position
     public static final double kClimberStowedPos = 0; //in encoder units (2048 EPR)

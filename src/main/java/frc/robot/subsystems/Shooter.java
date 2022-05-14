@@ -316,7 +316,13 @@ public class Shooter extends Subsystems{
     }
 
     public ShooterState getCurrentState() {
-        return currentState;
+        if(currentState == null){
+            return ShooterState.IDLE;
+        }
+        else{
+            return currentState;
+        }
+        
     }
 
     public void stopShooter() {

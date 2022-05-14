@@ -121,7 +121,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     Pneumatics.getInstance().setCompressorStatus(true);
     Drive.getInstance().setBrakes(true);
- 
+    Shooter.getInstance().setDesiredState(ShooterState.IDLE);
+
     Sequence selectedAuto = seqChooser.getSelected();
     DataLogManager.log("Running selected auto - " + selectedAuto.getName());
     mySeq = new Sequencer();
@@ -139,13 +140,7 @@ public class Robot extends TimedRobot {
     mySeq.update();
     Drive.getInstance().autoUpdate();
     Shooter.getInstance().update();
-    if(m_shooter.getCurrentState() == ShooterState.SHOOTING) {
-      if(m_shooter.getShooterAtSpeed()) {
-          m_shooter.setIndexer(.55);
-      } else {
-          m_shooter.setIndexer(-.26);
-      }
-    }
+
   }
 
   /** This function is called once when teleop is enabled. */
