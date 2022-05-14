@@ -71,18 +71,18 @@ public class Shooter extends Subsystems{
          if(DriverInterface.getInstance().shooterModifer() == 0 && clickedStatus == false){
         
              
-             shooterIdleSpeed = shooterIdleSpeed + 35;
-             shooterShootSpeed = shooterShootSpeed + 35;
+             shooterIdleSpeed = shooterIdleSpeed + 50;
+             shooterShootSpeed = shooterShootSpeed + 50;
              clickedStatus = true;
          }
          else if(DriverInterface.getInstance().shooterModifer() == 180 && clickedStatus == false){
              clickedStatus = true;
-             shooterIdleSpeed = shooterIdleSpeed - 35;
-             shooterShootSpeed = shooterShootSpeed - 35;
+             shooterIdleSpeed = shooterIdleSpeed - 50;
+             shooterShootSpeed = shooterShootSpeed - 50;
          }     
          else if(DriverInterface.getInstance().zeroShooterModifer()){
-            shooterIdleSpeed = 2150;
-            shooterShootSpeed = 2150;
+            shooterIdleSpeed = 1950;
+            shooterShootSpeed = 1950;
         }
         else if(DriverInterface.getInstance().reallyZeroShooterModifer()){
             shooterIdleSpeed = 0;
