@@ -38,7 +38,7 @@ public class CompletedSequences {
         timedStep t2 = new timedStep();
         t2.setDelay(18);
         autoShooter shoot1 = new autoShooter();
-        shoot1.setRPM(2180);
+        shoot1.setRPM(2000);
 
 
         t1.setNextTrans(t2);
