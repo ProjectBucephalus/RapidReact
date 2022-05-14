@@ -140,7 +140,7 @@ public class Robot extends TimedRobot {
     mySeq.update();
     Drive.getInstance().autoUpdate();
     Shooter.getInstance().update();
-
+    FrontIntake.getInstance().update();
   }
 
   /** This function is called once when teleop is enabled. */
