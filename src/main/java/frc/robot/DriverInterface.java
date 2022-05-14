@@ -145,7 +145,7 @@ public class DriverInterface {
     }
 
     public double getX() {
-        return deadZone(getJoystickAxis(JoystickAxisType.X) * .7);
+        return deadZone(getJoystickAxis(JoystickAxisType.X) * .6969);
     }
 
     public double getY() {
@@ -186,7 +186,9 @@ public class DriverInterface {
     public boolean zeroShooterModifer(){
         return xbox1.getLeftStickButton();
     }
-
+    public boolean reallyZeroShooterModifer(){
+        return xbox1.getRightStickButton();
+    }
     public void update() {
         Shuffleboard.update();
         SmartDashboard.updateValues();

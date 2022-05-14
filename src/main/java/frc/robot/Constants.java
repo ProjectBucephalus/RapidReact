@@ -22,8 +22,8 @@ public class Constants {
 
 	public static final int kIndexerACanID = 18;
 
-	public static double kDriveMaxSpeed = 4.18;
-	public static double kDriveMaxAccel = 4.0;
+	public static double kDriveMaxSpeed = 4.53;
+	public static double kDriveMaxAccel = 4.5;
 	public static double kDriveMaxTurnSpeed = 12.12;
 	public static double kDriveMaxTurnAccel = 24.24;
 	public static int kGoalHeightInches = 100;
@@ -33,7 +33,7 @@ public class Constants {
 	public static final double kVisionTurnKp = 0.012
 	;//was 0.024; // 0.012 for 2 centre nitrile
 	public static final double kDriveTurnStictionConstant = 0.0; // FIXME
-	public static final double kEncoderDriveKp = 0.7;  // FIXME
+	public static final double kEncoderDriveKp = 1.1;  // FIXME
 	public static final double kDriveEncoderConversionFactor = 0.000023077; //1; //0.00089291;
 
 	public static final double kShooterP = 0.365832;

@@ -33,18 +33,16 @@ public class CompletedSequences {
         timedStep t1 = new timedStep();
         t1.setDelay(2);
         autoDrive s1 = new autoDrive();
-        s1.setSpeed(0.5);
-        s1.setDist(3);;
+        s1.setSpeed(0.6);
+        s1.setDist(1.3);
         timedStep t2 = new timedStep();
-        t2.setDelay(2);
+        t2.setDelay(18);
         autoShooter shoot1 = new autoShooter();
-        autoDrive t3 = new autoDrive();
-        t3.setDist(-3);
+        shoot1.setRPM(2180);
+
 
         t1.setNextTrans(t2);
         t1.setNextSteps(shoot1);
-        t2.setNextTrans(t3);
-        t2.setNextSteps(t3);
         
         Sequence seq = new Sequence("Basic auto", 0);
         seq.setInitialTransitions(t1);
@@ -56,7 +54,7 @@ public class CompletedSequences {
     private static Sequence createPos1()
     {
         timedStep t1 = new timedStep();
-        t1.setDelay(0.2);
+        t1.setDelay(1);
         autoFrontIntake intake = new autoFrontIntake();
         autoDrive d1 = new autoDrive();
         d1.setAngle(-87.5);
@@ -90,7 +88,7 @@ public class CompletedSequences {
     private static Sequence createPos2()
     {
         timedStep t1 = new timedStep();
-        t1.setDelay(0.2);
+        t1.setDelay(1);
         autoFrontIntake intake = new autoFrontIntake();
         autoDrive d1 = new autoDrive();
         d1.setAngle(-22.5);
@@ -124,7 +122,7 @@ public class CompletedSequences {
     private static Sequence createPos3()
     {
         timedStep t1 = new timedStep();
-        t1.setDelay(0.2);
+        t1.setDelay(1);
         autoFrontIntake intake = new autoFrontIntake();
         autoDrive d1 = new autoDrive();
         d1.setAngle(3);
@@ -147,7 +145,7 @@ public class CompletedSequences {
 
     private static Sequence createPos4(){
         timedStep subsst = new timedStep();
-        subsst.setDelay(0.05);
+        subsst.setDelay(1);
         autoFrontIntake intake = new autoFrontIntake();
         autoDrive d1 = new autoDrive();
         d1.setAngle(40);

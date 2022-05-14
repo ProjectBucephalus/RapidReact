@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.LinkedList;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.Shooter.ShooterState;
 // TODO comment this lol
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -132,10 +133,19 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    Pneumatics.getInstance().update();
+
     SmartDashboard.putString("Auto Step", mySeq.getStepName());
     mySeq.update();
     Drive.getInstance().autoUpdate();
     Shooter.getInstance().update();
+    if(m_shooter.getCurrentState() == ShooterState.SHOOTING) {
+      if(m_shooter.getShooterAtSpeed()) {
+          m_shooter.setIndexer(.55);
+      } else {
+          m_shooter.setIndexer(-.26);
+      }
+    }
   }
 
   /** This function is called once when teleop is enabled. */

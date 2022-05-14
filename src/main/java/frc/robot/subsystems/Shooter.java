@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Config;
 import frc.robot.Constants;
@@ -47,11 +46,10 @@ public class Shooter extends Subsystems{
     private static ShooterState desiredState = ShooterState.IDLE;
     private static ShooterSpeedSlot speedSlot = ShooterSpeedSlot.IDLE;
 
-    public static double shooterIdleSpeed = 2300 * Config.kLimelightShooterSpeedModiferPercentage * shooterModifer;
-    private double shooterShootSpeed = 2300 * Config.kLimelightShooterSpeedModiferPercentage * shooterModifer;
+    public static double shooterIdleSpeed = 2150 * Config.kLimelightShooterSpeedModiferPercentage * shooterModifer;
+    private double shooterShootSpeed = 2150 * Config.kLimelightShooterSpeedModiferPercentage * shooterModifer;
     private double shooterEjectSpeed = 800;
     private double shooterSpinUpSpeed = shooterShootSpeed;
-    private double timeSinceLast = 0;
     private double ratio = 1;
     private double wheelRatio = 2;
 
@@ -83,8 +81,13 @@ public class Shooter extends Subsystems{
              shooterShootSpeed = shooterShootSpeed - 35;
          }     
          else if(DriverInterface.getInstance().zeroShooterModifer()){
-            shooterIdleSpeed = 2300;
-            shooterShootSpeed = 2300;
+            shooterIdleSpeed = 2150;
+            shooterShootSpeed = 2150;
+        }
+        else if(DriverInterface.getInstance().reallyZeroShooterModifer()){
+            shooterIdleSpeed = 0;
+            shooterShootSpeed = 0;
+
         }
          else if(DriverInterface.getInstance().shooterModifer() == -1){
             clickedStatus = false;
@@ -164,9 +167,9 @@ public class Shooter extends Subsystems{
         RobotMap.getShooterBottom().configFactoryDefault();
         RobotMap.getShooterTop ().configFactoryDefault();
 
-          //////////////   RobotMap.getIndexerA().configFactoryDefault();
+         RobotMap.getIndexerA().configFactoryDefault();
 
-          /////////////   RobotMap.getIndexerA().setInverted(true);;
+         //4RobotMap.getIndexerA().setInverted(true);;
       
         RobotMap.getShooterBottom().config_kP(0, Constants.kShooterP);       
         RobotMap.getShooterTop().config_kP(0, Constants.kShooterP);       
@@ -178,7 +181,7 @@ public class Shooter extends Subsystems{
         RobotMap.getShooterTop().config_kD(0, Constants.kShooterD);     
 
         RobotMap.getShooterBottom().setInverted(false);
-        RobotMap.getShooterTop().setInverted(false);
+        RobotMap.getShooterTop().setInverted(true);
 
         RobotMap.getShooterBottom().configPeakOutputReverse(0);
         RobotMap.getShooterTop().configPeakOutputReverse(0);
@@ -321,7 +324,7 @@ public class Shooter extends Subsystems{
     }
 
     public void setIndexer(double speed) {
-    /////////    RobotMap.getIndexerA().set(ControlMode.PercentOutput, -speed);
+    RobotMap.getIndexerA().set(ControlMode.PercentOutput, -speed);
         
     }
 
@@ -330,7 +333,7 @@ public class Shooter extends Subsystems{
         RobotMap.getShooterBottom().clearStickyFaults();
         RobotMap.getShooterTop().clearStickyFaults();
 
-      //////////  RobotMap.getIndexerA().clearStickyFaults();
+        RobotMap.getIndexerA().clearStickyFaults();
 
     }
 

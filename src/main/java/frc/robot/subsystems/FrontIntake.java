@@ -45,27 +45,27 @@ public class FrontIntake extends Subsystems{
         switch(currentState) {
             default:
 
-               ///////////////// RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, 0);
-                RobotMap.getFrontIntakeSolenoid().set(Value.kReverse);
+                RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, 0);
+                RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
                 currentState = desiredState;
 
             break;
             case INTAKING: 
-              ////////////  RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed);
-                RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
+                RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed);
+                RobotMap.getFrontIntakeSolenoid().set(Value.kReverse);
                 currentState = desiredState;
 
             break;
             case UNINTAKING: 
 
-                ///////////RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed * -1);
-                RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
+                RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, Config.kIntakeSpeed * -1);
+                RobotMap.getFrontIntakeSolenoid().set(Value.kReverse);
                 currentState = desiredState;
 
             break;
             case STOWED:
-                ///////RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, 0);
-                RobotMap.getFrontIntakeSolenoid().set(Value.kReverse);
+                RobotMap.getFrontIntakeESC().set(ControlMode.PercentOutput, 0);
+                RobotMap.getFrontIntakeSolenoid().set(Value.kForward);
                 currentState = desiredState;
             break;
         }
