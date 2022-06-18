@@ -23,7 +23,7 @@ public class VisionTrack {
     private boolean newState;
     private double speed;
     private double tx;
-    private boolean turnStatus;
+    private boolean turnStatus;   
     public static VisionTrack getInstance() {
         if (mInstance == null) {
           mInstance = new VisionTrack();
@@ -261,7 +261,7 @@ public void update(){
 
     //y = 3046.325 + (1852.595 - 3046.325)/(1 + (x/55.59515)^7.511479)
     //y = 3077.128 + (1786 - 3077.128)/(1 + (x/55.07565)^6.788735)
-    speed = 3077.128 + (1786 - 3077.128)/(1 + Math.pow((distance/55.07565),6.788735));
+    speed = Config.kLimelightDTerm + (Config.kLimelightATerm - Config.kLimelightDTerm)/(1 + Math.pow((distance/Config.kLimelightCTerm),Config.kLimelightBTerm));
     speed = speed * Config.kLimelightShooterSpeedModiferPercentage;
     if(true) {
       m_Shooter.setShooterSpeed(ShooterSpeedSlot.SHOOTING, speed);
@@ -275,7 +275,7 @@ public void update(){
 public double returnShooterSpeedLimelight(){
   try{      
   double distance = Limelight.getInstance().getDistanceToTarget();
-  double aspeed = 3077.128 + (1786 - 3077.128)/(1 + Math.pow((distance/55.07565),6.788735));
+  double aspeed = Config.kLimelightDTerm + (Config.kLimelightATerm - Config.kLimelightDTerm)/(1 + Math.pow((distance/Config.kLimelightCTerm),Config.kLimelightBTerm));
   aspeed = aspeed * Config.kLimelightShooterSpeedModiferPercentage;
   return aspeed;
   }

@@ -104,5 +104,12 @@ public class Config {
      * */
     public static final double kLimelightShooterSpeedModiferPercentage = 1.010375;
     public static final double kLimelightTuningOffset = .4;
-        
+    
+    //y = 3077.128 + (1786 - 3077.128)/(1 + (x/55.07565)^6.788735)
+
+    public static final double kLimelightATerm = 1786;
+    public static final double kLimelightBTerm = 6.788735;
+    public static final double kLimelightCTerm = 55.07565;
+    public static final double kLimelightDTerm = 3077.128;
+
 }
