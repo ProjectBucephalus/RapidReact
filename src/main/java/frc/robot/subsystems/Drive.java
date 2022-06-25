@@ -478,5 +478,9 @@ public class Drive extends Subsystems {
     {
         
     }
+
+    public boolean getDriveZeroInput() {
+        return (Math.abs(RobotMap.getLeftDriveA().getMotorOutputPercent()) + Math.abs(RobotMap.getRightDriveA().getMotorOutputPercent()) <= 0.1);
+    }
  
 }

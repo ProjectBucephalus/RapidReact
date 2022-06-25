@@ -73,7 +73,7 @@ public class Climber extends Subsystems {
     public void update() {
 
         if(!RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
-            resetSensors();
+            //resetSensors();
             // System.out.println("triggered");
         }
 
@@ -82,14 +82,14 @@ public class Climber extends Subsystems {
             case STOWED: //stowed
                 oldClimberState = ClimberStates.STOWED;
                 stateFinished = false;
-                if(RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
+                //if(RobotMap.getClimberSensors().getGeneralInput(GeneralPin.LIMR)) {
                     RobotMap.getLeftWinch().set(ControlMode.Position, Config.kClimberStowedPos);
                     RobotMap.getRightWinch().set(ControlMode.Position, Config.kClimberStowedPos);    
-                } else {
+                //} else {
                     RobotMap.getLeftWinch().set(ControlMode.PercentOutput, 0);
                     RobotMap.getRightWinch().set(ControlMode.PercentOutput, 0);
 
-                }
+                //}
                 
                     stateFinished = true;
                     currentClimberState = desiredClimberState;

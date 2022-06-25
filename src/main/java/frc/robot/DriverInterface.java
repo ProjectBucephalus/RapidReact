@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.VisionTrack;
 import frc.robot.subsystems.Subsystems.diagnosticState;
 /**
  * Put docs here // TODO
@@ -337,6 +339,7 @@ public class DriverInterface {
         return joystick1.getRawButton(9);
     }
     public void update() {
+        getShooterReady();
         SmartDashboard.putBoolean("Climb enabled", climbEnabled);
         SmartDashboard.putBoolean("Foward direction", getRobotFowardDirection() == RobotFowardDirection.FRONT);
         try {
@@ -377,25 +380,20 @@ public class DriverInterface {
      */
     public void updateClimbEnabled() {
         if(joystick1.getRawButton(7)) {
-            setRumble(1, 1);
             climbEnabled = true;
         } else if(joystick1.getRawButton(8)) {
-            setRumble(1, 1);
             climbEnabled = false;
         } else {
-            setRumble(0, 0);
         }
     }
 
     public boolean getClimbUpCommand() {
         // System.out.println(xbox1.getPOV());
-        // return (xbox1.getPOV() == 0 && SmartDashboard.getBoolean("Climb enabled", true));
-        return false;
+         return (xbox1.getPOV() == 0 && SmartDashboard.getBoolean("Climb enabled", true));
     }
 
     public boolean getClimbDownCommand() {
-        // return (xbox1.getPOV() == 180 && SmartDashboard.getBoolean("Climb enabled", true));
-        return false;
+         return (xbox1.getPOV() == 180 && SmartDashboard.getBoolean("Climb enabled", true));
     }
 
     public boolean getClimbFinishedCommand() {
@@ -665,6 +663,26 @@ public class DriverInterface {
     public void clearPDHFaults() {
         RobotMap.getPDH().clearStickyFaults();
     }
+    /**
+     * Checks if the shooter is locked on and within tollerence of limelight, and at or above acceptable speed. Updates smart dashboard.
+     * @return if shooter is ready to fire
+     */
+    public boolean getShooterReady() {
+        SmartDashboard.putBoolean("Shooter Ready", (VisionTrack.getInstance().getLimelightLock() && Shooter.getInstance().getShooterAtSpeed() && (VisionTrack.getInstance().getLimelightDistance() >= 27)));
+        if(SmartDashboard.getBoolean("Shooter Ready", false) && Drive.getInstance().getDriveZeroInput()) {
+
+        }
+        return SmartDashboard.getBoolean("Shooter Ready", false);
+    }
+
+    public void rumble() {
+        if(SmartDashboard.getBoolean("Shooter Ready", false) && Drive.getInstance().getDriveZeroInput()) {
+            rumblePattern = RumblePattern.PULSE_CONSTANT_START;
+        } else {
+            rumblePattern = RumblePattern.STOP;
+        }
+    }
+
 
     
 

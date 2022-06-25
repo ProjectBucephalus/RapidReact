@@ -170,5 +170,15 @@ import frc.robot.subsystems.VisionTrack.VisionState;
         }
     }
 
+    public void autoShoot() {
+        if(vision.getLimelightLock()) {
+            if(m_shooter.getShooterAtSpeed()) {
+                m_shooter.setDesiredState(ShooterState.SHOOTING);
+            }
+        } else {
+            vision.setDesiredState(VisionState.TURNING);
+        }
+    }
+
 
 }

@@ -5,7 +5,7 @@ import frc.robot.DriverInterface.VersionType;
 public class Config {
 
     //Version number. Update every pull request, release, or major change!
-    public static final String version = "1.0.0";
+    public static final String version = "1.3";
 
     //Version type
     public static final VersionType versionType = VersionType.RELEASE;
@@ -86,12 +86,12 @@ public class Config {
     public static final double kClimberStowedPos = 0; //in encoder units (2048 EPR)
 
     //Climber 'Up' position
-    public static final double kClimberUpPos = 215000; //in encoder units (2048 EPR)
+    public static final double kClimberUpPos = 386791; //in encoder units (2048 EPR)
 
     //Climber 'Hooked' position
-    public static final double kClimberHookedPos = -5000; //in encoder units (2048 EPR)
+    public static final double kClimberHookedPos = 126726; //in encoder units (2048 EPR)
     //Climber 'Finished' position
-    public static final double kClimberFinishedPos = 100000; //in encoder units (2048 EPR)
+    public static final double kClimberFinishedPos = 126726; //in encoder units (2048 EPR)
 
     //Climber hysteresis
     public static final double kClimberHysteresis = 1000;
@@ -102,14 +102,16 @@ public class Config {
      * 
      * This value should be set to 1 at a comp. This is for linear tuning, which can easily be done by anyone. For illinear tuning (i.e its off by different amounts at different points go to Adam, don't mess with the equation.)
      * */
-    public static final double kLimelightShooterSpeedModiferPercentage = 1.010375;
-    public static final double kLimelightTuningOffset = .4;
+    public static final double kLimelightShooterSpeedModiferPercentage = 1;//1.010375;
+    public static final double kLimelightTuningOffset = 0;
     
     //y = 3077.128 + (1786 - 3077.128)/(1 + (x/55.07565)^6.788735)
 
-    public static final double kLimelightATerm = 1786;
-    public static final double kLimelightBTerm = 6.788735;
-    public static final double kLimelightCTerm = 55.07565;
-    public static final double kLimelightDTerm = 3077.128;
+    public static final double kLimelightATerm = 1722.884;
+    public static final double kLimelightBTerm = 5.779675;
+    public static final double kLimelightCTerm = 603.8564;
+    public static final double kLimelightDTerm = 445984300;
+
+    public static final double kLimelightAcceptableAngle =3.5;
 
 }

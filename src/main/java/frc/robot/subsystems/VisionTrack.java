@@ -285,5 +285,11 @@ public double returnShooterSpeedLimelight(){
   }
 }
 
+public boolean getLimelightLock() {
+  return (m_lime.getTargetAcquired() && (Math.abs(m_lime.getAngleToTarget()) <= Config.kLimelightAcceptableAngle));
+}
 
+public double getLimelightDistance() {
+  return m_lime.getDistanceToTarget();
+}
 }

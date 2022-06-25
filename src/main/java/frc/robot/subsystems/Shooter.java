@@ -81,7 +81,12 @@ public class Shooter extends Subsystems{
 
     @Override
     public void update() {
+        //TODO
+        //setShooterSpeed(ShooterSpeedSlot.SHOOTING, DriverInterface.getInstance().getShooterSpeedField());
+        //setShooterSpeed(ShooterSpeedSlot.IDLE, DriverInterface.getInstance().getShooterSpeedField());
+
         try{
+            //TODO 
             if(Limelight.getInstance().getTargetAcquired() == true){
                 setShooterSpeed(ShooterSpeedSlot.IDLE, VisionTrack.getInstance().returnShooterSpeedLimelight());
                 // System.out.println("Current Set Speed " + getShooterSetSpeed());
