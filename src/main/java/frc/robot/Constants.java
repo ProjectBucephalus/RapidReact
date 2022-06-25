@@ -57,7 +57,7 @@ public class Constants {
 	public static final double kShooterI = 0.00022;
 	public static final double kShooterD = 20.0;
 
-	public static final double kClimberWinchP = 0.029;
+	public static final double kClimberWinchP = 0.02;
 
 	
 	public static final double kIdleCurrent = 1; //Ampres
