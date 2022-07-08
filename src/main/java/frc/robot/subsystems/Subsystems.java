@@ -15,7 +15,7 @@ public abstract class Subsystems {
         OK, //All systems are good
         CAUTION, //Non-critical issue to be noted.
         WARNING, //Higher impact error. Notes somewhat failure in a mechanism
-        CRITICAL, //Notes a critical failure, crippling the mechanism
+        CRITICAL, //Denotes a critical failure, crippling the mechanism
         FAILURE, //Mechanism is unusable/completly failed.
     }
 

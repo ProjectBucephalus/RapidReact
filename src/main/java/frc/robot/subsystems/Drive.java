@@ -14,6 +14,8 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
+import edu.wpi.first.util.datalog.StringLogEntry;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,6 +32,31 @@ public class Drive extends Subsystems {
     RelativeEncoder mLeftEnc;
     RelativeEncoder mRightEnc;
     public static AHRS _imu;
+
+    //Log entries
+    private DoubleLogEntry leftDriveAPosition;
+    private DoubleLogEntry leftDriveASpeed;
+    private DoubleLogEntry leftDriveACurrent;
+    private StringLogEntry leftDriveAFaults;
+
+    private DoubleLogEntry leftDriveBPosition;
+    private DoubleLogEntry leftDriveBSpeed;
+    private DoubleLogEntry leftDriveBCurrent;
+    private StringLogEntry leftDriveBFaults;
+
+    private DoubleLogEntry rightDriveAPosition;
+    private DoubleLogEntry rightDriveASpeed;
+    private DoubleLogEntry rightDriveACurrent;
+    private StringLogEntry rightDriveAFaults;
+
+    private DoubleLogEntry rightDriveBPosition;
+    private DoubleLogEntry rightDriveBSpeed;
+    private DoubleLogEntry rightDriveBCurrent;
+    private StringLogEntry rightDriveBFaults;
+
+    private DoubleLogEntry gyroPitch;
+    private DoubleLogEntry gyroYaw;
+    private DoubleLogEntry gyroRoll;
 
     /**
      * Drive motor brake status. Drive brakes are disables upon powering up the robot.
@@ -400,6 +427,14 @@ public class Drive extends Subsystems {
     }
 
     /**
+     * 
+     * @return linear distance traveled in m
+     */
+    // public double getLinearDistance() {
+    //     return (((RobotM))
+    // }
+
+    /**
      * Set the motor controllers' brakes on or off.
      * @param brake True to enable brake mode, false to set to coast.
      */ 
@@ -469,14 +504,57 @@ public class Drive extends Subsystems {
         RobotMap.getRightDriveC().clearStickyFaults();
     }
 
-    public void initLogging(DataLog aLog)
-    {
- 
+    public void initLogging(DataLog aLog) {
+        leftDriveAPosition = new DoubleLogEntry(aLog, "Left Drive A Encoder Position");
+        leftDriveASpeed = new DoubleLogEntry(aLog, "Left Drive A Encoder Speed");
+        leftDriveACurrent = new DoubleLogEntry(aLog, "Left Drive A Stator Current");
+        leftDriveAFaults = new StringLogEntry(aLog, "Left Drive A Faults");
+
+        leftDriveBPosition = new DoubleLogEntry(aLog, "Left Drive B Encoder Position");
+        leftDriveBSpeed = new DoubleLogEntry(aLog, "Left Drive B Encoder Speed");
+        leftDriveBCurrent = new DoubleLogEntry(aLog, "Left Drive B Stator Current");
+        leftDriveBFaults = new StringLogEntry(aLog, "Left Drive B Faults");
+
+        rightDriveAPosition = new DoubleLogEntry(aLog, "Right Drive A Encoder Position");
+        rightDriveASpeed = new DoubleLogEntry(aLog, "Right Drive A Encoder Speed");
+        rightDriveACurrent = new DoubleLogEntry(aLog, "Right Drive A Stator Current");
+        rightDriveAFaults = new StringLogEntry(aLog, "Right Drive A Faults");
+
+        rightDriveBPosition = new DoubleLogEntry(aLog, "Right Drive B Encoder Position");
+        rightDriveBSpeed = new DoubleLogEntry(aLog, "Right Drive B Encoder Speed");
+        rightDriveBCurrent = new DoubleLogEntry(aLog, "Right Drive B Stator Current");
+        rightDriveBFaults = new StringLogEntry(aLog, "Right Drive B Faults");
+
+        gyroPitch = new DoubleLogEntry(aLog, "Gyro Pitch value");
+        gyroYaw = new DoubleLogEntry(aLog, "Gyro Yaw value");
+        gyroRoll = new DoubleLogEntry(aLog, "Gyro Roll value");
     }
  
-    public void updateLogging(long aTime)
-    {
-        
+    public void updateLogging(long aTime) {
+        leftDriveAPosition.append(RobotMap.getLeftDriveA().getSelectedSensorPosition(), aTime);
+        leftDriveASpeed.append(RobotMap.getLeftDriveA().getSelectedSensorVelocity(), aTime);
+        leftDriveACurrent.append(RobotMap.getLeftDriveA().getSupplyCurrent(), aTime);
+        leftDriveAFaults.append(RobotMap.getLeftDriveA().getLastError().toString(), aTime);
+
+        leftDriveBPosition.append(RobotMap.getLeftDriveB().getSelectedSensorPosition(), aTime);
+        leftDriveBSpeed.append(RobotMap.getLeftDriveB().getSelectedSensorVelocity(), aTime);
+        leftDriveBCurrent.append(RobotMap.getLeftDriveB().getSupplyCurrent(), aTime);
+        leftDriveBFaults.append(RobotMap.getLeftDriveB().getLastError().toString(), aTime);
+
+        rightDriveAPosition.append(RobotMap.getLeftDriveA().getSelectedSensorPosition(), aTime);
+        rightDriveASpeed.append(RobotMap.getLeftDriveA().getSelectedSensorVelocity(), aTime);
+        rightDriveACurrent.append(RobotMap.getLeftDriveA().getSupplyCurrent(), aTime);
+        rightDriveAFaults.append(RobotMap.getLeftDriveA().getLastError().toString(), aTime);
+
+        rightDriveBPosition.append(RobotMap.getLeftDriveB().getSelectedSensorPosition(), aTime);
+        rightDriveBSpeed.append(RobotMap.getLeftDriveB().getSelectedSensorVelocity(), aTime);
+        rightDriveBCurrent.append(RobotMap.getLeftDriveB().getSupplyCurrent(), aTime);
+        rightDriveBFaults.append(RobotMap.getLeftDriveB().getLastError().toString(), aTime);
+
+        gyroPitch.append(_imu.getPitch(), aTime);
+        gyroYaw.append(_imu.getYaw(), aTime);
+        gyroRoll.append(_imu.getYaw(), aTime);
+
     }
 
     public boolean getDriveZeroInput() {

@@ -1,0 +1,10 @@
+{
+  "download": {
+    "deleteAfter": false,
+    "localDir": "C:\\Users\\Joshua Moran\\Documents\\logs\\mrt",
+    "serverTeam": "10.59.85.2"
+  },
+  "output": {
+    "outputFolder": "C:\\Users\\Joshua Moran\\Documents\\logs\\mrt"
+  }
+}
