@@ -6,12 +6,14 @@ import frc.robot.DriverInterface;
 import frc.robot.subsystems.Shooter.ShooterSpeedSlot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.util.datalog.BooleanLogEntry;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 /**
  * Put docs here // TODO
  */
-public class VisionTrack {
+public class VisionTrack extends Subsystems{
     private static VisionTrack mInstance;
     private static Limelight m_lime;
     private static Shooter m_Shooter = Shooter.getInstance();
@@ -24,6 +26,13 @@ public class VisionTrack {
     private double speed;
     private double tx;
     private boolean turnStatus;   
+
+    private BooleanLogEntry targetLocked;
+    private DoubleLogEntry limelightPipeline;
+    private DoubleLogEntry limelightErrorX;
+    private DoubleLogEntry limelightErrorY;
+    private DoubleLogEntry limelightDistanceToTarget;
+
     public static VisionTrack getInstance() {
         if (mInstance == null) {
           mInstance = new VisionTrack();
@@ -276,7 +285,7 @@ public double returnShooterSpeedLimelight(){
   try{      
   double distance = Limelight.getInstance().getDistanceToTarget();
   double aspeed = Config.kLimelightDTerm + (Config.kLimelightATerm - Config.kLimelightDTerm)/(1 + Math.pow((distance/Config.kLimelightCTerm),Config.kLimelightBTerm));
-  aspeed = aspeed * Config.kLimelightShooterSpeedModiferPercentage;
+  aspeed = (aspeed * DriverInterface.getInstance().getShooterOffsetMultiplier()) + DriverInterface.getInstance().getShooterCTerm();
   return aspeed;
   }
   catch(Exception e){
@@ -291,5 +300,60 @@ public boolean getLimelightLock() {
 
 public double getLimelightDistance() {
   return m_lime.getDistanceToTarget();
+}
+
+@Override
+public void resetSensors() {
+  // TODO Auto-generated method stub
+  
+}
+
+@Override
+public boolean initMechanism() {
+  // TODO Auto-generated method stub
+  return false;
+}
+
+@Override
+public diagnosticState getDiagnosticState() {
+  // TODO Auto-generated method stub
+  return null;
+}
+
+@Override
+public void initMotorControllers() {
+  // TODO Auto-generated method stub
+  
+}
+
+@Override
+public diagnosticState test() {
+  // TODO Auto-generated method stub
+  return null;
+}
+
+@Override
+public void clearFaults() {
+  // TODO Auto-generated method stub
+  
+}
+
+@Override
+public void initLogging(DataLog aLog) {
+  targetLocked = new BooleanLogEntry(aLog, "Limelight target lock");
+  limelightPipeline = new DoubleLogEntry(aLog, "Limelight Pipeline ID");
+  limelightErrorX = new DoubleLogEntry(aLog, "Limelight X Error");
+  limelightErrorY = new DoubleLogEntry(aLog, "Limelight Y Error");
+  limelightDistanceToTarget = new DoubleLogEntry(aLog, "Limelight distance to target");
+
+}
+
+@Override
+public void updateLogging(long aTime) {
+  targetLocked.append(m_lime.getTargetAcquired(), aTime);
+  limelightPipeline.append(m_lime.getPipeline(), aTime);
+  limelightErrorX.append(m_lime.getAngleToTarget(), aTime);
+  limelightErrorY.append(m_lime.getErrorY(), aTime);  
+  limelightDistanceToTarget.append(m_lime.getDistanceToTarget(), aTime);
 }
 }

@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
 import frc.robot.Config;
 import frc.robot.RobotMap;
 /**
@@ -14,6 +15,10 @@ public class Pneumatics extends Subsystems{
 
     boolean compressor = true;
     private static Pneumatics m_instance;
+
+    private DoubleLogEntry pressure;
+    private DoubleLogEntry compressorCurrent;
+
 
     @Override
     public void update() {
@@ -71,14 +76,19 @@ public class Pneumatics extends Subsystems{
     public void clearFaults() {
     }
 
-    public void initLogging(DataLog aLog)
-    {
- 
+    public void initLogging(DataLog aLog) {
+        
+        pressure = new DoubleLogEntry(aLog, "Pressure");
+        compressorCurrent = new DoubleLogEntry(aLog, "Compressor Current");
+
     }
  
-    public void updateLogging(long aTime)
-    {
+    public void updateLogging(long aTime) {
         
+        pressure.append(getPressure(), aTime);
+        compressorCurrent.append(RobotMap.getCompressor().getCurrent(), aTime);
+
+
     }
 
     public double getPressure() {

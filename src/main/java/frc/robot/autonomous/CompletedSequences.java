@@ -100,7 +100,7 @@ public class CompletedSequences {
         t1.setAngle(-84.75);
         autoDrive d1 = new autoDrive();
         d1.setAngle(-84.75);
-        d1.setDist(-.82);
+        d1.setDist(-.6);
         d1.setSpeed(0.85);
         d1.setAccFwdLimit(0.15);
         d1.setAccRevLimit(0.17);
@@ -136,7 +136,7 @@ public class CompletedSequences {
         t3.setAngle(0);
         autoDrive d4 = new autoDrive();
         d4.setAngle(0);
-        d4.setDist(-1.8875);//NICE
+        d4.setDist(-1.15);
         d4.setSpeed(0.9); 
         d4.setAccFwdLimit(0.15);
         d4.setAccRevLimit(0.22);
@@ -273,7 +273,7 @@ public class CompletedSequences {
         d3.setDist(1.5);
         d3.setSpeed(0.3);
         autoTurn t4 = new autoTurn();
-        t4.setAngle(210);
+        t4.setAngle(180);
         autoBallDetectionLimelight ball2 = new autoBallDetectionLimelight();
         ball2.setNumBalls(5);
         autoEjector eject2 = new autoEjector();

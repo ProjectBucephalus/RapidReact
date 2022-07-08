@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.util.datalog.DataLog;
-import edu.wpi.first.util.datalog.DoubleLogEntry;
+import edu.wpi.first.util.datalog.*;
 import frc.robot.Config;
 import frc.robot.RobotMap;
 
@@ -28,6 +28,9 @@ public class BackIntake extends Subsystems{
     // DataLog variables
     private DoubleLogEntry logRearInSpeed;
     private DoubleLogEntry logRearInStatorCurrent;
+    private StringLogEntry logRearInCurrentState;
+    private StringLogEntry logRearInDesiredState;
+
     
     public BackIntake() {
 
@@ -109,6 +112,13 @@ public class BackIntake extends Subsystems{
     }
 
     /**
+     * @return The desired state of the intakes
+     */
+    public BackIntakeStates getDesiredState() {
+        return desiredState;
+    }
+
+    /**
      * @param State to become the intake desired state.
      */
     public void setDesiredState(BackIntakeStates state) {
@@ -139,12 +149,18 @@ public class BackIntake extends Subsystems{
     {
         logRearInSpeed = new DoubleLogEntry(aLog, "Rear Intake Speed");
         logRearInStatorCurrent = new DoubleLogEntry(aLog, "Rear Intake Stator Current");
+        logRearInCurrentState = new StringLogEntry(aLog, "Rear Intake Current State");
+        logRearInDesiredState = new StringLogEntry(aLog, "Rear Intake Desired State");
+
     }
  
     public void updateLogging(long aTime)
     {
         logRearInSpeed.append(BackIntake.getInstance().getSpeed(), aTime);
         logRearInStatorCurrent.append(BackIntake.getInstance().getStatorCurrent(), aTime);
+        logRearInCurrentState.append(getCurrentState().toString(), aTime);
+        logRearInDesiredState.append(getDesiredState().toString(), aTime);
+
     }
  
 }

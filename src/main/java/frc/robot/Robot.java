@@ -93,6 +93,7 @@ public class Robot extends TimedRobot {
     FrontIntake.getInstance().initLogging(log);
     Pneumatics.getInstance().initLogging(log);
     Shooter.getInstance().initLogging(log);
+    VisionTrack.getInstance().initLogging(log);
   }
 
   
@@ -116,6 +117,7 @@ public class Robot extends TimedRobot {
     FrontIntake.getInstance().updateLogging(logTime);
     Pneumatics.getInstance().updateLogging(logTime);
     Shooter.getInstance().updateLogging(logTime);
+    VisionTrack.getInstance().updateLogging(logTime);
 
     Shuffleboard.update();
  

@@ -12,11 +12,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
+import edu.wpi.first.util.datalog.StringLogEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Config;
 import frc.robot.Constants;
 import frc.robot.DriverInterface;
 import frc.robot.RobotMap;
+import frc.robot.DriverInterface.MessageType;
 /**
  * Put docs here // TODO
  */
@@ -31,6 +33,7 @@ public class Shooter extends Subsystems{
     private DoubleLogEntry logShootBottomFB;
     private DoubleLogEntry logShootTopRef;
     private DoubleLogEntry logShootBottomRef;
+    private StringLogEntry shooterState;
   
 
     public enum ShooterSpeedSlot {
@@ -102,7 +105,7 @@ public class Shooter extends Subsystems{
             }
         }
         catch(Exception e) {
-        System.out.println("CRITICAL ERROR,,, ERROR CHECKING JUST STOPPED A MAJOR CRASH!!!!!! PLEASE COME TO ADAM OR JOSH WITH THIS");
+        DriverInterface.getInstance().consoleOutput(MessageType.WARNING, "ERROR CHECKING JUST STOPPED A MAJOR CRASH!!!!!! PLEASE COME TO ADAM OR JOSH WITH THIS");
         }
         if (waitCounts > 0)
         { 
@@ -399,6 +402,7 @@ public class Shooter extends Subsystems{
         logShootBottomFB = new DoubleLogEntry(aLog, "Shooter Bottom Fb");
         logShootTopRef = new DoubleLogEntry(aLog, "Shooter Top Ref");
         logShootBottomRef = new DoubleLogEntry(aLog, "Shooter Bottom Ref");
+        shooterState = new StringLogEntry(aLog, "Shooter state");
     }
  
     public void updateLogging(long aTime)
@@ -407,6 +411,7 @@ public class Shooter extends Subsystems{
         logShootBottomFB.append(getShooterBottomRPM(), aTime);
         logShootTopRef.append(topOutput * 600 / 2048, aTime);
         logShootBottomRef.append(botOutput * 600 / 2048, aTime);
+        shooterState.append(currentState.toString(), aTime);
     }
  
 }

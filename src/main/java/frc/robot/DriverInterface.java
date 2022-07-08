@@ -5,6 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
+import edu.wpi.first.util.datalog.StringLogEntry;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -24,6 +27,34 @@ public class DriverInterface {
     private static DriverInterface m_instance;
 
     private final SendableChooser<String> verboseOutputChooser = new SendableChooser<>();
+
+    private DoubleLogEntry batteryVoltage;
+    private DoubleLogEntry totalCurrent;
+    private DoubleLogEntry channel0Current;
+    private DoubleLogEntry channel1Current;
+    private DoubleLogEntry channel2Current;
+    private DoubleLogEntry channel3Current;
+    private DoubleLogEntry channel4Current;
+    private DoubleLogEntry channel5Current;
+    private DoubleLogEntry channel6Current;
+    private DoubleLogEntry channel7Current;
+    private DoubleLogEntry channel8Current;
+    private DoubleLogEntry channel9Current;
+    private DoubleLogEntry channel10Current;
+    private DoubleLogEntry channel11Current;
+    private DoubleLogEntry channel12Current;
+    private DoubleLogEntry channel13Current;
+    private DoubleLogEntry channel14Current;
+    private DoubleLogEntry channel15Current;
+    private DoubleLogEntry channel16Current;
+    private DoubleLogEntry channel17Current;
+    private DoubleLogEntry channel18Current;
+    private DoubleLogEntry channel19Current;
+    private DoubleLogEntry channel20Current;
+    private DoubleLogEntry channel21Current;
+    private DoubleLogEntry channel22Current;
+    private DoubleLogEntry channel23Current;
+    private StringLogEntry consoleErrorOutput;
 
 
     public DriverInterface() {
@@ -163,12 +194,15 @@ public class DriverInterface {
             break;
             case CAUTION:
                 System.out.println("CAUTION " + message);
+                consoleErrorOutput.append("CAUTION " + message, 0);
             break;
             case WARNING:
                 System.out.println("WARNING " + message);
+                consoleErrorOutput.append("WARNING " + message, 0);
             break;
             case CRITICAL:
                 System.out.println("⚠  CRITICAL " + message + " ⚠ ");
+                consoleErrorOutput.append("⚠  CRITICAL " + message + " ⚠ ", 0);
             break;
         }
     }
@@ -603,6 +637,10 @@ public class DriverInterface {
         SmartDashboard.putBoolean("Foward direction", getRobotFowardDirection() == RobotFowardDirection.FRONT);
         SmartDashboard.putNumber("Shooter target", 2000);
         SmartDashboard.putNumber("Vision TUNING", 5);
+        
+        SmartDashboard.putNumber("Shooter Offset Multiplier", Config.kLimelightShooterSpeedModiferPercentage);
+        SmartDashboard.putNumber("Shooter C Term", Config.kLimelightShooterCTerm);
+
         try {
             SmartDashboard.putNumber("Pressure", Pneumatics.getInstance().getPressure());
         } catch (Exception e) {
@@ -629,6 +667,14 @@ public class DriverInterface {
     public double getShooterRatioDenomonatorField() {
         return SmartDashboard.getNumber("Shooter Ratio Denomonator", 1);
     } 
+
+    public double getShooterOffsetMultiplier() {
+        return SmartDashboard.getNumber("Shooter Offset Multiplier", Config.kLimelightShooterSpeedModiferPercentage);
+    }
+
+    public double getShooterCTerm() {
+        return SmartDashboard.getNumber("Shooter C Term", Config.kLimelightShooterCTerm);
+    }
 
 
     //xbox controlller y
@@ -681,6 +727,72 @@ public class DriverInterface {
         } else {
             rumblePattern = RumblePattern.STOP;
         }
+    }
+
+    public void initLogging(DataLog aLog) {
+
+        batteryVoltage = new DoubleLogEntry(aLog, "Battery Voltage");
+        totalCurrent = new DoubleLogEntry(aLog, "Total Current");
+        channel0Current = new DoubleLogEntry(aLog, "Channel 0 current");
+        channel1Current = new DoubleLogEntry(aLog, "Channel 1 current");
+        channel2Current = new DoubleLogEntry(aLog, "Channel 2 current");
+        channel3Current = new DoubleLogEntry(aLog, "Channel 3 current");
+        channel4Current = new DoubleLogEntry(aLog, "Channel 4 current");
+        channel5Current = new DoubleLogEntry(aLog, "Channel 5 current");
+        channel6Current = new DoubleLogEntry(aLog, "Channel 6 current");
+        channel7Current = new DoubleLogEntry(aLog, "Channel 7 current");
+        channel8Current = new DoubleLogEntry(aLog, "Channel 8 current");
+        channel9Current = new DoubleLogEntry(aLog, "Channel 9 current");
+        channel10Current = new DoubleLogEntry(aLog, "Channel 10 current");
+        channel11Current = new DoubleLogEntry(aLog, "Channel 11 current");
+        channel12Current = new DoubleLogEntry(aLog, "Channel 12 current");
+        channel13Current = new DoubleLogEntry(aLog, "Channel 13 current");
+        channel14Current = new DoubleLogEntry(aLog, "Channel 14 current");
+        channel15Current = new DoubleLogEntry(aLog, "Channel 15 current");
+        channel16Current = new DoubleLogEntry(aLog, "Channel 16 current");
+        channel17Current = new DoubleLogEntry(aLog, "Channel 17 current");
+        channel18Current = new DoubleLogEntry(aLog, "Channel 18 current");
+        channel19Current = new DoubleLogEntry(aLog, "Channel 19 current");
+        channel20Current = new DoubleLogEntry(aLog, "Channel 20 current");
+        channel21Current = new DoubleLogEntry(aLog, "Channel 21 current");
+        channel22Current = new DoubleLogEntry(aLog, "Channel 22 current");
+        channel23Current = new DoubleLogEntry(aLog, "Channel 23 current");
+
+        consoleErrorOutput = new StringLogEntry(aLog, "Error log");
+        consoleErrorOutput.append("Logging start", 0);
+
+    }
+
+    public void updateLogging(long aTime) {
+        batteryVoltage.append(RobotMap.getPDH().getVoltage(), aTime);
+        totalCurrent.append(RobotMap.getPDH().getTotalCurrent(), aTime);
+        channel0Current.append(RobotMap.getPDH().getCurrent(0), aTime);
+        channel1Current.append(RobotMap.getPDH().getCurrent(1), aTime);
+        channel2Current.append(RobotMap.getPDH().getCurrent(2), aTime);
+        channel3Current.append(RobotMap.getPDH().getCurrent(3), aTime);
+        channel4Current.append(RobotMap.getPDH().getCurrent(4), aTime);
+        channel5Current.append(RobotMap.getPDH().getCurrent(5), aTime);
+        channel6Current.append(RobotMap.getPDH().getCurrent(6), aTime);
+        channel7Current.append(RobotMap.getPDH().getCurrent(7), aTime);
+        channel8Current.append(RobotMap.getPDH().getCurrent(8), aTime);
+        channel9Current.append(RobotMap.getPDH().getCurrent(9), aTime);
+        channel10Current.append(RobotMap.getPDH().getCurrent(10), aTime);
+        channel11Current.append(RobotMap.getPDH().getCurrent(11), aTime);
+        channel12Current.append(RobotMap.getPDH().getCurrent(12), aTime);
+        channel13Current.append(RobotMap.getPDH().getCurrent(13), aTime);
+        channel14Current.append(RobotMap.getPDH().getCurrent(14), aTime);
+        channel15Current.append(RobotMap.getPDH().getCurrent(15), aTime);
+        channel16Current.append(RobotMap.getPDH().getCurrent(16), aTime);
+        channel17Current.append(RobotMap.getPDH().getCurrent(17), aTime);
+        channel18Current.append(RobotMap.getPDH().getCurrent(18), aTime);
+        channel19Current.append(RobotMap.getPDH().getCurrent(19), aTime);
+        channel20Current.append(RobotMap.getPDH().getCurrent(20), aTime);
+        channel21Current.append(RobotMap.getPDH().getCurrent(21), aTime);
+        channel22Current.append(RobotMap.getPDH().getCurrent(22), aTime);
+        channel23Current.append(RobotMap.getPDH().getCurrent(23), aTime);
+
+
+
     }
 
 

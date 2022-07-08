@@ -44,12 +44,22 @@ public class Limelight {
       return tx;
     }
 
+    public double getErrorY() {
+      //setPipeline(0);
+      double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
+      return ty;
+    }
+
     public void disableVision() {
       setPipeline(0);
     }
 
     private void setPipeline(int pipelineId) {
       NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipelineId);
+    }
+
+    public double getPipeline() {
+      return NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").getDouble(0);
     }
 
     /**

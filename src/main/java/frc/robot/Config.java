@@ -102,16 +102,21 @@ public class Config {
      * 
      * This value should be set to 1 at a comp. This is for linear tuning, which can easily be done by anyone. For illinear tuning (i.e its off by different amounts at different points go to Adam, don't mess with the equation.)
      * */
-    public static final double kLimelightShooterSpeedModiferPercentage = 1;//1.010375;
+    public static final double kLimelightShooterSpeedModiferPercentage = 1.65;//1.010375;
+    public static final double kLimelightShooterCTerm = 500;
     public static final double kLimelightTuningOffset = 0;
     
     //y = 3077.128 + (1786 - 3077.128)/(1 + (x/55.07565)^6.788735)
 
-    public static final double kLimelightATerm = 1722.884;
-    public static final double kLimelightBTerm = 5.779675;
-    public static final double kLimelightCTerm = 603.8564;
-    public static final double kLimelightDTerm = 445984300;
+    public static final double kLimelightATerm = 1684.135;
+    public static final double kLimelightBTerm = 5.531879;
+    public static final double kLimelightCTerm = 599.2879;
+    public static final double kLimelightDTerm = 256575100;
 
     public static final double kLimelightAcceptableAngle =3.5;
+
+    //Diagnostics
+
+    public static final double kLowPressureWarn = 20; //PSI
 
 }
