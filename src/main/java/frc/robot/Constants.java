@@ -1,7 +1,6 @@
 
 package frc.robot;
-
-
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 public class Constants {
 
     public static int kLeftDriveACanID = 1;
@@ -43,6 +42,7 @@ public class Constants {
 	public static double kDriveMaxTurnAccel = 24.24;
 	public static int kGoalHeightInches = 100;
     public static int kLimelightHeightInches = 50;
+	public static double kaVoltSecondsSquaredPerMeter;
 	public static final int kBackIntakeEscCanID = 12;
     
 	public static final double kVisionTurnKp = 0.012
@@ -70,4 +70,26 @@ public class Constants {
 	public static final double kA1 = 55; // Angle of the limelight from the robot chassie (degrees)
 	public static final double kH1 = 0.65; //Height of the limelight lense (metres)
 	public static final double kH2 = 2.61; //height of the middle of the target (metres)
-}
+
+	//Pathfinding
+	public static final double ksVolts =0.62791;
+	public static final double kvVoltsSecondsPerMeter = 2.5491;
+	public static final double kaVoltsSecondsSquaredPerMeter = 0.38774;
+
+	public static final double kPDriveVel = 3.5302;
+
+
+	//Differential Kinematics 
+	public static final double kTrackwidthMeters = 0.73;
+	public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
+
+
+
+    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+
+	//im going to scream 
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = 0.7;
+
+}    
