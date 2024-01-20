@@ -25,6 +25,5 @@
       }
     },
   ],
-  "java.test.defaultConfig": "WPIlibUnitTests",
-  "codetogether.allowUnauthorizedCerts": true
+  "java.test.defaultConfig": "WPIlibUnitTests"
 }

@@ -191,7 +191,7 @@ public class Robot extends TimedRobot {
  
 
     try {
-      System.out.println("Climber " + Climber.getInstance().getClimberCurrentState() + " Vision " + VisionTrack.getInstance().getCurrentState() + " Shooter " + Shooter.getInstance().getCurrentState() + " Intakes " + FrontIntake.getInstance().getCurrentState() + BackIntake.getInstance().getCurrentState());
+      //System.out.println("Climber " + Climber.getInstance().getClimberCurrentState() + " Vision " + VisionTrack.getInstance().getCurrentState() + " Shooter " + Shooter.getInstance().getCurrentState() + " Intakes " + FrontIntake.getInstance().getCurrentState() + BackIntake.getInstance().getCurrentState());
 
       DriverInterface.getInstance().displayDiagnosticState();
     DriverInterface.getInstance().update();
